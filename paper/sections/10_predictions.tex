@@ -1,0 +1,55 @@
+\section{Held-out predictions}\label{sec:predictions}
+
+The catch-up extension was added after Test 4. The following predictions were
+not used to build it and can be tested with the project's existing files
+(cluster panels, the PDF citation sample, OpenAlex reference lists).
+
+\begin{enumerate}[label=\textbf{P\arabic*.},leftmargin=*]
+\item \emph{Overcrowding is young and fast.} The fall in returns beyond the peak should be concentrated in clusters
+whose flow grew faster than their stock, that is, with a high flow-to-stock ratio
+$P/S$ (\cref{prop:toofast}). Among mature clusters the returns curve should be
+monotone. Test: interact density and density squared in the Test 4 regression
+with cluster age, or with $P/S$ computed from the cluster's own history.
+
+\item \emph{Returns follow the stock, density follows the flow.} Holding flow
+density fixed, returns should rise with the cluster's stock of relevant
+literature (\cref{prop:mature}(ii): the premium is $\rho S/b_c$). Test:
+add the depreciated cumulative count of cluster papers to the Test 4 regression.
+
+\item \emph{Newcomers start slowly where stocks are large.} The lag between a
+newcomer's arrival in a cluster and her first paper there, and the length of her
+first reference list, should rise with the cluster's stock. Incumbents should
+show no such gradient.
+
+\item \emph{The cross-topic gradient is the catch-up premium.} The returns gradient
+estimated from researchers who \emph{switch} clusters should equal the log premium
+of incumbents over pioneers in the clusters they join
+(\cref{prop:mature}(iv)). The within-cluster gradient over time should trace the
+payoff curve itself and peak at the same density.
+
+\item \emph{When reading tools spread, science concentrates.} Once literature-summarising
+tools are widely used, high-uptake areas should form fewer new clusters,
+thicken existing ones, and show more overshooting by fast-growing clusters
+(\cref{prop:ai}(iii)--(iv)). Overlap measured by meaning should rise in dense
+clusters. Citations per author-year should not rise (\cref{prop:solow}).
+
+\item \emph{Better search raises the aware share.} If search tools improve, the share of
+flagged pairs that cite the nearest earlier paper should rise, with no
+offsetting fall in the overlap rate in sparse clusters (\cref{prop:ai}(v)).
+
+\item \emph{Close overlap is pinned; broad neighbourhoods fill.} Within-topic density is pinned by entry, while
+new topics are packed into an area's idea space. So the volume
+elasticity should \emph{rise} with the similarity radius, from close to zero
+at the overlap radius toward the fixed-field benchmark at broad radii. Fact~\ref{fact:volume} already
+shows this ordering. The model predicts it should survive embedding-based
+similarity.
+
+\item \emph{Stepping on toes across areas.} Areas with a larger volume elasticity
+of density should show stronger diminishing returns to researchers in citation
+output, with $1-\lambda=\mathcal E|\eps_w|$ area by area (\cref{prop:sot}).
+\end{enumerate}
+
+Two of the draft's original predictions are already settled. Equal returns
+(full dissipation) is rejected, and the catch-up extension replaces it. The
+search-channel reading of the 2026 drop in overlap is rejected because the drop is a
+wording artifact (Fact~\ref{fact:wording}). Both outcomes are consistent with the extended model.

@@ -1,0 +1,74 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{booktabs,tabularx,multirow,threeparttable}
+\usepackage{graphicx,caption,subcaption}
+\usepackage{enumitem}
+\usepackage[authoryear,round]{natbib}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage[nameinlink,capitalise]{cleveref}
+
+\onehalfspacing
+\setlist{itemsep=2pt,topsep=4pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\crefname{assumption}{Assumption}{Assumptions}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Phat}{\hat P}
+\newcommand{\Pbar}{\bar P}
+\newcommand{\vhat}{\hat v}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\mathrm{d}}
+\input{numbers}
+
+\title{When Innovation Is Too Fast:\\Reading, Writing, and the Crowding of Science}
+\author{[Authors]\thanks{Draft of October 2026 for the project \emph{When Innovations Are Too Fast}. The arXiv evidence summarised in \cref{sec:facts} comes from the project's pre-registered tests. Code that reproduces every number, figure and numerical check in this paper is in the accompanying repository (\texttt{code/}).}}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Science runs on writing new results and reading other people's. Reading \emph{teaches}: it raises the quality of new work. It also \emph{protects}: it reveals projects that others have already done. We model researchers who choose a topic and split their time between reading and writing. The payoff of working in a topic is single peaked in the flow of its literature: thin topics offer little to learn from, dense ones hide more unread overlap. Free choice of topics then has three consequences. The gains from cumulative knowledge are competed away. The overlap rate is pinned by entry, not by volume. And at any stable equilibrium the marginal paper hurts its own topic. A catch-up cost, the need to read a topic's stock before contributing, protects incumbents' rents. As a result, measured returns rise with density even though topics are too crowded. Topics whose literature grows faster than a threshold rate overshoot their best density: innovation is ``too fast''. Faster writing scales science; better reading crowds it. Pre-registered tests on 1.7 million arXiv papers support the core mechanism and the catch-up friction. We calibrate the model and derive a sufficient-statistic formula for the stepping-on-toes parameter of growth theory.
+
+\medskip
+\noindent\textbf{JEL:} O31, O33, O40, D62, I23. \quad \textbf{Keywords:} economics of science, rent dissipation, topic choice, duplication, burden of knowledge, artificial intelligence.
+\end{abstract}
+
+\newpage
+\input{sections/01_intro}
+\input{sections/02_facts}
+\input{sections/03_model}
+\input{sections/04_payoff}
+\input{sections/05_equilibrium}
+\input{sections/06_catchup}
+\input{sections/07_ai}
+\input{sections/08_macro}
+\input{sections/09_quant}
+\input{sections/10_predictions}
+\input{sections/11_conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\input{sections/A_proofs}
+\input{sections/B_extensions}
+\input{sections/C_numerics}
+
+\end{document}

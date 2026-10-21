@@ -1,0 +1,125 @@
+\section{Introduction}\label{sec:intro}
+
+Submissions to arXiv more than doubled between 2018 and 2025, and large
+language models now draft text faster than any researcher can. A natural worry
+follows: innovation may be produced faster than it can be absorbed. When the
+literature grows faster than people can read it, researchers miss work that
+covers their own, duplicate it, and build less on what came before. On this view, cheaper writing
+is a mixed blessing and better reading tools are the remedy.
+
+This paper argues that the worry and the remedy both misread how science
+adjusts. Researchers choose not only how much to write but \emph{where}. When
+the literature grows, they spread out. The rate at which they duplicate each
+other is set by that choice of where to work, not by the volume of papers.
+The cost of fast innovation therefore does not show up as more duplication. It
+shows up in three less visible places. The first is the gains from building on
+others' work, which crowding competes away. The second is a catch-up burden that
+lets incumbents keep rents and hides overcrowding behind rising returns. The
+third is a class of hot topics whose literature grows faster than newcomers can
+catch up, and which overshoot their best density.
+
+\paragraph{The model.} Researchers choose a topic and split their time between
+writing and reading. Reading has two jobs. It \emph{teaches}: what one reads
+raises the quality of one's own work, more so in a topic with more to learn
+from. It \emph{protects}: each earlier paper may cover one's project, and reading
+is how one finds out. Unaware duplicates lose part of their credit. A detected
+overlap can be turned into a follow-on that cites the earlier paper, or
+abandoned at a cost. Topics can be joined or opened, and opening one is a
+lottery whose odds worsen as fruitful directions are taken. Newcomers to a topic
+must first read its stock of literature, the topic-level analogue of the
+burden of knowledge of \citet{jones2009}.
+
+\paragraph{Results.} We prove seven sets of results.
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item \emph{The payoff curve is single peaked} (\cref{thm:v}). The payoff of working
+in a topic first rises with the topic's flow of papers, because there is more to
+learn from, and then falls, because more covering papers go unread. This holds for
+any learning and detection technology without increasing returns to reading
+and with diminishing returns to search. The proof rests on joint
+log-concavity of the researcher's problem in time and density.
+\item \emph{The sign of the spillover is derived} (\cref{prop:externality}). By the
+envelope theorem, an extra paper changes each incumbent's payoff by the slope of
+the payoff curve. It helps thin topics and hurts dense ones.
+\item \emph{Dissipation and pinned overlap} (\cref{prop:eq,prop:volume}). With free
+choice, topics fill past the peak until they are no better than the frontier, so
+the gains from cumulative knowledge are competed away. Equilibrium density
+responds to the size of the community with an elasticity
+$\mathcal E=\eta/(\eta D+|\eps_w|)$ that vanishes as the frontier becomes
+elastic. Volume opens new topics instead of thickening old ones, and the overlap
+rate is pinned by entry, not by volume.
+\item \emph{Rents and overcrowding} (\cref{prop:mature,prop:overcrowd}). Catch-up costs protect
+incumbents' rents, so returns rise with density across topics. The returns
+gradient equals the catch-up premium. Yet at any stable equilibrium the marginal
+newcomer \emph{lowers} total output in her topic once the reading she imposes on
+future newcomers is counted. Rising returns coexist with overcrowding.
+\item \emph{Too fast} (\cref{prop:toofast}). Because the stock lags the flow, a
+topic whose literature grows faster than the threshold
+$g^*=\rho\Phat/(b_c\ln(\vhat/F))-\delta$ keeps attracting newcomers past its peak,
+and stays overcrowded long after the rush. Faster catch-up tools \emph{lower}
+the threshold.
+\item \emph{Writing AI scales science; reading AI crowds it} (\cref{prop:ai,prop:solow}). Faster drafting multiplies
+output almost one for one and leaves duplication unchanged. Better reading,
+search or catch-up tools raise density and shrink the number of topics, and with
+an elastic frontier they leave output per researcher unchanged: a Solow paradox
+for science.
+\item \emph{Stepping on toes, measured} (\cref{prop:sot}). The parameter $\lambda$ of
+\citet{jones1995} equals $1-\mathcal E|\eps_w|$, the product of the volume
+elasticity of density and the slope of the entrant's payoff curve. Crowding buffers
+frontier depletion rather than amplifying it.
+\end{enumerate}
+The planner opens more topics and puts each at the peak of the entrant's payoff
+curve, where the writing wedge vanishes. A frontier subsidy decentralises the
+optimum. Policies that act only inside topics are dissipated.
+
+\paragraph{Evidence.} We confront the model with seven facts from pre-registered tests on
+1.71 million arXiv papers (\cref{sec:facts}). The topic-choice core
+survives its sharpest test. When an area's literature grows, the space around a
+typical paper fills up with an elasticity of 0.04--0.27, against 0.53--0.89 if
+papers kept landing in the same idea space. Full dissipation fails. The same
+researcher earns more in denser topics up to about one standard deviation above
+the mean, and less beyond it. The model's catch-up cost reproduces this hump:
+mature topics sit just below the peak, protected by the catch-up premium, and
+fast-growing topics overshoot it. Unaware duplicates lose about a fifth of their
+citations and aware follow-ons gain about 30\%, which supports separating the two
+kinds of overlap with partial credit. The AI channels can be told apart. Flat
+papers per author, more pioneer papers where LLMs spread, a flat aware share and
+flat overlap measured by meaning all say that AI has so far acted on science
+through entry, not through reading.
+
+\paragraph{Quantification.} The calibrated model (\cref{sec:quant}) puts the gain
+from cumulative knowledge that crowding dissipates at \calDissip\ of output per
+researcher, and catch-up at \calT\ years of a newcomer's career. Topics growing faster than
+\calGstar\ a year overshoot. The volume elasticity of 0.2 implies a frontier
+elasticity of \calEta\ and a stepping-on-toes parameter of \calLambda. Topic
+crowding therefore accounts for little of the measured decline in research productivity
+\citep{bloometal2020}, and the rest must come from falling fertility of new
+ideas or from selection.
+
+\paragraph{Related literature.} The paper joins four literatures. The first is the
+economics of science and priority \citep{merton1957,merton1961,dasguptadavid1994,stephan1996,hillstein2025}.
+We add reading as a choice, with two distinct roles, and derive rather than assume
+the costs of duplication. The second is the theory of common-pool resources and
+excess entry \citep{gordon1954,weitzman1974,mankiwwhinston1986} and of patent
+races \citep{loury1979,dasguptastiglitz1980}. Our resource is attention to a
+literature, and the crowders are the readers. This makes the sign of the
+externality endogenous and lets catch-up costs turn dissipated rents into
+protected ones. The third is the direction of research
+\citep{bryanlemus2017,hopenhaynsquintani2021,bramoullesaintpaul2010,rzhetskyetal2015,fosteretal2015,myers2020,borjasdoran2012,azoulayetal2019}.
+We locate the inefficiency in the density of topics rather than in their
+riskiness, and derive testable signatures from the arXiv record. The fourth is
+the macroeconomics of ideas \citep{romer1990,aghionhowitt1992,jones1995,kortum1997,weitzman1998,bloometal2020,jones2009}
+and of access to knowledge
+\citep{furmanstern2011,murrayetal2016,iariaetal2018,biasimoser2021,evans2008,mccabesnyder2015,chuevans2021,parketal2023}.
+We give stepping on toes an equilibrium foundation with observable inputs and
+explain why improvements in access to the literature need not raise research
+productivity. On artificial intelligence and science
+\citep{agrawaletal2019,brynjolfssonetal2019,haoetal2026,liangetal2024}, we
+separate writing, entry, reading, search and catch-up channels and show which
+ones the data reveal.
+
+\Cref{sec:facts} presents the facts. \Cref{sec:model} sets up the model.
+\Cref{sec:payoff} derives the payoff curve. \Cref{sec:frictionless,sec:catchup}
+characterise equilibrium without and with catch-up costs.
+\Cref{sec:ai,sec:macro} study AI and aggregate implications. \Cref{sec:quant}
+quantifies the model, \cref{sec:predictions} lists held-out predictions, and
+\cref{sec:conclusion} concludes.

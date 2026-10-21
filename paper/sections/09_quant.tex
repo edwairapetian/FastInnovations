@@ -1,0 +1,158 @@
+\section{Quantification}\label{sec:quant}
+
+This section puts numbers on the mechanisms. The aim is not to fit every
+moment of the arXiv record. It is to check that one parameterisation of the
+model reproduces the main facts with plausible primitives, and to read off its
+implications for rents, overcrowding, AI and growth.
+
+\subsection{Strategy}
+
+We use the functional forms of \cref{sec:model}: harmonic learning
+\eqref{eq:Qexample} and exponential detection. Time is measured in years.
+\Cref{tab:calibration} lists the parameters. Some are set externally. The
+unit of density is fixed by $b=100$ papers read per year at full-time reading.
+Careers leave a topic at $\rho=0.10$ (ten-year tenure), the stock's relevance
+decays at $\delta=0.25$ (a half-life of about three years), topics become
+obsolete at $\xi=0.04$, and a newborn topic produces $P_0=2$ papers a year. The
+credit block comes from Fact~\ref{fact:credit} through \cref{lem:credit}. With
+exponential follow-on credit and a pivot that costs 30\% of a project, the
+$+29\%$ premium of aware follow-ons and the $-19\%$ penalty of unaware
+duplicates imply that 31\% of detected overlaps proceed and that detection
+averts \(\Delta/\lambda=37\%\) of erosion. Search precision $\sigma$ is set so
+that the aware share at mature density equals the arXiv value of 38\%
+(Fact~\ref{fact:aware}).
+
+The remaining parameters are calibrated to Test 4 (Fact~\ref{fact:hump}):
+learning ($\beta,\gamma$), erosion ($\theta\lambda$), the frontier payoff $F$,
+catch-up speed $b_c$, and the distributions of diffusion rates and fertility.
+The targets are the gradient per standard deviation of density, the returns of
+the sparsest, fourth and densest fifths relative to the middle one, and the 12\% of
+researcher-years beyond the peak. A soft target puts the incumbents' log
+premium $\kappa P^m=\rho T$ at about 0.15, a year and a half of catch-up per
+ten-year tenure. We simulate the stationary cross-section of topic life cycles
+(\cref{prop:toofast}) and run the arXiv regressions on it. Researchers who move between topics
+supply the identifying variation in an author-fixed-effects design, and the
+model has no ability differences. The baseline analogue is therefore the
+cross-section of researcher-years. The within-topic analogue, which uses only
+life-cycle variation, is a robustness check. The search is a quasi-random
+scan of 8,192 points followed by Nelder--Mead from the best five
+(\cref{app:numerics}).
+
+We do not target the quadratic summary of Test 4. A quadratic in density imposes a
+symmetric hump. The model's payoff curve is asymmetric in log density, with a
+concave rise as learning saturates and an exponential fall as erosion
+accumulates. The arXiv fifths are asymmetric in the same way: $-8\%$, $+5\%$,
+$+1\%$.
+
+\begin{table}[t]
+\centering\small
+\caption{Parameters}\label{tab:calibration}
+\input{tables/calibration}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\caption{Fit to the arXiv facts}\label{tab:fit}
+\input{tables/fit}
+\par\smallskip\footnotesize
+$^\dagger$ Not targeted. Baseline: cross-section of researcher-years (movers
+across topics). Within-topic: topic fixed effects, recalibrated. Density is the
+researcher-weighted standardised log flow.
+\end{table}
+
+\subsection{Fit}
+
+\Cref{tab:fit} and \cref{fig:test4} compare model and data. The calibrated life
+cycle places the peak of the payoff curve \calZhat\ standard deviations above
+mean density, with \calBeyond\ of researcher-years beyond it, against about one
+standard deviation and 12\% in the data. Neither was imposed directly. The
+model matches the sparsest fifth (\calQone\ against $-8\%$) and the fourth
+fifth (\calQfour\ against $+5\%$). It produces a decline at the top, but a
+smaller one than the data: the densest fifth earns \calQfive\ against $+1\%$.
+It also gives a gradient of \calLin\ against $6.7\%$. Both misses have the
+same source. In the model the densest topics include the most fertile mature
+ones, whose incumbents earn high returns, alongside the overshooting topics
+that pull returns down. Author fixed effects in the data do not remove topic
+fertility either, so this composition effect is real. The data suggest the
+overshooting topics are more numerous or more crowded than our stylised life
+cycle allows. The within-topic calibration fits about equally well (last
+column).
+
+Where are researchers in the calibrated cross-section? \calShareMature\ of
+researcher-years are in mature topics, \calShareCons\ in topics consolidating
+after a growth spurt, and \calShareGrowth\ in growing topics. Overcrowded
+researcher-years sit overwhelmingly in consolidating topics that grew faster
+than $g^*=\calGstar$ a year (\cref{fig:test4}, right).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig4_test4.pdf}
+\caption{Test 4 in the model. Left: log returns by standardised topic density,
+relative to the middle fifth, in the calibrated cross-section, with the arXiv
+fifths and the arXiv quadratic (not targeted). Right: the distribution of
+researcher-years by density and life-cycle phase. Researcher-years beyond the
+peak are concentrated in topics consolidating after fast growth.}
+\label{fig:test4}
+\end{figure}
+
+\subsection{What the calibrated model says}
+
+\Cref{tab:welfare} collects the implications.
+
+\begin{table}[t]
+\centering\small
+\caption{Rents, overcrowding and growth in the calibrated model}\label{tab:welfare}
+\input{tables/welfare}
+\end{table}
+
+\paragraph{Rents.} The payoff curve peaks at $\Phat=\calPhat$ papers a year.
+There, building on others' work raises output by \calGainPeak\ relative to a
+newborn topic. Mature topics sit below the peak, at $P^m=\calPm$. Their incumbents
+earn a premium of \calPremium\ over the frontier, the reward for
+\calT\ years of catch-up. Without catch-up costs, topics would fill to the
+density where $v=F$ and the entire rent at the peak, \calRent\ of the frontier
+payoff, would be dissipated. That is \calDissip\ of output per researcher.
+
+\paragraph{Overcrowding.} Even with rising incumbent returns ($\eps_v(P^m)=\calEpsV>0$), the
+entrant's payoff curve is falling at the mature density ($|\eps_w|=\calEpsW$).
+Mature topics are too crowded once the catch-up burden is counted
+(\cref{prop:overcrowd}). Moving every topic to the peak of $w$ raises output
+per researcher by \calPlannerGain. The optimal frontier subsidy is
+\calSubsidy\ of the frontier payoff. The gain is modest because catch-up costs
+already hold mature topics near the peak of $w$. Most of what free entry
+competes away is the rent of the frictionless benchmark.
+
+\paragraph{Growth.} Inverting \eqref{eq:eta} with $\mathcal E=0.2$ gives a frontier elasticity of
+$\eta=\calEta$: the supply of new topics is close to perfectly elastic. The
+stepping-on-toes parameter is $\lambda=1-\mathcal E|\eps_w|=\calLambda$. Over
+the arXiv range $\mathcal E\in[0.04,0.27]$ it lies between \calLambdaHi\ and
+\calLambdaLo. Topic crowding and access depletion therefore explain only a small part of
+the diminishing returns to research found by \citet{bloometal2020}. Their
+estimates require $\lambda$ well below one, which in our framework must come
+from fertility depletion (\cref{app:fertility}) or from selection.
+
+\subsection{AI counterfactuals}
+
+\Cref{tab:ai} (in \cref{sec:ai}) and \cref{fig:ai} report the long-run effects
+of 30\% improvements in each channel. Faster drafting raises output per researcher by
+\calWriteOut\ log points: almost one for one, as \cref{prop:solow} predicts. It
+raises papers per researcher by as much, and spreads researchers over more
+topics. Faster reading raises density by \calReadDens\ log points and shrinks the number of
+topics, but raises output per researcher by only \calReadOut\ log points: the
+dissipation of \cref{prop:solow}. Faster catch-up is the most powerful
+concentrating force. Doubling catch-up speed raises mature density by
+\calCatchDens\ log points and lowers the overshooting threshold $g^*$ by
+\calCatchGstar\ percentage points, so many more topics grow too fast. Better
+search lowers flagged overlap and raises the aware share. That is the signature
+the arXiv data do not show (Fact~\ref{fact:aware}). Cheaper entry reproduces what
+they do show: more topics, flat papers per author and density nearly
+unchanged.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig5_ai_channels.pdf}
+\caption{Long-run effects of AI channels in the calibrated model (30\% shocks;
+catch-up speed doubled; pivot cost halved). Log points $\times100$; aware share
+in percentage points.}
+\label{fig:ai}
+\end{figure}

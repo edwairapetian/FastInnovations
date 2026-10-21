@@ -1,0 +1,40 @@
+\section{Numerical methods and verification}\label{app:numerics}
+
+\paragraph{Solving the researcher's problem.} For each $P>0$ the first-order
+condition $\partial_r\ln g(r,P)=0$ has a unique root in $[0,1)$ because $\ln g$ is
+strictly concave in $r$. We find it by vectorised bisection (60 steps)
+followed by three Newton steps, and set $r^*=0$ when $\partial_r\ln g(0,P)\le0$.
+The derivative $v'/v$ is computed from the envelope formula
+\eqref{eq:envelope}, not by differencing. Peaks and crossings use bounded
+Brent searches on the log-concave curves.
+
+\paragraph{Stationary equilibrium and planner.} The equilibrium solves
+$\ln w(P)=\ln F(M(P))$ on $[\hat P_w,\infty)$. Here $M(P)$ solves
+$\Phi(M)+Mn(P)=N$, and the left side minus the right side is strictly decreasing
+(proof of \cref{prop:eq}). The constrained planner maximises output over $P$ along the
+resource constraint. The full planner maximises over $(P,x)$ by Nelder--Mead.
+
+\paragraph{Life cycles.} The growth phase has closed forms,
+$P=P_0e^{gt}$ and $S=P(1-e^{-(g+\delta)t})/(g+\delta)$. The stopping time is found
+on a fine time grid and refined by linear interpolation. Consolidation and
+maturity follow \cref{prop:toofast}(iii). Diffusion rates are lognormal and
+discretised into equal-probability bins. Fertility is lognormal and discretised
+the same way. Topic-years are weighted by members, $P/x^*(P)$, and by topic
+survival, $e^{-\xi t}$.
+
+\paragraph{Verification.} The file \texttt{code/tests/test\_propositions.py}
+checks every analytical result numerically:
+\begin{itemize}
+\item log-concavity, single-peakedness, $v(0)=1$ and $v\to0$ on 25 random parameter draws satisfying \cref{ass:Q,ass:phi,ass:credit,ass:interior};
+\item the envelope formula against finite differences, and the monotonicity of $r^*(P)$ (\cref{thm:v});
+\item the initial slope $v'(0^+)=\sup_\varrho\nu_0(\varrho)$ (\cref{ass:interior}(b));
+\item the externality decomposition and its sign (\cref{prop:externality});
+\item existence, uniqueness and the falling-side location of equilibrium for several $(\kappa,\eta)$, and dissipation (\cref{prop:eq});
+\item the volume elasticity \eqref{eq:E} against finite differences, and exact invariance to $N$ and $a$ when $\eta=0$ (\cref{prop:volume});
+\item the planner's first-order condition, the ordering $\hat P_w<P^o<P^*$, the large-topic limit and the vanishing writing wedge (\cref{prop:planner});
+\item the cross-topic returns gradient $\kappa P^m$ (\cref{prop:mature}) and overcrowding with rising returns (\cref{prop:overcrowd});
+\item the monotonicity and limits of the stopping density, the threshold $g^*$, and $P_c\ge P_c^\infty(g)$ for finite birth flows (\cref{prop:toofast});
+\item dissipation of reading improvements (\cref{prop:solow}) and the stepping-on-toes formula \eqref{eq:sot} against finite differences (\cref{prop:sot});
+\item a Monte Carlo check of the credit formula \eqref{eq:credit} (\cref{lem:credit}).
+\end{itemize}
+All checks pass.

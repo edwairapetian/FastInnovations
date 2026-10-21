@@ -1,0 +1,59 @@
+\section{Aggregate implications}\label{sec:macro}
+
+\subsection{Stepping on toes, measured}
+
+Growth models since \citet{jones1995} let the flow of new ideas scale with
+researchers as $N^{\lambda}$, $\lambda<1$, and call $1-\lambda$ ``stepping on
+toes''. The parameter is reduced form. Here the flow of credited novel output
+is $Y=N\,a\,F(M^*(N))$, because in equilibrium every researcher's career payoff
+equals the frontier's. The model therefore gives $\lambda$ as an equilibrium object.
+
+\begin{proposition}[Stepping on toes]\label{prop:sot}
+In the large-topic limit,
+\begin{equation}\label{eq:sot}
+\lambda\equiv\frac{\dd\ln Y}{\dd\ln N}=1-\eta\,\frac{\dd\ln M^*}{\dd\ln N}=1-\mathcal E\,|\eps_w(P^*)|.
+\end{equation}
+If, in addition, topics opened later are less fertile, with fertility elasticity $\eta_f\ge0$ (\cref{app:fertility}), the right-hand side of \eqref{eq:sot} is an upper bound on $\lambda$.
+\end{proposition}
+
+The formula is a sufficient statistic built from two observable objects. The
+first is the volume elasticity of density, $\mathcal E$ (Test 1). The second is
+the elasticity of the entrant's payoff curve at equilibrium density, $\eps_w=\eps_v-\kappa P^*$. That is the
+incumbent's returns gradient minus the catch-up premium (Test 4 and
+\cref{prop:mature}). Crowding does not \emph{amplify} frontier depletion, as
+the draft conjectured. It \emph{buffers} it. The density margin absorbs part of
+the growth in researchers, so fewer new topics are opened and the frontier
+deteriorates more slowly. The cost of crowding shows up in the \emph{level} of
+productivity, as the dissipated rent $\hat w-F$, and not in its elasticity.
+With $\mathcal E\approx0.2$ and the calibrated slope of $w$, crowding and access
+depletion together imply $\lambda$ close to one (\cref{sec:quant}). The bulk of the measured
+decline in research productivity \citep{bloometal2020} must come from
+elsewhere: falling fertility of new topics ($\eta_f$, not identified by density
+data) or selection on researcher ability, as in \citet{ekerdtwu2024}.
+
+\subsection{A Solow paradox for science}
+
+The last half-century brought enormous improvements in access to the
+literature: online journals, preprint servers, full-text search, and now
+language models that read for us. Measured research productivity fell
+throughout \citep{bloometal2020}. \Cref{prop:ai}(iii) suggests one reason.
+
+\begin{proposition}[Reading improvements are dissipated]\label{prop:solow}
+Let $\omega$ be any parameter that raises $w$ at every density and leaves $F$
+unchanged. In the large-topic limit, $\dd P^*/\dd\omega>0$ and
+$\dd M^*/\dd\omega<0$, and
+\[
+\frac{\dd\ln(Y/N)}{\dd\omega}=\eta\left|\frac{\dd\ln M^*}{\dd\omega}\right|\ge0,
+\]
+with equality if and only if $\eta=0$. By contrast, $\dd\ln(Y/N)/\dd\ln a=1-\mathcal E|\eps_w|$.
+\end{proposition}
+
+Better access to knowledge raises the payoff of working in existing topics.
+Newcomers respond by crowding them until they are no better than the frontier.
+What remains is denser topics, fewer new ones, and the same output per
+researcher. The prediction matches \citet{evans2008}, who finds that online
+access narrowed the set of papers that get cited. It also matches
+\citet{haoetal2026}, who find that AI tools ``contract science's focus''. Gains
+from access to frontier knowledge measured at the level of individuals or
+topics \citep{iariaetal2018,biasimoser2021} are real, but in equilibrium they
+are partly competed away at the level of science.

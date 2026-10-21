@@ -1,0 +1,156 @@
+\section{Proofs}\label{app:proofs}
+
+Throughout, ``concave'' means concave on the stated convex domain, and
+$\partial_R$, $\partial_P$ denote partial derivatives.
+
+\paragraph{The example satisfies \cref{ass:Q,ass:phi}.} The function
+$h(R,P)=RP/(R+P)$ is half the harmonic mean of $R$ and $P$. It is concave,
+nondecreasing and homogeneous of degree one on $\R_+^2$, with $h\le\min\{R,P\}$.
+So $\ln(1+\beta h)$ is concave as a nondecreasing concave transformation of a
+concave function, and $Q$ is bounded by $(1+\beta R)^\gamma$ for fixed $R$.
+Supermodularity: $\partial_R\ln Q=\gamma\beta h_R/(1+\beta h)$ with
+$h_R=P^2/(R+P)^2$ and $h_{RP}=2RP/(R+P)^3$, so
+\[
+\partial_P\partial_R\ln Q=\gamma\beta\,\frac{h_{RP}(1+\beta h)-\beta h_Rh_P}{(1+\beta h)^2}
+=\gamma\beta\,\frac{2RP(R+P)+\beta R^2P^2}{(R+P)^4(1+\beta h)^2}\ge0 .
+\]
+For $\varphi(c)=1-e^{-\sigma c}$: $\varphi(0)=0$, $\varphi'=\sigma e^{-\sigma c}>0$, $\varphi''<0$.
+
+\paragraph{Proof of \cref{lem:credit}.} Covering papers form a Poisson count
+$K$ with mean $\theta P$. Each is detected independently with probability
+$\varphi$, so detected and undetected counts $K_d,K_u$ are independent Poisson
+with means $\theta P\varphi$ and $\theta P(1-\varphi)$. Credit is the product
+of $(1-\lambda)$ over undetected papers and of independent factors with mean
+$1-\ell$ over detected papers. Using $\E[t^{K}]=e^{-\mu(1-t)}$,
+\[
+C=\E\big[(1-\lambda)^{K_u}\big]\,\E\big[(1-\ell)^{K_d}\big]
+=e^{-\theta P(1-\varphi)\lambda}\,e^{-\theta P\varphi\ell}
+=\exp\{-\theta P[\lambda-(\lambda-\ell)\varphi]\}.
+\]
+Flagged overlap consists of undetected covering papers (rate $\theta
+P(1-\varphi)$) and detected ones that proceed (rate $\theta P\varphi q$). The
+aware share is the ratio of the second rate to the sum. Proceeding happens iff
+$\delta>1-\kappa_p$, which gives the conditional mean. \qed
+
+\paragraph{Proof of \cref{lem:career}.} Let careers end at rate $\rho$. A
+newcomer to a stationary topic reads for $T=S/b_c=P/(\delta b_c)$ periods and
+then earns $a\,v(P)$ until her career ends. Her expected career value is
+$\int_T^\infty e^{-\rho t}a\,v(P)\,\dd t=a\,v(P)e^{-\rho T}/\rho=a\,w(P)/\rho$.
+An explorer's value is $aF(M)/\rho$. In a stationary topic with entry flow
+$e$, the mass of members in catch-up is $e(1-e^{-\rho T})/\rho$ and the mass
+writing is $e\,e^{-\rho T}/\rho$. So the writing share of members is
+$e^{-\kappa P}$, output per member is $a\,v(P)e^{-\kappa P}$, and \eqref{eq:flow}
+gives $P=a\,x^*(P)\,n\,e^{-\kappa P}$. \qed
+
+\paragraph{Proof of \cref{thm:v}.}
+\emph{(i)} Since $Q(0,P)=1$ and $\varphi(0)=0$, $v(P)\ge g(0,P)=e^{-\theta\lambda P}$. Because $Q$ and $\varphi$ are nondecreasing in $R$ and $R\le b$,
+\[
+g(r,P)\le \bar Q(b)\exp\{-\theta P[\lambda-\Delta\varphi(b/P)]\}\xrightarrow[P\to\infty]{}0,
+\]
+since $\varphi(b/P)\to0$ and $\lambda>0$. At $P=0$, $g(r,0)=1-r$, so $v(0)=1$. Define $\ln C(R,0)=0$. Then $|\theta P\varphi(R/P)|\le\theta P$ gives joint continuity of $g$ on $[0,1]\times\R_+$ ($g\to0$ as $r\to1$). Berge's maximum theorem gives continuity of $v$.
+
+\emph{(ii)} On $D=[0,1)\times(0,\infty)$,
+\[
+\ln g(r,P)=\ln(1-r)+\ln Q(br,P)-\theta\lambda P+\theta\Delta\,P\varphi\!\left(\frac{br}{P}\right).
+\]
+The first term is concave in $r$. The second is concave by \cref{ass:Q}
+composed with a linear map. The third is linear. In the fourth, $(R,P)\mapsto
+P\varphi(R/P)$ is the perspective of the concave function $\varphi$, which is
+jointly concave on $\R\times\R_{++}$ \citep[\S3.2.6]{boydvandenberghe2004}. So
+$\ln g$ is jointly concave on $D$. Since $\ln g\to-\infty$ as $r\to1$, the
+supremum over $r$ is attained in $[0,1)$. Partial maximisation of a jointly
+concave function over a convex set preserves concavity
+\citep[\S3.2.5]{boydvandenberghe2004}. Hence $\ln v(P)=\max_r\ln g(r,P)$ is concave.
+
+For strict concavity, take $P_1\neq P_2$ with maximisers $r_1,r_2$ and $t\in(0,1)$. Under \cref{ass:interior}(a), $\partial_r\ln g(0,P)>0$, so $r_i>0$. If $r_1\neq r_2$, strict concavity of $\ln(1-r)$ gives
+$\ln g(r_t,P_t)>t\ln g(r_1,P_1)+(1-t)\ln g(r_2,P_2)$. If $r_1=r_2=r>0$, then $P\mapsto P\varphi(br/P)$ has second derivative $\varphi''(br/P)(br)^2/P^3<0$, which gives the same strict inequality. In either case $\ln v(P_t)\ge\ln g(r_t,P_t)>t\ln v(P_1)+(1-t)\ln v(P_2)$.
+
+\emph{(iii)} Fix $\varrho$ with $\nu_0(\varrho)>0$. For small $P$, $r=\varrho P/b$ is feasible and
+\[
+\frac{v(P)-1}{P}\ge\frac{g(\varrho P/b,P)-1}{P}
+=\frac{(1-\varrho P/b)\,Q(\varrho P,P)\,e^{-\theta P[\lambda-\Delta\varphi(\varrho)]}-1}{P}\longrightarrow \nu_0(\varrho)>0 .
+\]
+So $v>1=v(0)$ on some interval $(0,\epsilon)$. A strictly log-concave function is strictly quasi-concave, so its maximiser is unique. It is positive because $v$ exceeds $v(0)$ near zero, and finite because $v\to0$. Strict quasi-concavity gives strict monotonicity on either side of $\Phat$. Since $v$ falls continuously and strictly from $\vhat$ to $0$ on $[\Phat,\infty)$, each $F\in(0,\vhat)$ has exactly one root there.
+
+\emph{(iv)} For $P>0$ the maximiser $r^*(P)$ is unique (strict concavity in $r$) and $\partial_P g$ is continuous. The envelope theorem \citep{milgromsegal2002} gives $v'(P)=\partial_Pg(r^*(P),P)$. Differentiating $\ln C$,
+\[
+\partial_P\big[-\theta\lambda P+\theta\Delta P\varphi(R/P)\big]=-\theta\lambda+\theta\Delta\big[\varphi(c)-c\varphi'(c)\big],\qquad c=R/P,
+\]
+which is \eqref{eq:envelope}. Concavity and $\varphi(0)=0$ give $\varphi(c)-c\varphi'(c)\ge0$.
+
+\emph{(v)} $\partial_r\partial_P\ln g=b\,[\partial_R\partial_P\ln Q+\partial_R\partial_P\ln C]$. The first term is nonnegative by \cref{ass:Q}. For the second,
+$\partial_R\ln C=\theta\Delta\varphi'(R/P)$, so $\partial_P\partial_R\ln C=-\theta\Delta\varphi''(c)\,c/P\ge0$. So $\ln g$ has increasing differences in $(r,P)$, and the unique maximiser is nondecreasing by Topkis's monotonicity theorem \citep{topkis1998}. \qed
+
+\paragraph{Proof of \cref{prop:externality}.} By \cref{thm:v}(iv), the effect
+of a marginal paper on an incumbent's per-period payoff is $a\,v'(P)$. Its sign is
+that of $\Phat-P$ by \cref{thm:v}(iii). \qed
+
+\paragraph{Proof of \cref{prop:eq}.} With $\kappa=0$, $n(P)=P/(a x^*(P))$ is
+continuous and strictly increasing, since $x^*$ is nonincreasing by
+\cref{thm:v}(v). Let $M(P)$ solve $\Phi(M)+Mn(P)=N$. It is unique,
+continuous and strictly decreasing in $P$ ($\Phi$ is increasing). Define
+$\Psi(P)=\ln v(P)-\ln F(M(P))$ on $[\Phat,\infty)$. $\ln v$ is strictly
+decreasing there, and $F(M(P))$ is nondecreasing because $F$ is nonincreasing,
+so $\Psi$ is strictly decreasing. In the large-topic limit $M(\Phat)=N/n(\Phat)$
+and $\Psi(\Phat)>0$ by assumption. As $P\to\infty$, $v\to0$ while
+$F(M(P))\ge F(M(\Phat))>0$, so $\Psi<0$ eventually. Hence there is a unique root
+$P^*>\Phat$. Crossings on $(0,\Phat)$ violate stability, since there $v'>0$.
+Payoff per researcher is $a\,v(P^*)=aF(M^*)<a\vhat$. \qed
+
+\paragraph{Proof of \cref{prop:volume}.} In the large-topic limit
+$M=N/n(P)=N\,a\,x^*(P)e^{-\kappa P}/P$, so the equilibrium condition
+$w(P)=F\big(N a x^*(P)e^{-\kappa P}/P\big)$ involves $N$ and $a$ only through
+$Na$. Log-differentiating with respect to $\ln N$,
+\[
+\eps_w\,\dd\ln P=-\eta\,[\dd\ln N-D\,\dd\ln P],\qquad D=\frac{\dd\ln n}{\dd\ln P}=1-\eps_x+\kappa P .
+\]
+Solving gives \eqref{eq:E}. Then $\dd\ln M=\dd\ln N-D\,\dd\ln P$, and papers per
+researcher $a\,x^*(P)$ move with elasticity $\eps_x\,\mathcal E$. If $\eta=0$,
+$P^*$ solves $w(P)=\bar F$, which involves neither $N$ nor $a$. The overlap rate
+and the aware share are functions of $P^*$ by \cref{lem:credit}. Free entry into
+science changes $P^*$ only through $N$. The general (non-limit) version
+replaces $D$ by $D\,(1-s_e)$ and $|\eps_w|$ by $|\eps_w|[1+s_e(\phi_e-1)]$,
+where $s_e=\Phi(M)/N$ and $\phi_e=M\Phi'(M)/\Phi(M)$. \qed
+
+\paragraph{Proof of \cref{prop:planner}.} Write $D=1-\eps_x+\kappa P$; as
+above $n\,\dd P/\dd n=P/D$. The Lagrangian
+$a[f_0M+Mn\,w(P(n))]-\mu[\Phi(M)+Mn-N]$ has first-order conditions
+\[
+\mu=a\,w\Big(1+\frac{\eps_w}{D}\Big)\quad(n),\qquad a(f_0+nw)=\mu\Big(\frac1{\pi}+n\Big)\quad(M),
+\]
+using $\Phi'(M)=1/\pi(M)$. Eliminating $\mu$ and using $F=f_0\pi$ gives
+\eqref{eq:plannerfoc}. Along the resource constraint,
+$\dd n/\dd M=-(1/\pi+n)/M$, so
+\[
+\frac{\dd Y}{\dd M}=a(f_0+nw)-a\,w\Big(1+\frac{\eps_w}{D}\Big)\Big(\frac1\pi+n\Big).
+\]
+At the equilibrium ($w=F=f_0\pi$, $\eps_w<0$) this equals
+$-a\,f_0(\eps_w/D)(1+n\pi)>0$. The planner therefore opens more topics, and
+density falls below $P^*$. At $\hat P_w$ ($\eps_w=0$) it equals
+$a f_0(1-w/F)<0$ whenever $w(\hat P_w)>F$. So the optimum lies in
+$(\hat P_w,P^*)$. For (ii), the left side of \eqref{eq:plannerfoc} is bounded
+by $(\hat w-F)/\hat w$ while $1+n\pi\to\infty$,
+so $|\eps_w(P^o)|\to0$ and $P^o\to\hat P_w$ by strict log-concavity of $w$. For
+(iii), with a subsidy $s$ to explorers the equilibrium condition becomes
+$w(P)=F(M)+s$, and $s=s^o$ makes $(P^o,M^o)$ satisfy it. For (iv), let the
+planner also set $x$. Per-member output is $a\,g(x,P)e^{-\kappa P}$, and at
+fixed $n$, $\partial\ln P/\partial\ln x=1/(1+\kappa P)$. The first-order
+condition for $x$ is
+\[
+\partial_x\ln g+\big[\partial_P\ln g-\kappa\big]\frac{P}{x(1+\kappa P)}=0 .
+\]
+At the private optimum $\partial_x\ln g=0$ and, by the envelope theorem,
+$\partial_P\ln g-\kappa=(\ln w)'(P)$. The wedge therefore has the sign of
+$(\ln w)'$. In the large-topic limit the planner maximises $\max_{x,P}g(x,P)e^{-\kappa P}=\max_P w(P)$. The maximum is at $(x^*(\hat P_w),\hat P_w)$, where the wedge is zero. \qed
+
+\paragraph{Proof of \cref{prop:mature}.} (i) $\ln w=\ln v-\kappa P$ is strictly concave. Since $(\ln w)'(\Phat)=-\kappa<0$, the peak of $w$ lies below $\Phat$. (ii) The equilibrium condition and stability are those of \cref{def:eq}. The premium follows from $v(P^m)e^{-\kappa P^m}=F$ and $\kappa P=\rho T$. (iii) $P^m<\Phat$ iff $w(\Phat)<F$, since $w$ is falling on $(\hat P_w,\infty)$; this reads $\ln\vhat-\kappa\Phat<\ln F$. (iv) From $\ln\zeta+\ln v(P^m)=\ln F+\kappa P^m$, differentiate with respect to $\ln P^m$. \qed
+
+\paragraph{Proof of \cref{prop:overcrowd}.} Total member output in a topic is $n\,a\,w(P(n))$, so one more member changes the output of the others by $n\,a\,w'(P)\,\dd P/\dd n$. Here $\dd P/\dd n>0$ and $w'<0$ at a stable equilibrium. Writing $w'=(v'-\kappa v)e^{-\kappa P}$ separates the spillover on incumbents from the catch-up burden. Part (i) combines \cref{prop:mature}(iii) with stability. Part (ii) is \cref{prop:planner}: per-researcher output is $aF$ in equilibrium and tends to $a\hat w$ at the optimum. \qed
+
+\paragraph{Proof of \cref{prop:toofast}.} On the growth path,
+$S(t)=\int_0^tP_0e^{gs}e^{-\delta(t-s)}\dd s=P(t)\,\frac{1-e^{-(g+\delta)t}}{g+\delta}<\frac{P(t)}{g+\delta}$.
+Hence the entry payoff satisfies $v(P)e^{-\rho S/b_c}>w_g(P)\equiv v(P)e^{-\kappa\delta P/(\delta+g)}$. The function $w_g$ is strictly log-concave. Since $w_g(P_0)\ge w(P_0)>F$, the set $\{P\ge P_0: w_g(P)>F\}$ is an interval $[P_0,P_c^\infty(g))$. Entry therefore continues at least until $P$ reaches $P_c^\infty(g)$, so $P_c\ge P_c^\infty(g)$. As $P_0\to0$, $t_c\to\infty$ and $S/P\to1/(g+\delta)$, so $P_c\to P_c^\infty(g)$. Monotonicity: $w_g$ is strictly increasing in $g$ at every $P>0$, so the falling-side root increases. The limits follow from $w_0=w$ and $w_\infty=v$. (ii) $P_c^\infty(g)>\Phat$ iff $w_g(\Phat)>F$, that is, $\ln\vhat-\kappa\delta\Phat/(\delta+g)>\ln F$, which rearranges to $g>g^*$. Combined with (i), $g>g^*$ implies $P_c>\Phat$, and the converse holds in the limit $P_0\to0$. (iii) At $t_c$, $v(P_c)e^{-\rho S_c/b_c}=F$ implies $v(P_c)>F$, so incumbents do not leave. With no entry, membership decays at rate $\rho$. Under the fast-stock approximation $S=P/\delta$, entry resumes when $w(P)=F$, that is, at $P^m$. \qed
+
+\paragraph{Proof of \cref{prop:ai}.} (i) and (ii) restate \cref{prop:volume}: $P^*$ depends on $Na$; output per researcher is $aF(M^*)$; papers per researcher are $a\,x^*(P^*)$. Under free entry into science $F(M^*)=(\omega+c)/a$. For (iii)--(iv), $\partial_b\ln g=r[\partial_R\ln Q+\partial_R\ln C]\ge0$. $Q$ is increasing in $\beta$. $C$ is increasing in $\sigma$ and decreasing in $\ell$, and $\ell$ is increasing in $\kappa_p$. $w$ is decreasing in $\kappa=\rho/(\delta b_c)$. So $w$ rises pointwise, which moves the falling-side root of $w(P)=F$ to the right. $M^*=N/n(P^*)$ falls because $n$ is increasing. $g^*$ in \eqref{eq:gstar} is decreasing in $b_c$. (v) $A$ in \eqref{eq:aware} is increasing in $\varphi$, and $\varphi$ is increasing in $\sigma$. \qed
+
+\paragraph{Proofs of \cref{prop:sot,prop:solow}.} In the large-topic limit every researcher's career payoff is $aF(M^*)$, so $Y=NaF(M^*)$ and $\dd\ln Y/\dd\ln N=1-\eta\,\dd\ln M^*/\dd\ln N$. By \cref{prop:volume}, $\dd\ln M^*/\dd\ln N=|\eps_w|/(\eta D+|\eps_w|)$, so $\eta\,\dd\ln M^*/\dd\ln N=\mathcal E|\eps_w|$. The bound with fertility depletion is proved in \cref{app:fertility}. For \cref{prop:solow}, $Y/N=aF(M^*)$ and $M^*$ falls with $\omega$ by \cref{prop:ai}(iii). For writing speed, $P^*$ depends on $Na$, so $\dd\ln(Y/N)/\dd\ln a=1-\eta\,\dd\ln M^*/\dd\ln(Na)=1-\mathcal E|\eps_w|$. \qed

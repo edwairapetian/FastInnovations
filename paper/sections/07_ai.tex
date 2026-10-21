@@ -1,0 +1,60 @@
+\section{Artificial intelligence as several different shocks}\label{sec:ai}
+
+``AI'' enters the model through several parameters, and each leaves a different
+footprint. That is what makes the model testable rather than a story.
+
+\begin{proposition}[Signatures of AI]\label{prop:ai}
+In the large-topic limit:
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Faster drafting} ($a\uparrow$) acts like a larger community. Density moves with elasticity $\mathcal E$ (zero if $\eta=0$) and the number of topics with elasticity $1-D\mathcal E$. Papers per researcher rise with elasticity $1+\eps_x\mathcal E$, and output per researcher with elasticity $1-\mathcal E|\eps_w|$.
+\item \emph{Cheaper entry into science} ($c\downarrow$, with $N$ set by $aF(M)=\omega+c$ and $\eta>0$) raises $N$. Density rises with elasticity $\mathcal E$ with respect to $N$, papers per researcher move with elasticity $\eps_x\mathcal E\approx 0$, and new topics absorb a share $1-D\mathcal E$ of growth.
+\item \emph{Better reading, learning or search, or cheaper pivots} ($b$, $\beta$ or $\sigma\uparrow$, $\kappa_p\downarrow$) raise $v$ and $w$ at every density. Density rises and the number of topics falls: science concentrates. Output per researcher rises only through the frontier, by $\eta\,|\dd\ln M^*|$, and is unchanged when $\eta=0$.
+\item \emph{Faster catch-up} ($b_c\uparrow$, e.g.\ literature-summarising tools) raises $w$ at every density, with the effects in (iii). It also lowers the overshooting threshold $g^*$ of \cref{prop:toofast}, so more topics grow too fast.
+\item \emph{Better search} ($\sigma\uparrow$) raises the aware share $A$ at any given reading coverage.
+\end{enumerate}
+\end{proposition}
+
+Parts (iii) and (iv) follow from the envelope theorem. Each parameter raises
+$g(r,P)$ at every $(r,P)$, hence raises $v$. A pointwise upward shift of a
+single-peaked curve moves its falling-side crossing with a fixed $F$ to the right.
+The effect on the measured overlap rate is ambiguous in general: denser topics
+generate more overlap, but better detection removes more of it.
+\Cref{tab:ai} reports the calibrated signs.
+
+\begin{table}[t]
+\centering
+\caption{The footprints of AI in the calibrated model}\label{tab:ai}
+\input{tables/ai_channels}
+\end{table}
+
+\paragraph{What the arXiv data say.} The footprints differ enough to tell the
+channels apart. Four facts settle the question for 2023--2026.
+\begin{itemize}
+\item Papers per author stayed flat while authors grew (Fact~\ref{fact:authors}). Faster
+drafting raises papers per author one for one. Cheaper entry leaves them flat.
+\item High-uptake areas produced \emph{more} pioneer papers and \emph{lower} local
+density relative to their own pre-ChatGPT trend (Fact~\ref{fact:concentration}). All reading-side channels predict
+concentration: fewer new topics and denser old ones. Cheaper entry predicts more
+new topics. Faster growth also raises the share of young, thin topics in the
+life-cycle model, which lowers mean density.
+\item The aware share of close overlap stayed at 35--42\% (Fact~\ref{fact:aware}). Better search
+would have raised it.
+\item Measured by meaning, close overlap did not fall (Fact~\ref{fact:wording}). Under cheaper entry it is
+pinned (\cref{prop:volume}).
+\end{itemize}
+So far AI has acted on science through \emph{entry}. The reading channels remain
+predictions. When literature-summarising tools spread, the model predicts
+denser topics, fewer new ones, more overshooting by fast-growing topics, and
+little or no gain in output per researcher.
+
+\paragraph{Writing AI scales science; reading AI crowds it.} The asymmetry in
+\cref{prop:ai} is the paper's sharpest policy implication. Writing speed
+multiplies every payoff, including the frontier's. Newcomers spread out, so a
+faster pen raises output almost one for one and leaves duplication unchanged.
+Reading speed improves only existing topics. Newcomers crowd in until those
+topics are no better than the frontier, so the improvement is competed away.
+This overturns a natural intuition. The worry that writing tools will flood science
+with duplicates is misplaced: free topic choice pins overlap. The hope that
+reading tools will raise productivity is also misplaced: free topic choice
+dissipates them. Tools are worth subsidising only if they make new topics easier
+to open, that is, if they raise $F$.

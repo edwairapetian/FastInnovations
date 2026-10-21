@@ -1,0 +1,84 @@
+\section{Extensions}\label{app:extensions}
+
+\subsection{Fertility depletion}\label{app:fertility}
+
+Suppose topics also differ in fertility, and later topics are less fertile.
+The $m$-th topic opened has fertility $f(m)=\bar f\,m^{-\eta_f}$, so members of
+topic $m$ earn $a f(m)$ times the payoff curve. Explorers succeed with
+probability $\pi(M)=\bar\pi M^{-\eta_a}$, which captures \emph{access
+depletion}: elasticity $\eta_a$, the $\eta$ of the main text. A successful
+explorer opens a topic of fertility $f(M)$. Newcomers are indifferent between
+topic $m$ and exploring when
+\[
+f(m)\,w(P_m)=\pi(M)f(M)\iff w(P_t)=\bar\pi\,M^{-\eta_a}\,t^{\eta_f},\qquad t\equiv m/M\in(0,1].
+\]
+\begin{proposition}[Scale invariance under fertility depletion]
+(i) If $\eta_a=0$, the distribution of densities across topics, and hence of
+overlap rates and aware shares, is invariant to $N$ and $a$, whatever the value of
+$\eta_f$. (ii) In general, with $\mathcal D\equiv\dd\ln M^*/\dd\ln N$,
+\[
+\lambda=1-(\eta_a+\eta_f)\,\mathcal D,\qquad
+\mathcal D=\Big(1+\eta_a\,\E_n\!\Big[\frac{D(P_t)}{|\eps_w(P_t)|}\Big]\Big)^{-1},
+\]
+where $\E_n$ averages over topics with weights proportional to members. The
+paper-weighted volume elasticity of density identifies $\eta_a$, not $\eta_f$, and
+$\lambda\le1-\eta_a\mathcal D$, the value obtained when $\eta_f=0$. With a single
+density, $1-\eta_a\mathcal D=1-\mathcal E|\eps_w|$.
+\end{proposition}
+\begin{proof}
+(i) With $\eta_a=0$ the indifference condition pins $P_t$ as a function of the
+relative rank $t$ alone. Members per topic $n(P_t)$ are then invariant, so
+$M=N/\int_0^1n(P_t)\dd t$ scales with $N$. (ii) Every researcher's career payoff is
+$a\pi(M)f(M)$, so $Y=Na\bar\pi\bar f M^{-\eta_a-\eta_f}$ and
+$\lambda=1-(\eta_a+\eta_f)\mathcal D$. At a fixed rank, $\eps_w(P_t)\,\dd\ln
+P_t=-\eta_a\,\dd\ln M$. Substituting into $N=M\int_0^1n(P_t)\dd t$ gives
+$\dd\ln N=\dd\ln M\,(1+\eta_a\E_n[D/|\eps_w|])$.
+\end{proof}
+
+Fertility depletion, the textbook ``fishing out'' of ideas \citep{kortum1997}, thus
+leaves the anchor result intact and strengthens it: volume opens new topics
+exactly. It adds to stepping on toes a component that density data cannot
+see. This is why \cref{prop:sot} delivers an upper bound on $\lambda$.
+
+\subsection{Fertility heterogeneity and the cross-section}
+
+With fertility $\zeta$ drawn independently at a topic's birth, a mature topic
+solves $\zeta w(P^m)=F$. More fertile topics are denser, their incumbents earn
+more, and the cross-sectional returns gradient is $\kappa P^m$
+(\cref{prop:mature}(iv)). Topics with $\zeta\hat w<F$ cannot sustain
+replacement entry. They shrink once their growth spurt ends and are eventually
+abandoned. This is the model's version of research lines that die out.
+
+\subsection{Heterogeneous ability}
+
+\citet{ekerdtwu2024} attribute part of measured stepping on toes to falling
+researcher ability. Let ability $z$ multiply a researcher's credit. If ability
+and reading are complements ($Q$ increasing in $z\,R$), able researchers gain
+more from dense literatures and sort into them. If ability also raises the
+pioneer's success probability, they sort to the frontier. Which force wins
+determines whether the dense-topic premium in Fact~\ref{fact:hump} partly reflects
+sorting. Author fixed effects remove level differences in ability but not
+ability-specific returns to density. The two can be separated by interacting
+density with pre-period ability (early-career citations). We leave this for
+the empirical paper.
+
+\subsection{Credit rules}
+
+Partial credit enters only through $\Theta=\theta\lambda$ and $\Delta/\lambda$.
+\Cref{thm:v} requires $\lambda>\ell$ and nothing else. The sign of the externality
+at a stable equilibrium (\cref{prop:eq,prop:overcrowd}) therefore survives
+whenever duplicates earn some credit. Replication value can be added as a
+positive social value of aware follow-ons that is not credited privately. This
+raises the social value of detection relative to the private one, but it
+does not change the sign of $w'$ at equilibrium.
+
+\subsection{Transitional dynamics after a writing shock}
+
+A one-time increase in $a$ raises every topic's flow immediately, before
+membership adjusts. Topics jump to the right along $v$, overlap rises, and
+incumbents' payoffs fall. If the jump lands beyond $\Phat$, the shock is crowding.
+Newcomers then go to the frontier and topics thin through turnover, returning
+to $P^*$ at rate $\rho$. The overlap rate spikes and decays with half-life
+$\ln2/\rho$. Papers per author rise immediately and stay higher. Flat papers per
+author and flat overlap by meaning (Facts~\ref{fact:authors} and~\ref{fact:wording}) rule out a large
+writing shock in 2023--2026.
