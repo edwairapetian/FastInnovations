@@ -53,19 +53,18 @@ class LifeCycleParams:
         return replace(self, **kw)
 
 
-def _nodes(n, sd):
-    """Equal-probability discretisation of N(0, sd^2): conditional means of n bins."""
+def _nodes(n, sd, trunc: float = 2.5):
+    """Normal(0, sd^2) truncated at +-trunc sd, on n equally spaced nodes (midpoint rule)."""
     if sd <= 0 or n == 1:
         return np.zeros(1), np.ones(1)
-    from scipy.special import ndtri
-    edges = ndtri(np.linspace(0.0, 1.0, n + 1))
-    pdf = np.exp(-0.5 * edges ** 2) / np.sqrt(2 * np.pi)
-    x = (pdf[:-1] - pdf[1:]) * n  # E[Z | bin] for standard normal
-    return sd * x, np.full(n, 1.0 / n)
+    h = 2 * trunc / n
+    x = -trunc + h * (np.arange(n) + 0.5)
+    w = np.exp(-0.5 * x ** 2)
+    return sd * x, w / w.sum()
 
 
 def g_types(lc: LifeCycleParams):
-    """Lognormal diffusion rates, equal-probability bins."""
+    """Lognormal diffusion rates, truncated at +-2.5 log-sd."""
     x, w = _nodes(lc.n_g, lc.g_disp)
     return lc.g_med * np.exp(x), w
 
@@ -173,40 +172,54 @@ def _within(a, w):
     return a - m
 
 
-def test4_moments(cs: CrossSection, estimator: str = "pooled", noise_sd: float = 0.0):
+def test4_moments(cs: CrossSection, estimator: str = "pooled", noise_sd: float = 0.3, n_noise: int = 7):
     """Replicate the Test 4 regressions on the simulated cross-section.
 
-    Density is standardised with the researcher-weighted mean and sd of log
-    density.  ``estimator='pooled'`` compares researcher-years across topics,
-    the analogue of researchers who move between denser and sparser topics
-    (the model has no ability heterogeneity, so author effects are absorbed);
-    ``estimator='within'`` adds topic fixed effects and uses only the life-cycle
-    variation inside a topic.  Weighted least squares throughout.
+    Density is measured with classical noise in logs (sd ``noise_sd``), as the
+    arXiv density proxy is (only 58% of nearest neighbours fall in the same
+    fine area); each researcher-year is spread over ``n_noise`` Gauss-Hermite
+    draws of the measurement error.  Observed density is standardised with its
+    researcher-weighted mean and sd.  ``estimator='pooled'`` compares
+    researcher-years across topics, the analogue of researchers who move
+    between denser and sparser topics (the model has no ability heterogeneity,
+    so author effects are absorbed); ``estimator='within'`` adds topic fixed
+    effects and uses only the life-cycle variation inside a topic.  Weighted
+    least squares throughout.
     """
-    w = cs.w / cs.w.sum()
-    lp = cs.lnP
+    w0 = cs.w / cs.w.sum()
+    if noise_sd > 0 and n_noise > 1:
+        e, we = np.polynomial.hermite_e.hermegauss(n_noise)
+        we = we / we.sum()
+    else:
+        e, we = np.zeros(1), np.ones(1)
+    nT = w0.shape[0]
+    # observed log density and weights, shape (types, ages * draws)
+    lp = (cs.lnP[:, :, None] + noise_sd * e[None, None, :]).reshape(nT, -1)
+    w = (w0[:, :, None] * we[None, None, :]).reshape(nT, -1)
+    yv = np.repeat(cs.y[:, :, None], e.size, axis=2).reshape(nT, -1)
     mu = (w * lp).sum()
-    sd = np.sqrt((w * (lp - mu) ** 2).sum() + noise_sd ** 2)
+    sd = np.sqrt((w * (lp - mu) ** 2).sum())
     z = (lp - mu) / sd
-    sw = np.sqrt(w).ravel()
+    wf = w.ravel()
     if estimator == "within":
         tr = lambda a: _within(a, w).ravel()
         const = []
     else:
         tr = lambda a: a.ravel()
         const = [np.ones(z.size)]
-    y = tr(cs.y)
+    y = tr(yv)
 
     def ols(cols):
-        X = np.column_stack(const + [tr(c) for c in cols]) * sw[:, None]
-        return np.linalg.lstsq(X, y * sw, rcond=None)[0][len(const):]
+        X = np.column_stack(const + [tr(c) for c in cols])
+        Xw = X * wf[:, None]
+        return np.linalg.solve(Xw.T @ X, Xw.T @ y)[len(const):]
 
     b = ols([z, z ** 2])
     lin = ols([z])[0]
     zpeak = float(-b[0] / (2 * b[1])) if b[1] < 0 else np.nan
-    beyond = float((w * (lp > np.log(cs.Phat))).sum())
+    beyond = float((w0 * (cs.lnP > np.log(cs.Phat))).sum())
     beyond_est = float((w * (z > zpeak)).sum()) if np.isfinite(zpeak) else np.nan
-    zf = z.ravel(); wf = w.ravel()
+    zf = z.ravel()
     o = np.argsort(zf); cw = np.cumsum(wf[o])
     cuts = zf[o][np.minimum(np.searchsorted(cw, [0.2, 0.4, 0.6, 0.8]), zf.size - 1)]
     q = np.digitize(z, cuts)

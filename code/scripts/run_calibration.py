@@ -22,12 +22,11 @@ from ftmodel.calibration import (NAMES, Fixed, bounds_log, calibrate, evaluate, 
 HERE = os.path.dirname(__file__)
 RESULTS = os.path.join(HERE, "..", "results")
 
-# Outcome of the full search (scan of 8192 Sobol points + Nelder-Mead from the best five).
+# Outcome of ftmodel.calibration.calibrate: a scan of 2048 Sobol points, Nelder-Mead from the
+# best three and from the best points of earlier calibration rounds, selected on the fine grid.
 STORED = {
-    "pooled": dict(beta=1.89278, gamma=0.12617, Theta=0.0016, F=1.00529, g_med=0.19011,
-                   g_disp=0.74744, zeta_sd=0.07278, b_c=20.0, sigma=3.0),
-    "within": dict(beta=1.34959, gamma=0.25236, Theta=0.00061, F=1.24494, g_med=0.47575,
-                   g_disp=0.6746, zeta_sd=0.07933, b_c=20.0, sigma=3.0),
+    "pooled": dict(beta=41.670204640794815, gamma=0.15892230181229888, Theta=0.0022051927403809826, F=1.7719723396629103, g_med=0.1754282236992788, g_disp=0.30500168478496453, zeta_sd=0.0664067433552573, b_c=28.62981381245267, sigma=1.5430366809195095),
+    "within": dict(beta=33.535472849974575, gamma=0.17703507338435204, Theta=0.0009851964668296444, F=1.8164037956957853, g_med=0.07243572400229235, g_disp=0.7260824284867119, zeta_sd=0.20731119134274156, b_c=28.136787915381646, sigma=1.821495646633994),
 }
 
 

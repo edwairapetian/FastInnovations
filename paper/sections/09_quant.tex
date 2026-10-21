@@ -18,25 +18,27 @@ credit block comes from Fact~\ref{fact:credit} through \cref{lem:credit}. With
 exponential follow-on credit and a pivot that costs 30\% of a project, the
 $+29\%$ premium of aware follow-ons and the $-19\%$ penalty of unaware
 duplicates imply that 31\% of detected overlaps proceed and that detection
-averts \(\Delta/\lambda=37\%\) of erosion. Search precision $\sigma$ is set so
-that the aware share at mature density equals the arXiv value of 38\%
-(Fact~\ref{fact:aware}).
+averts \(\Delta/\lambda=37\%\) of erosion.
 
-The remaining parameters are calibrated to Test 4 (Fact~\ref{fact:hump}):
-learning ($\beta,\gamma$), erosion ($\theta\lambda$), the frontier payoff $F$,
-catch-up speed $b_c$, and the distributions of diffusion rates and fertility.
-The targets are the gradient per standard deviation of density, the returns of
-the sparsest, fourth and densest fifths relative to the middle one, and the 12\% of
-researcher-years beyond the peak. A soft target puts the incumbents' log
+The remaining parameters are calibrated jointly: learning ($\beta,\gamma$),
+erosion ($\theta\lambda$), search precision ($\sigma$), the frontier payoff
+$F$, catch-up speed $b_c$, and the distributions of diffusion rates and
+fertility. The targets come from Test 4 (Fact~\ref{fact:hump}): the gradient per standard deviation
+of density, the returns of the sparsest, fourth and densest fifths relative to
+the middle one, and the 12\% of researcher-years beyond the peak. We add the
+aware share of 38\% at mature density (Fact~\ref{fact:aware}), which disciplines $\sigma$. A soft target puts the incumbents' log
 premium $\kappa P^m=\rho T$ at about 0.15, a year and a half of catch-up per
 ten-year tenure. We simulate the stationary cross-section of topic life cycles
-(\cref{prop:toofast}) and run the arXiv regressions on it. Researchers who move between topics
+(\cref{prop:toofast}) and run the arXiv regressions on it. As in the data,
+density is measured with error. Only 58\% of a paper's nearest neighbours fall
+in its own fine area. We add classical noise with a standard deviation of 0.3
+in log density, which implies a reliability of about 0.8. Researchers who move between topics
 supply the identifying variation in an author-fixed-effects design, and the
 model has no ability differences. The baseline analogue is therefore the
 cross-section of researcher-years. The within-topic analogue, which uses only
 life-cycle variation, is a robustness check. The search is a quasi-random
-scan of 8,192 points followed by Nelder--Mead from the best five
-(\cref{app:numerics}).
+scan of 2,048 points followed by Nelder--Mead from the best points, with the
+winner selected on a fine simulation grid (\cref{app:numerics}).
 
 We do not target the quadratic summary of Test 4. A quadratic in density imposes a
 symmetric hump. The model's payoff curve is asymmetric in log density, with a
@@ -57,26 +59,34 @@ $+1\%$.
 \par\smallskip\footnotesize
 $^\dagger$ Not targeted. Baseline: cross-section of researcher-years (movers
 across topics). Within-topic: topic fixed effects, recalibrated. Density is the
-researcher-weighted standardised log flow.
+researcher-weighted standardised log flow, measured with noise as in the data.
 \end{table}
 
 \subsection{Fit}
 
-\Cref{tab:fit} and \cref{fig:test4} compare model and data. The calibrated life
-cycle places the peak of the payoff curve \calZhat\ standard deviations above
-mean density, with \calBeyond\ of researcher-years beyond it, against about one
-standard deviation and 12\% in the data. Neither was imposed directly. The
-model matches the sparsest fifth (\calQone\ against $-8\%$) and the fourth
-fifth (\calQfour\ against $+5\%$). It produces a decline at the top, but a
-smaller one than the data: the densest fifth earns \calQfive\ against $+1\%$.
-It also gives a gradient of \calLin\ against $6.7\%$. Both misses have the
-same source. In the model the densest topics include the most fertile mature
-ones, whose incumbents earn high returns, alongside the overshooting topics
-that pull returns down. Author fixed effects in the data do not remove topic
-fertility either, so this composition effect is real. The data suggest the
-overshooting topics are more numerous or more crowded than our stylised life
-cycle allows. The within-topic calibration fits about equally well (last
-column).
+\Cref{tab:fit} and \cref{fig:test4} compare model and data. Three features
+are reproduced. The rise from the sparsest fifth matches (\calQone\ against
+$-8\%$). The share of researcher-years beyond the peak of the payoff curve
+matches (\calBeyond\ against 12\%). The peak lies \calZhat\ standard
+deviations above mean density, against about one, although its location was
+not targeted. The gradient is somewhat flatter than in the data (\calLin\
+against $6.7\%$).
+
+The model does not reproduce the sharpness of the hump. The fourth fifth earns
+\calQfour\ against $+5\%$. In the baseline the densest fifth earns
+\calQfive, more than the fourth, against $+1\%$ in the data. The source of the
+miss is composition. In the model the densest researcher-years include the
+most fertile mature topics, whose incumbents earn high returns, alongside the
+overshooting topics that pull returns down. Author fixed effects in the data do
+not remove topic fertility either. The within-topic calibration, which removes
+it, matches the densest fifth (\calWQfive) but has an even flatter fourth fifth
+(\calWQfour). Erosion at mature densities is small in the calibration: about
+\calErosion\ of credit is lost to overlap. So the payoff curve falls only
+gently beyond its peak. The data point to stronger crowding at the top than
+duplication alone generates, consistent with the memo's observation that
+citations reward audience size and so understate crowding costs in dense
+topics. We regard the fall at the top as the main quantitative challenge for
+the model.
 
 Where are researchers in the calibrated cross-section? \calShareMature\ of
 researcher-years are in mature topics, \calShareCons\ in topics consolidating
@@ -87,11 +97,12 @@ than $g^*=\calGstar$ a year (\cref{fig:test4}, right).
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig4_test4.pdf}
-\caption{Test 4 in the model. Left: log returns by standardised topic density,
-relative to the middle fifth, in the calibrated cross-section, with the arXiv
-fifths and the arXiv quadratic (not targeted). Right: the distribution of
-researcher-years by density and life-cycle phase. Researcher-years beyond the
-peak are concentrated in topics consolidating after fast growth.}
+\caption{Test 4 in the model. Left: log returns by observed (noisily measured)
+topic density, relative to the middle fifth, in the calibrated cross-section,
+with the arXiv fifths and the arXiv quadratic (not targeted). Right: the
+distribution of researcher-years by true density and life-cycle phase.
+Researcher-years beyond the peak of $v$ are concentrated in topics consolidating
+after fast growth.}
 \label{fig:test4}
 \end{figure}
 
@@ -118,17 +129,17 @@ entrant's payoff curve is falling at the mature density ($|\eps_w|=\calEpsW$).
 Mature topics are too crowded once the catch-up burden is counted
 (\cref{prop:overcrowd}). Moving every topic to the peak of $w$ raises output
 per researcher by \calPlannerGain. The optimal frontier subsidy is
-\calSubsidy\ of the frontier payoff. The gain is modest because catch-up costs
-already hold mature topics near the peak of $w$. Most of what free entry
+\calSubsidy\ of the frontier payoff. The gain is modest because the newcomer's payoff curve
+is flat between its peak and the mature density. Most of what free entry
 competes away is the rent of the frictionless benchmark.
 
 \paragraph{Growth.} Inverting \eqref{eq:eta} with $\mathcal E=0.2$ gives a frontier elasticity of
 $\eta=\calEta$: the supply of new topics is close to perfectly elastic. The
-stepping-on-toes parameter is $\lambda=1-\mathcal E|\eps_w|=\calLambda$. Over
+stepping-on-toes parameter is $\lambda_J=1-\mathcal E|\eps_w|=\calLambda$. Over
 the arXiv range $\mathcal E\in[0.04,0.27]$ it lies between \calLambdaHi\ and
 \calLambdaLo. Topic crowding and access depletion therefore explain only a small part of
 the diminishing returns to research found by \citet{bloometal2020}. Their
-estimates require $\lambda$ well below one, which in our framework must come
+estimates require $\lambda_J$ well below one, which in our framework must come
 from fertility depletion (\cref{app:fertility}) or from selection.
 
 \subsection{AI counterfactuals}

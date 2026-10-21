@@ -57,12 +57,12 @@ def fig_payoff(m, S):
     ax.plot(P, v, color=C1, label="incumbent $v(P)$")
     ax.plot(P, w, color=C2, label="newcomer $w(P)$")
     ax.axhline(S["F"], color=INK2, lw=0.8, ls="--")
-    lo_y = 0.7
-    ax.set_ylim(lo_y, 1.32)
-    label(ax, 0.55, S["F"] + 0.012, "frontier $F$")
+    lo_y = 0.8 * S["F"]
+    ax.set_ylim(lo_y, 1.12 * S["vhat"])
+    label(ax, 0.55, S["F"] * 1.01, "frontier $F$")
     for x, s_ in [(S["Pm"], "$P^m$"), (S["Phat"], "$\\hat P$"), (S["P_frictionless"], "$P^*_{\\kappa=0}$")]:
         ax.axvline(x, color=GRID, lw=0.8)
-        label(ax, x * 1.06, lo_y + 0.015, s_)
+        label(ax, x * 1.06, lo_y * 1.01, s_)
     ax.set_xscale("log")
     ax.set_xlabel("density $P$ (papers per year)")
     ax.set_title("(a) payoff curves")
@@ -111,7 +111,7 @@ def fig_planner(m, S):
     ew, D = abs(S["eps_w"]), S["D"]
     E = eta / (eta * D + ew)
     ax.plot(eta, E, color=C1, label="volume elasticity $\\mathcal{E}$")
-    ax.plot(eta, eta * ew / (eta * D + ew), color=C2, label="$1-\\lambda=\\mathcal{E}|\\varepsilon_w|$")
+    ax.plot(eta, eta * ew / (eta * D + ew), color=C2, label="$1-\\lambda_J=\\mathcal{E}|\\varepsilon_w|$")
     ax.axhspan(0.04, 0.27, color=INK2, alpha=0.08, lw=0)
     label(ax, 0.42, 0.14, "arXiv range\nof $\\mathcal{E}$")
     ax.axvline(S["eta"], color=GRID, lw=0.8)
@@ -173,14 +173,17 @@ def fig_lifecycle(m, S):
 
 
 def fig_test4(m, S):
-    cs = simulate(m.grid, m.lc.with_(n_g=41, n_z=41, dt=0.02))
-    w = cs.w / cs.w.sum()
-    mu = (w * cs.lnP).sum()
-    sd = np.sqrt((w * (cs.lnP - mu) ** 2).sum())
-    z = ((cs.lnP - mu) / sd).ravel()
-    y = cs.y.ravel()
-    wf = w.ravel()
-    ph = cs.phase.ravel()
+    cs = simulate(m.grid, m.lc.with_(n_g=41, n_z=51, dt=0.05))
+    w0 = cs.w / cs.w.sum()
+    # (a) observed density, measured with noise exactly as in test4_moments
+    e, we = np.polynomial.hermite_e.hermegauss(7)
+    we = we / we.sum()
+    lp = (cs.lnP[:, :, None] + 0.3 * e[None, None, :]).ravel()
+    wf = (w0[:, :, None] * we[None, None, :]).ravel()
+    y = np.repeat(cs.y[:, :, None], e.size, axis=2).ravel()
+    mu = (wf * lp).sum()
+    sd = np.sqrt((wf * (lp - mu) ** 2).sum())
+    z = (lp - mu) / sd
     bins = np.linspace(-2.5, 2.5, 21)
     idx = np.digitize(z, bins)
     xs, ys = [], []
@@ -189,7 +192,6 @@ def fig_test4(m, S):
         if wf[sel].sum() > 2e-3:
             xs.append(0.5 * (bins[k - 1] + bins[k]))
             ys.append((wf[sel] * y[sel]).sum() / wf[sel].sum())
-    # normalise to the middle fifth
     o = np.argsort(z)
     cw = np.cumsum(wf[o])
     mid = o[(cw > 0.4) & (cw <= 0.6)]
@@ -203,27 +205,31 @@ def fig_test4(m, S):
     qm = S["moments_pooled"]["quint"]
     ax.plot(zq[[0, 2, 3, 4]], [-0.08, 0.0, 0.05, 0.01], ls="none", marker="s", ms=5, color=C2, label="arXiv fifths")
     ax.plot(zq, qm, ls="none", marker="D", ms=5, mfc="white", mew=1.4, color=C1, label="model fifths")
-    ax.axvline(S["moments_pooled"]["zhat"], color=GRID, lw=0.8)
-    label(ax, S["moments_pooled"]["zhat"] + 0.05, -0.27, "peak of $v$")
     ax.set_ylim(-0.3, 0.12)
-    ax.set_xlabel("topic density (SD from mean)")
+    ax.set_xlabel("observed topic density (SD from mean)")
     ax.set_ylabel("log returns vs middle fifth")
     ax.set_title("(a) returns and density")
     ax.legend(fontsize=7, loc="lower right")
+    # (b) true density by life-cycle phase
+    lpt, wt, ph = cs.lnP.ravel(), w0.ravel(), cs.phase.ravel()
+    mut = (wt * lpt).sum()
+    sdt = np.sqrt((wt * (lpt - mut) ** 2).sum())
+    zt = (lpt - mut) / sdt
+    zhat = (np.log(cs.Phat) - mut) / sdt
     ax = axs[1]
     hb = np.linspace(-3, 3.5, 40)
     bottom = np.zeros(len(hb) - 1)
     for k, (name, col) in enumerate([("growth", C3), ("consolidation", C2), ("mature", C1)]):
-        hist, _ = np.histogram(z[ph == k], bins=hb, weights=wf[ph == k])
+        hist, _ = np.histogram(zt[ph == k], bins=hb, weights=wt[ph == k])
         ax.bar(hb[:-1], hist, width=np.diff(hb) * 0.92, bottom=bottom, align="edge", color=col,
                edgecolor="white", linewidth=0.6, label=name)
         bottom += hist
-    ax.axvline(S["moments_pooled"]["zhat"], color=INK2, lw=0.9, ls="--")
-    label(ax, S["moments_pooled"]["zhat"] + 0.08, bottom.max() * 0.85,
-          f"{100 * S['beyond_true']:.0f}% of researcher-years\nbeyond the peak")
-    ax.set_xlabel("topic density (SD from mean)")
+    ax.axvline(zhat, color=INK2, lw=0.9, ls="--")
+    label(ax, zhat + 0.08, bottom.max() * 0.85,
+          f"{100 * S['beyond_true']:.0f}% of researcher-years\nbeyond the peak of $v$")
+    ax.set_xlabel("true topic density (SD from mean)")
     ax.set_ylabel("share of researcher-years")
-    ax.set_title("(b) where researchers work, by life-cycle phase")
+    ax.set_title("(b) where researchers work, by phase")
     ax.legend(fontsize=7, loc="upper left")
     fig.tight_layout()
     fig.savefig(os.path.join(FIG, "fig4_test4.pdf"))
@@ -274,7 +280,6 @@ def tables(m, S, rows, Sw, mw):
              rf"$\lambda$ & credit lost by an unaware duplicate & {cb['lam']:.2f} & Fact 4 ($-19\%$) \\",
              rf"$\kappa_p$ & credit lost by pivoting & {cal['credit_targets']['pivot_cost']:.2f} & assumption \\",
              rf"$\Delta/\lambda$, $q$ & detection value; share proceeding & {cb['dl']:.2f}, {cb['q']:.2f} & Fact 4 ($+29\%$), \cref{{lem:credit}} \\",
-             rf"$\sigma$ & search precision & {fx['sigma']:.1f} & aware share (Fact 5), see text \\",
              rf"$\delta$ & decay of the stock's relevance & {fx['delta']:.2f} & half-life $\approx$ 2.8 years \\",
              rf"$\rho$ & rate of leaving a topic & {fx['rho']:.2f} & ten-year topic tenure \\",
              rf"$\xi$ & topic obsolescence & {fx['xi']:.2f} & 25-year topic life \\",
@@ -284,6 +289,7 @@ def tables(m, S, rows, Sw, mw):
              rf"$\theta\lambda$ & erosion per earlier paper & {th['Theta']:.4f} & fall at the top \\",
              rf"$F$ & frontier payoff & {th['F']:.3f} & sparsest fifth \\",
              rf"$b_c$ & catch-up reading speed & {th['b_c']:.0f} & premium, share beyond peak \\",
+             rf"$\sigma$ & search precision & {m.reader.sigma:.2f} & aware share (Fact 5) \\",
              rf"$g_{{\rm med}}$, $s_g$ & diffusion rate: median, log-sd & {th['g_med']:.3f}, {th['g_disp']:.2f} & share beyond peak, fifths \\",
              rf"$s_\zeta$ & log-sd of topic fertility & {th['zeta_sd']:.3f} & gradient across topics \\",
              rf"$\eta$ & frontier elasticity & {cal['eta']:.4f} & $\mathcal{{E}}=0.2$ (Fact 1), \eqref{{eq:eta}} \\",
@@ -292,9 +298,10 @@ def tables(m, S, rows, Sw, mw):
     # ---- fit table
     mp, mwm = S["moments_pooled"], Sw["moments_within"]
     def row(name, tgt, a, b, d=3, targeted=True):
-        t = "" if tgt is None else fmt(tgt, d)
+        m = lambda x: f"${fmt(x, d)}$"
+        t = "" if tgt is None else m(tgt)
         mark = "" if targeted else r"$^\dagger$"
-        return rf"{name}{mark} & {t} & {fmt(a, d)} & {fmt(b, d)} \\"
+        return rf"{name}{mark} & {t} & {m(a)} & {m(b)} \\"
     q = mp["quint"]
     qw = mwm["quint"]
     lines = [r"\begin{tabular}{@{}lccc@{}}", r"\toprule",
@@ -308,7 +315,7 @@ def tables(m, S, rows, Sw, mw):
              row("Peak of $v$ (SD above mean)", 1.0, mp["zhat"], mwm["zhat"], 2, targeted=False),
              row("Quadratic: linear term", 0.094, mp["b1"], mwm["b1"], 3, targeted=False),
              row("Quadratic: squared term", -0.047, mp["b2"], mwm["b2"], 3, targeted=False),
-             row("Aware share of flagged overlap", 0.38, S["aware_m"], Sw["aware_m"], 2, targeted=False),
+             row("Aware share of flagged overlap", 0.38, S["aware_m"], Sw["aware_m"], 2),
              r"\bottomrule", r"\end{tabular}"]
     open(os.path.join(TAB, "fit.tex"), "w").write("\n".join(lines) + "\n")
     # ---- AI table
@@ -316,8 +323,8 @@ def tables(m, S, rows, Sw, mw):
              r"Channel & Shock & Density & Topics & Papers/ & Output/ & Flagged & Aware & $g^*$ \\",
              r" & & & & researcher & researcher & overlap & share (pp) & (pp) \\", r"\midrule"]
     for r in rows:
-        lines.append(rf"{r['name']} & {r['channel']} & {100*r['dP']:+.1f} & {100*r['dM']:+.1f} & {100*r['dpapers']:+.1f} & "
-                     rf"{100*r['dypr']:+.1f} & {100*r['dflag']:+.1f} & {100*r['daware']:+.1f} & {100*r['dgstar']:+.1f} \\")
+        vals = [r['dP'], r['dM'], r['dpapers'], r['dypr'], r['dflag'], r['daware'], r['dgstar']]
+        lines.append(rf"{r['name']} & {r['channel']} & " + " & ".join(f"${100 * v:+.1f}$" for v in vals) + r" \\")
     lines += [r"\bottomrule", r"\end{tabular}",
               r"\par\smallskip\footnotesize Long-run stationary effects in log points ($\times100$) of a 30\% shock "
               r"(catch-up speed doubled, pivot cost halved). Density is $P^*$; output per researcher is $aF(M^*)$. "
@@ -338,12 +345,12 @@ def tables(m, S, rows, Sw, mw):
              rf"Overshooting threshold $g^*$ (per year) & {S['g_star']:.3f} \\",
              rf"Slope of the entrant payoff curve $|\varepsilon_w(P^m)|$ & {abs(S['eps_w']):.3f} \\",
              rf"Frontier elasticity $\eta$ (from $\mathcal{{E}}=0.2$) & {S['eta']:.4f} \\",
-             rf"Stepping-on-toes parameter $\lambda=1-\mathcal{{E}}|\varepsilon_w|$ & {S['lam']:.3f} \\",
+             rf"Stepping-on-toes parameter $\lambda_J=1-\mathcal{{E}}|\varepsilon_w|$ & {S['lam']:.3f} \\",
              r"\bottomrule", r"\end{tabular}"]
     open(os.path.join(TAB, "welfare.tex"), "w").write("\n".join(lines) + "\n")
 
 
-def numbers(m, S, rows):
+def numbers(m, S, rows, Sw):
     vP0 = float(m.curve.v(m.lc.P0)[0])
     by = {r["name"]: r for r in rows}
     macros = {
@@ -358,9 +365,11 @@ def numbers(m, S, rows):
         "calLambdaLo": f"{1 - 0.27 * abs(S['eps_w']):.3f}", "calLambdaHi": f"{1 - 0.04 * abs(S['eps_w']):.3f}", "calEpsV": f"{S['eps_v']:.3f}",
         "calBeyond": f"{100*S['beyond_true']:.0f}\\%", "calZhat": f"{S['moments_pooled']['zhat']:.2f}",
         "calLin": f"{100*S['moments_pooled']['lin']:.1f}\\%",
-        "calQone": f"{100*S['moments_pooled']['quint'][0]:.1f}\\%",
-        "calQfour": f"{100*S['moments_pooled']['quint'][3]:.1f}\\%",
-        "calQfive": f"{100*S['moments_pooled']['quint'][4]:.1f}\\%",
+        "calQone": f"${100*S['moments_pooled']['quint'][0]:.1f}$\\%",
+        "calQfour": f"${100*S['moments_pooled']['quint'][3]:+.1f}$\\%",
+        "calQfive": f"${100*S['moments_pooled']['quint'][4]:+.1f}$\\%",
+        "calWQfour": f"${100*Sw['moments_within']['quint'][3]:+.1f}$\\%",
+        "calWQfive": f"${100*Sw['moments_within']['quint'][4]:+.1f}$\\%",
         "calXm": f"{S['x_m']:.2f}", "calCoverage": f"{S['coverage_m']:.2f}", "calPhi": f"{S['phi_m']:.2f}",
         "calAware": f"{100*S['aware_m']:.0f}\\%", "calErosion": f"{100*S['erosion_m']:.1f}\\%",
         "calShareGrowth": f"{100*S['phases']['growth']:.0f}\\%",
@@ -370,7 +379,7 @@ def numbers(m, S, rows):
         "calReadDens": f"{100*by['Faster reading']['dP']:.1f}",
         "calReadOut": f"{100*by['Faster reading']['dypr']:.2f}",
         "calCatchDens": f"{100*by['Faster catch-up']['dP']:.1f}",
-        "calCatchGstar": f"{100*by['Faster catch-up']['dgstar']:.1f}",
+        "calCatchGstar": f"{abs(100*by['Faster catch-up']['dgstar']):.1f}",
     }
     with open(os.path.join(ROOT, "paper", "numbers.tex"), "w") as f:
         f.write("% Generated by code/scripts/make_figures.py -- do not edit by hand.\n")
@@ -391,7 +400,7 @@ def main():
     fig_test4(m, S)
     fig_ai(rows)
     tables(m, S, rows, Sw, mw)
-    numbers(m, S, rows)
+    numbers(m, S, rows, Sw)
     print(json.dumps({k: (round(v, 4) if isinstance(v, float) else v) for k, v in S.items()
                       if not isinstance(v, dict)}, indent=1))
     for r in rows:

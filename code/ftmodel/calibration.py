@@ -70,7 +70,7 @@ def build(theta: dict, fx: Fixed, fine: bool = False):
     rp = ReaderParams(b=fx.b, beta=theta["beta"], gamma=theta["gamma"], Theta=theta["Theta"],
                       dl=fx.dl, sigma=theta["sigma"])
     gc = GridCurve(PayoffCurve(rp), n=3000 if fine else 1200)
-    grid = dict(n_g=31, n_z=11, dt=0.02) if fine else dict(n_g=13, n_z=5, dt=0.1)
+    grid = dict(n_g=41, n_z=51, dt=0.05) if fine else dict(n_g=15, n_z=15, dt=0.1, horizon=100.0)
     lc = LifeCycleParams(F=theta["F"], kappa_s=fx.rho / theta["b_c"], delta=fx.delta, rho=fx.rho,
                          xi=fx.xi, P0=fx.P0, g_med=theta["g_med"], g_disp=theta["g_disp"],
                          zeta_sd=theta["zeta_sd"], **grid)
@@ -116,9 +116,11 @@ def objective(x, fx: Fixed):
     return 1e3 if r is None else loss(r[0])
 
 
-def calibrate(fx: Fixed | None = None, n_scan: int = 8192, n_polish: int = 5, seed: int = 3,
-              maxiter: int = 1500, verbose: bool = True):
-    """Sobol scan of the bounded parameter space, then Nelder-Mead from the best points."""
+def calibrate(fx: Fixed | None = None, n_scan: int = 2048, n_polish: int = 3, seed: int = 3,
+              maxiter: int = 700, seeds: list | None = None, verbose: bool = True):
+    """Sobol scan of the bounded parameter space, Nelder-Mead from the best scan
+    points and from any supplied seed parameterisations, and selection of the
+    winner by the loss on the fine grid (the search itself uses a coarse grid)."""
     from scipy.stats import qmc
     fx = fx or Fixed()
     lo, hi = bounds_log()
@@ -130,16 +132,21 @@ def calibrate(fx: Fixed | None = None, n_scan: int = 8192, n_polish: int = 5, se
         if L < 1e3:
             scored.append((L, x))
     scored.sort(key=lambda t: t[0])
-    best = None
-    for L0, x0 in scored[:n_polish]:
+    starts = [x for _, x in scored[:n_polish]]
+    for th in seeds or []:
+        starts.append(np.clip(np.log([th[k] for k in NAMES]), lo, hi))
+    best, best_fine = None, np.inf
+    for x0 in starts:
         res = minimize(objective, x0, args=(fx,), method="Nelder-Mead",
                        options=dict(maxiter=maxiter, xatol=1e-4, fatol=1e-4, adaptive=True))
+        th = _theta(np.clip(res.x, lo, hi))
+        r = evaluate(th, fx, fine=True)
+        L_fine = loss(r[0]) if r is not None else np.inf
         if verbose:
-            print(f"scan loss {L0:.2f} -> polished {res.fun:.3f}", flush=True)
-        if best is None or res.fun < best.fun:
-            best = res
-    x = np.clip(best.x, lo, hi)
-    return _theta(x), float(best.fun)
+            print(f"start loss {objective(x0, fx):.2f} -> polished {res.fun:.3f} (fine {L_fine:.3f})", flush=True)
+        if L_fine < best_fine:
+            best, best_fine = th, L_fine
+    return best, float(best_fine)
 
 
 def to_calibration(theta: dict, fx: Fixed, E_target: float = 0.2, a: float = 4.0) -> dict:

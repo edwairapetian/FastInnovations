@@ -17,10 +17,20 @@ resource constraint. The full planner maximises over $(P,x)$ by Nelder--Mead.
 \paragraph{Life cycles.} The growth phase has closed forms,
 $P=P_0e^{gt}$ and $S=P(1-e^{-(g+\delta)t})/(g+\delta)$. The stopping time is found
 on a fine time grid and refined by linear interpolation. Consolidation and
-maturity follow \cref{prop:toofast}(iii). Diffusion rates are lognormal and
-discretised into equal-probability bins. Fertility is lognormal and discretised
-the same way. Topic-years are weighted by members, $P/x^*(P)$, and by topic
-survival, $e^{-\xi t}$.
+maturity follow \cref{prop:toofast}(iii). Diffusion rates and fertility are lognormal, truncated at $\pm2.5$ log
+standard deviations and integrated on evenly spaced nodes. Because mature
+density is very elastic with respect to fertility ($1/|\eps_w|\approx7$),
+untruncated tails, where a few extremely fertile topics carry many
+researchers, make the moments converge very slowly. Topic-years are weighted by members, $P/x^*(P)$, and by topic
+survival, $e^{-\xi t}$. Observed log density adds classical measurement error
+with a standard deviation of 0.3, integrated by seven-point Gauss--Hermite
+quadrature. Besides matching the noisy arXiv proxy, this makes the quintile
+moments smooth in the parameters. The search uses a coarse grid (15 diffusion
+rates, 15 fertility levels, $\Delta t=0.1$). Candidates are re-ranked, and all
+reported moments computed, on a fine grid (41 diffusion rates, 51 fertility
+levels, $\Delta t=0.05$). Across grids the gradient and the share beyond the
+peak move by less than half a percentage point. The quintile moments move by
+up to one point, because the cut points between fifths fall in different places.
 
 \paragraph{Verification.} The file \texttt{code/tests/test\_propositions.py}
 checks every analytical result numerically:

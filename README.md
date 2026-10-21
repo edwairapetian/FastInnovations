@@ -8,6 +8,8 @@ model. Every number, figure and table in the paper is produced by the code.
 * `docs/empirical_facts.md`: the arXiv evidence the model is built to match,
   taken from the project's two memos (core model draft, Oct 13 2026, and
   *Testing the Model on arXiv*, Oct 20 2026).
+* `docs/draft_to_paper.md`: how each proposition and open problem of the core
+  model draft is resolved in the paper.
 * `code/ftmodel/`: the model.
   * `payoff.py`: the researcher's problem and the payoff curve `v(P)` (Theorem 1).
   * `equilibrium.py`: stationary topic equilibrium, planner, sufficient statistics (Propositions 2–4, 9–10).
@@ -30,7 +32,7 @@ every stable equilibrium is overcrowded at the margin (Propositions 5–6).
 Topics whose literature grows faster than a threshold rate `g*` overshoot
 their best density (Proposition 7, "too fast"). Faster writing scales science;
 better reading crowds it, and its gains are dissipated (Propositions 8 and 10).
-The stepping-on-toes parameter of growth theory is `λ = 1 − E·|ε_w|`, a product
+The stepping-on-toes parameter of growth theory is `λ_J = 1 − E·|ε_w|`, a product
 of two observable elasticities (Proposition 9).
 
 ## Reproducing
