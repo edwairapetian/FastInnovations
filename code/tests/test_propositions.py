@@ -8,8 +8,9 @@ import numpy as np
 import pytest
 
 from ftmodel.equilibrium import Economy, Stationary
-from ftmodel.lifecycle import (LifeCycleParams, g_star, mature_density,
-                               stopping_density_asymptotic)
+from ftmodel.lifecycle import (LifeCycleParams, composition_bias, consolidation_value,
+                               g_star, g_star_re, g_star_re_bound, mature_density,
+                               simulate, stopping_density_asymptotic, stopping_density_re)
 from ftmodel.payoff import GridCurve, PayoffCurve, ReaderParams
 
 rng = np.random.default_rng(20261021)
@@ -203,7 +204,82 @@ def test_prop7_finite_birth_stops_later():
         assert Pc >= stopping_density_asymptotic(gc, lc, g) * (1 - 1e-4)
 
 
+@pytest.mark.parametrize("ks", [0.0025, 0.003, 0.0035])
+def test_prop7_rational_expectations(ks):
+    """Forward-looking entry: g* <= g*_RE <= delta (Phat / P_m - 1); topics that
+    grow faster than the bound overshoot, slower than g* do not; with fast
+    diffusion entry overshoots further than myopic entry, past the frictionless
+    density."""
+    gc = GridCurve(PayoffCurve(BASE))
+    lc = LifeCycleParams(F=0.95, kappa_s=ks)
+    if not gc.lnv(gc.Phat) - lc.kappa * gc.Phat < np.log(lc.F) < gc.lnv(gc.Phat):
+        pytest.skip("mature topics must lie on the rising side of v")
+    Pm = mature_density(gc, lc)
+    if Pm >= gc.Phat:
+        pytest.skip("mature topics must lie on the rising side of v")
+    g0, g1, g2 = g_star(gc, lc), g_star_re(gc, lc), g_star_re_bound(gc, lc)
+    assert g0 <= g1 + 1e-9 <= g2 + 2e-9
+    assert stopping_density_re(gc, lc, g2 * 1.05) > gc.Phat
+    assert stopping_density_re(gc, lc, g0 * 0.95) < gc.Phat
+    assert stopping_density_re(gc, lc, g1 * 0.98) < gc.Phat < stopping_density_re(gc, lc, g1 * 1.02)
+    Pf = gc.curve.crossing(lc.F, "falling")
+    g_fast = 200.0
+    assert stopping_density_re(gc, lc, g_fast) > stopping_density_asymptotic(gc, lc, g_fast)
+    assert stopping_density_re(gc, lc, 1e6) > Pf
+    # U(P) averages v along the consolidation path: equals v at P_m
+    assert abs(consolidation_value(gc, lc, Pm) / np.exp(gc.lnv(Pm)) - 1) < 1e-9
+
+
+def test_composition_bias_formula():
+    """Small-acceleration limit equals Cov(ln P, (T - a)^+) / T."""
+    gc = GridCurve(PayoffCurve(BASE))
+    lc = LifeCycleParams(F=0.95, kappa_s=0.003, n_g=9, n_z=1, dt=0.1)
+    cs = simulate(gc, lc)
+    T = 7.0
+    w = cs.w / cs.w.sum()
+    x = np.clip(T - cs.age, 0, None)
+    cov = ((w * (cs.lnP - (w * cs.lnP).sum())) * (x - (w * x).sum())).sum()
+    assert abs(composition_bias(cs, T, dg=1e-6) - cov / T) < 1e-4
+    assert composition_bias(cs, T) < 0
+
+
+def test_prop6_social_value():
+    """Social output: uniform wedge s = v exp(-extra P); proportional transfer
+    ln s = ln v - tau ln C.  Overcrowding survives transfers in the calibrated
+    region where |eps_w(P_m)| exceeds theta lam P_m."""
+    c = PayoffCurve(BASE)
+    P = np.array([3.0, 10.0, 30.0])
+    assert np.allclose(c.ln_social(P, extra=0.01), c.lnv(P) - 0.01 * P)
+    r = c.r_star(P)
+    lnC = -BASE.Theta * P * (1 - BASE.dl * c.phi(BASE.b * r / P))
+    assert np.allclose(c.ln_social(P, tau=0.4), c.lnv(P) - 0.4 * lnC)
+    kappa = 0.012
+    s = Stationary(c, Economy(kappa=kappa, eta=0.0, Fbar=0.95, Mbar=50.0))
+    Pm = s.equilibrium()["P"]
+    ew = abs(float(s.eps_w(Pm)[0]))
+    grid = np.exp(np.linspace(np.log(0.5), np.log(3 * Pm), 4000))
+    for tau in (0.0, 0.5, 1.0):
+        Po = grid[np.argmax(c.ln_social(grid, tau=tau) - kappa * grid)]
+        if ew > BASE.Theta * Pm:
+            assert Po < Pm
+
+
 # ---------------------------------------------------------------- Propositions 9-10
+def test_prop10_sign_with_elastic_frontier():
+    """eta > 0: d ln(Y/N) / d omega = -eta d ln M* / d omega >= 0 (corrected sign)."""
+    eco = Economy(kappa=0.004, eta=0.2, Fbar=0.95, Mbar=50.0)
+    res = []
+    for beta in (0.2, 0.2 * np.exp(0.01)):
+        s = Stationary(PayoffCurve(BASE.with_(beta=beta)), eco)
+        eq = s.equilibrium(N=1e4, explorers=False)
+        Y, M = s.output(eq["P"], 1e4, explorers=False)
+        res.append((np.log(Y / 1e4), np.log(M)))
+    dy, dm = res[1][0] - res[0][0], res[1][1] - res[0][1]
+    assert dm < 0 and dy > 0
+    # in the large-topic limit Y/N = a F(M*), so d ln(Y/N) = -eta d ln M*
+    assert abs(dy - (-eco.eta * dm)) < 0.05 * abs(dy)
+
+
 def test_prop10_reading_improvements_dissipated():
     """eta = 0: better reading raises density but not output per researcher."""
     out = []

@@ -1,9 +1,29 @@
 # Empirical facts the model must match
 
 Source: the project's two internal memos, *Core Model Draft: Reading, Writing and
-Duplication* (Oct 13, 2026) and *Testing the Model on arXiv* (Oct 20, 2026). The
-numbers below are copied from those memos. The tests were pre-registered in
-the core draft before they were run.
+Duplication* (Oct 13, 2026) and *Testing the Model on arXiv* (Oct 20, 2026), as
+corrected by the *Top-5 Readiness Review* (Oct 21, 2026). The tests were
+written down before they were run but were not deposited in a public
+registry, so the paper calls them out-of-sample predictions, not
+pre-registered tests.
+
+## Corrections after the readiness review (used in the paper)
+
+| Item | Memo | Corrected |
+|---|---|---|
+| Analysis frame | 1.71M papers | **1.49M** (2018–2025), 1.65M through mid-2026 |
+| Volume growth 2018→2025 | +113% | **+122%** |
+| F3 fifths "relative to the middle fifth" | −8% / +5% / +1% (actually deviations from each author's mean) | **−11% / +2% / −2%** relative to the middle fifth |
+| F3 gradient SE | "SE 0.15" | SE **0.15 percentage points** (0.0015), author-clustered |
+| F1 at the overlap (99th pct.) radius | — | **0.035 (SE 0.118)**, interval −0.20 to 0.27; 0.12–0.19 from the 95th to 25th pct. radius; benchmark 0.53–0.81 |
+| F5 aware share | 35–42% raw | **≈60%** after the 63% citation recall; recall drifts (arXiv ids per PDF 5.0→8.8; pre/post +3.8 pp, SE 1.3); INSPIRE-HEP check: 61% at the 90th pct. similarity |
+| F6 pioneers | +1.3 pp (0.5) detrended | **dropped**: TF-IDF wording artifact; −0.8 pp (0.2) without detrending |
+| F7 overlap by meaning | −0.19 pp (0.24) | **uninformative**: MDE ≈ 0.67 pp ≈ two thirds of the base |
+| F2 flat papers per author | area-level ratio | author-level LLM adopters: **≈ +7%** (this repository, `empirics/08_llm_authors.py`) |
+| Exposure | "high uptake" areas | 13 of the 15 highest-uptake areas study AI or vision (AI as subject) |
+
+The calibration targets in `code/ftmodel/calibration.py` use the corrected
+values: fifths −11/+2/−2%, aware share 0.60, E = 0.15 (range 0–0.27).
 
 Data: arXiv papers 2018–2025 (1.71M), 150 text-based fine areas; a PDF sample
 of 25,400 papers (10,200 flagged); OpenAlex citations (early October 2026
@@ -49,7 +69,7 @@ FE; 923,000 author-years (311,000 authors with 2+ active years), papers
 | Citations per paper per SD | +9.5% |
 | Papers per year per SD | +0.5% (hump, no linear gradient) |
 | Quadratic: linear term, squared term | **0.094, −0.047** (SE ≤ 0.002) → peak ≈ **+1 SD** |
-| By fifth of density, relative to the middle fifth | sparsest **−8%**, rises to **+5%**, densest **+1%** |
+| By fifth of density (memo label "relative to the middle fifth"; these are deviations from each author's mean) | sparsest −8%, +5%, densest +1%; **relative to the middle fifth: −11%, +2%, −2%** |
 | Researcher-years beyond the peak | **12%** |
 | Robustness | holds with the 3rd-closest paper, and for researchers active 3+ years |
 

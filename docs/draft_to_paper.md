@@ -1,7 +1,11 @@
 # From the core model draft to the paper
 
 This note maps each claim and open problem in the *Core Model Draft* (Oct 13,
-2026) to its status in `paper/main.pdf`. Numbers refer to the paper.
+2026) to its status in the first version of the paper. Changes made after the
+Top-5 readiness review (Oct 21, 2026), including corrected numbers,
+forward-looking entry in the "too fast" result, the social-value block and the
+quasi-experimental evidence, are in `docs/review_response.md`, which supersedes
+this note where they differ.
 
 ## The draft's six propositions
 

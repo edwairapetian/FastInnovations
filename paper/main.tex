@@ -10,6 +10,7 @@
 \usepackage{enumitem}
 \usepackage[authoryear,round]{natbib}
 \usepackage{xcolor}
+\usepackage{url}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 \usepackage[nameinlink,capitalise]{cleveref}
 
@@ -35,31 +36,33 @@
 \newcommand{\eps}{\varepsilon}
 \newcommand{\dd}{\mathrm{d}}
 \input{numbers}
+\input{numbers_emp}
 
-\title{When Innovation Is Too Fast:\\Reading, Writing, and the Crowding of Science}
-\author{[Authors]\thanks{Draft of October 2026 for the project \emph{When Innovations Are Too Fast}. The arXiv evidence summarised in \cref{sec:facts} comes from the project's pre-registered tests. Code that reproduces every number, figure and numerical check in this paper is in the accompanying repository (\texttt{code/}).}}
+\title{Faster Writing Scales Science, Better Reading Crowds It:\\Topic Choice and the Economics of Duplication}
+\author{}
 \date{October 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-\noindent Science runs on writing new results and reading other people's. Reading \emph{teaches}: it raises the quality of new work. It also \emph{protects}: it reveals projects that others have already done. We model researchers who choose a topic and split their time between reading and writing. The payoff of working in a topic is single peaked in the flow of its literature: thin topics offer little to learn from, dense ones hide more unread overlap. Free choice of topics then has three consequences. The gains from cumulative knowledge are competed away. The overlap rate is pinned by entry, not by volume. And at any stable equilibrium the marginal paper hurts its own topic. A catch-up cost, the need to read a topic's stock before contributing, protects incumbents' rents. As a result, measured returns rise with density even though topics are too crowded. Topics whose literature grows faster than a threshold rate overshoot their best density: innovation is ``too fast''. Faster writing scales science; better reading crowds it. Pre-registered tests on 1.7 million arXiv papers support the core mechanism and the catch-up friction. We calibrate the model and derive a sufficient-statistic formula for the stepping-on-toes parameter of growth theory.
+\noindent Reading has two jobs in science. It \emph{teaches}, raising the quality of new work, and it \emph{protects}, revealing projects that others have already done. We model researchers who choose a topic and split their time between reading and writing. For any learning and detection technology with bounded absorption, the payoff of working in a topic is single peaked in the flow of its literature. Free choice of topics then has the structure of a system of cities: topics fill past their best size, and the duplication rate is pinned by entry rather than by the volume of papers. The implication we emphasise is an asymmetry. Faster writing raises the payoff of opening new topics as much as that of joining old ones, so it scales output almost one for one. Better reading, search and summarising tools raise only the payoff of existing topics, and entry competes the gain away. On arXiv, more volume opens new ground rather than thickening old topics. On 2.2 million submissions with exact timestamps, four arXiv rule changes and design features identify the margins the model relies on. A tighter endorsement rule cut first-time submitters by about a sixth. A peer-review requirement halved review articles in computer science. A cap of two submissions per person per month binds on about one paper in a hundred. Daily listing position barely moves readership and leaves the detection of overlapping work unchanged. In the calibrated model, a 30\% faster pen raises output per researcher by \calWriteOut\ log points and 30\% faster reading by \calReadOut. The static gain from optimal topic choice is small, and forward-looking entry still makes fast-growing topics overshoot.
 
 \medskip
-\noindent\textbf{JEL:} O31, O33, O40, D62, I23. \quad \textbf{Keywords:} economics of science, rent dissipation, topic choice, duplication, burden of knowledge, artificial intelligence.
+\noindent\textbf{JEL:} O31, O33, O40, D62, I23, R12. \quad \textbf{Keywords:} economics of science, topic choice, duplication, system of cities, burden of knowledge, artificial intelligence, arXiv.
 \end{abstract}
 
 \newpage
 \input{sections/01_intro}
-\input{sections/02_facts}
 \input{sections/03_model}
 \input{sections/04_payoff}
 \input{sections/05_equilibrium}
 \input{sections/06_catchup}
 \input{sections/07_ai}
-\input{sections/08_macro}
+\input{sections/02_facts}
+\input{sections/08_causal}
 \input{sections/09_quant}
+\input{sections/08_macro}
 \input{sections/10_predictions}
 \input{sections/11_conclusion}
 
@@ -70,5 +73,6 @@
 \input{sections/A_proofs}
 \input{sections/B_extensions}
 \input{sections/C_numerics}
+\input{sections/D_data}
 
 \end{document}

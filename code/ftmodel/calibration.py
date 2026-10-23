@@ -3,11 +3,14 @@
 Targets (docs/empirical_facts.md, Fact 3 = Test 4 with author fixed effects):
 
     lin      +6.7% citations per author-year per SD of topic density
-    Q1,Q4,Q5 returns by fifth of density relative to the middle fifth: -8%, +5%, +1%
+    Q1,Q4,Q5 returns by fifth of density relative to the middle fifth: -11%, +2%,
+             -2% (the arXiv fifths re-expressed relative to the middle fifth; the
+             earlier -8%, +5%, +1% were deviations from each author's mean)
     beyond   12% of researcher-years beyond the peak of the payoff curve
     premium  incumbents' log premium over the frontier, kappa P_m = rho T
              (soft target 0.15: one and a half years of catch-up per ten-year tenure)
-    aware    aware share of flagged overlap at the mature density, 0.38 (Fact 5)
+    aware    aware share of flagged overlap at the mature density, 0.60: the raw
+             PDF-matched share (35-42%, Fact 5) divided by the 63% citation recall
 
 The quadratic summary of Test 4 (0.094 z - 0.047 z^2) is not targeted: it
 imposes a symmetric hump, while both the quintiles and the model's payoff
@@ -37,13 +40,17 @@ from .credit import CreditTargets, credit_block
 from .lifecycle import LifeCycleParams, g_star, mature_density, simulate, test4_moments
 from .payoff import GridCurve, PayoffCurve, ReaderParams
 
-TARGETS = dict(lin=0.067, Q1=-0.08, Q4=0.05, Q5=0.01, beyond=0.12, premium=0.15, aware=0.38)
+TARGETS = dict(lin=0.067, Q1=-0.11, Q4=0.02, Q5=-0.02, beyond=0.12, premium=0.15, aware=0.60)
 SCALES = dict(lin=0.008, Q1=0.015, Q4=0.012, Q5=0.012, beyond=0.03, premium=0.06, aware=0.03)
 
 NAMES = ("beta", "gamma", "Theta", "F", "g_med", "g_disp", "zeta_sd", "b_c", "sigma")
 LOWER = dict(beta=0.1, gamma=0.05, Theta=1e-4, F=0.8, g_med=0.05, g_disp=0.2, zeta_sd=0.02, b_c=20.0,
              sigma=0.3)
-UPPER = dict(beta=50.0, gamma=1.0, Theta=0.02, F=2.5, g_med=1.0, g_disp=1.5, zeta_sd=0.4, b_c=300.0,
+# g_med <= 0.5: the median new topic takes at least about 3.5 years to grow from
+# P0 to mature density.  Searches with g_med up to 1 end in corners where almost
+# every topic overshoots (and beta, b_c and zeta_sd sit at their lower bounds)
+# without a lower loss than the interior solution.
+UPPER = dict(beta=50.0, gamma=1.0, Theta=0.02, F=2.5, g_med=0.5, g_disp=1.5, zeta_sd=0.4, b_c=300.0,
              sigma=10.0)
 
 
@@ -149,7 +156,7 @@ def calibrate(fx: Fixed | None = None, n_scan: int = 2048, n_polish: int = 3, se
     return best, float(best_fine)
 
 
-def to_calibration(theta: dict, fx: Fixed, E_target: float = 0.2, a: float = 4.0) -> dict:
+def to_calibration(theta: dict, fx: Fixed, E_target: float = 0.15, a: float = 4.0) -> dict:
     """Assemble the calibration dictionary used by ftmodel.report."""
     from .equilibrium import Economy, Stationary
     rp, gc, lc = build(theta, fx, fine=True)

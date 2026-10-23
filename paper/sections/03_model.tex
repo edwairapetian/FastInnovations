@@ -73,7 +73,9 @@ $0\le \ell<\lambda\le 1$ and $\theta>0$.
 
 Detection is valuable ($\ell<\lambda$), and duplicates need not earn zero
 ($\lambda<1$ is allowed). The arXiv evidence (Fact~\ref{fact:credit}) requires
-both. Let $\Delta\equiv\lambda-\ell$ and $q\equiv 1-G(1-\kappa_p)$, the share
+both. Credit here is private. \Cref{sec:catchup} separates it from social
+value, since part of the credit lost to overlap may be a transfer to the
+earlier paper. Let $\Delta\equiv\lambda-\ell$ and $q\equiv 1-G(1-\kappa_p)$, the share
 of detections that proceed.
 
 \begin{lemma}[Credit and overlap]\label{lem:credit}
@@ -111,6 +113,24 @@ The \emph{payoff curve} $v$ is the central object of the paper. Writing speed $a
 scales every payoff and so drops out of $v$. The researcher takes $P$ as given:
 she ignores both that her papers teach her colleagues and that they add to
 what her colleagues must read.
+
+\begin{remark}[Topic size and what density measures]\label{rem:breadth}
+A topic has a fixed set of projects: the coverage rate $\theta$ is a property
+of the topic and does not shrink when the topic attracts more people. This is
+a normalisation, not a restriction, once density is measured locally. Let a
+field of breadth $B$ consist of $B$ cells of unit breadth, each receiving a
+flow $P/B$, and let researchers read and be covered within their own cell, so
+that the coverage rate per paper is $\theta_0/B$. The field is then $B$
+independent copies of a unit topic with density $P/B$, and every result below
+holds with $P$ replaced by $P/B$. The model's topic is therefore a
+neighbourhood of fixed size in idea space, and $P$ is papers per unit of idea
+space: the quantity that nearest-neighbour similarity measures. If papers fall
+at rate $P/B$ in a $d$-dimensional space, the distance to the $k$-th nearest
+earlier paper scales as $(kB/P)^{1/d}$. ``Opening a topic'' means moving into
+an empty cell, and the question of whether topics broaden as they grow becomes
+the question of how the volume elasticity varies with the similarity radius,
+which \cref{sec:facts} measures.
+\end{remark}
 
 \subsection{The frontier, careers and catch-up}
 
@@ -168,6 +188,7 @@ $\rho$, $\delta$ & career turnover; decay of the stock's relevance & $S$, $b_c$ 
 $\kappa=\rho/(\delta b_c)$ & catch-up cost per unit of density & $w(P)$ & newcomer's career payoff, $v(P)e^{-\kappa P}$ \\
 $P^*$, $P^m$ & equilibrium (mature) density & $\mathcal E$ & elasticity of density with respect to $N$ \\
 $g$, $g^*$ & topic diffusion rate; overshooting threshold & $\lambda_J$ & stepping-on-toes parameter of \citet{jones1995} \\
+$\lambda_s$, $\tau$ & social loss per unread covering paper; transfer share & $U(P)$ & entrant's expected payoff along the consolidation path \\
 \bottomrule
 \end{tabularx}
 \end{table}

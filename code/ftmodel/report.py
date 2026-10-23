@@ -12,8 +12,9 @@ import numpy as np
 
 from .credit import CreditTargets, aware_share, credit_block, flagged_rate_index
 from .equilibrium import Economy, Stationary
-from .lifecycle import (LifeCycleParams, g_star, mature_density, phase_shares,
-                        simulate, stopping_density_asymptotic, test4_moments)
+from .lifecycle import (LifeCycleParams, composition_bias, g_star, g_star_re,
+                        g_star_re_bound, mature_density, phase_shares, simulate,
+                        stopping_density_asymptotic, stopping_density_re, test4_moments)
 from .payoff import GridCurve, PayoffCurve, ReaderParams
 
 
@@ -89,7 +90,59 @@ def summary(m: Model) -> dict:
         aware_m=float(aware_share(phi_m, q)), erosion_m=float(cv.erosion_loss(Pm)[0]),
         phases=ph, moments_pooled=mom_p, moments_within=mom_w,
         beyond_true=mom_p["beyond"],
+        g_star_re=g_star_re(m.grid, lc), g_star_re_bound=g_star_re_bound(m.grid, lc),
+        comp_bias_T7=composition_bias(cs, 7.0),
     )
+
+
+def social_block(m: Model, taus=(0.0, 0.25, 0.5, 0.75, 1.0)) -> dict:
+    """Social value versus private credit (Proposition 6).
+
+    Uniform wedge: s = v exp(-theta (lam_s - lam) P).  The equilibrium is
+    overcrowded relative to the social optimum iff the share of overlap losses
+    that are transfers, tau = (lam - lam_s) / lam, is below
+    |eps_w(P_m)| / (theta lam P_m).
+    Proportional transfer: ln C_s = (1 - tau) ln C; the social optimum is the
+    peak of ln s - kappa P, found numerically.
+    """
+    from scipy.optimize import minimize_scalar
+    cv, k = m.curve, m.kappa
+    Pm = m.mature()
+    eps_w = float(cv.eps_v(Pm)[0]) - k * Pm
+    ThP = cv.p.Theta * Pm
+    out = dict(Pm=Pm, eps_w=eps_w, theta_lam_Pm=ThP,
+               erosion_m=float(cv.erosion_loss(Pm)[0]),
+               tau_crit_uniform=abs(eps_w) / ThP, tau_max_uniform=1 - cv.p.dl)
+    rows = []
+    for t in taus:
+        f = lambda q: -(cv.ln_social(np.exp(q), tau=t)[0] - k * np.exp(q))
+        r = minimize_scalar(f, bounds=(np.log(1.0), np.log(400.0)), method="bounded",
+                            options={"xatol": 1e-9})
+        Po = float(np.exp(r.x))
+        gain = float(np.exp(-r.fun - (cv.ln_social(Pm, tau=t)[0] - k * Pm)) - 1)
+        rows.append(dict(tau=t, P_social=Po, overcrowded=bool(Po < Pm), gain=gain))
+    out["proportional"] = rows
+    g = lambda t: (lambda q: -(cv.ln_social(np.exp(q), tau=t)[0] - k * np.exp(q)))
+    def Po(t):
+        r = minimize_scalar(g(t), bounds=(np.log(1.0), np.log(400.0)), method="bounded",
+                            options={"xatol": 1e-9})
+        return float(np.exp(r.x))
+    from scipy.optimize import brentq
+    try:
+        out["tau_crit_proportional"] = brentq(lambda t: Po(t) - Pm, 0.0, 5.0, xtol=1e-6)
+    except ValueError:
+        out["tau_crit_proportional"] = float("nan")
+    return out
+
+
+def re_overshooting(m: Model, gs=(0.1, 0.2, 0.3, 0.5, 1.0, 2.0, 5.0)) -> dict:
+    """Forward-looking entry (Proposition 7): thresholds and stopping densities."""
+    gc, lc = m.grid, m.lc
+    rows = [dict(g=g, myopic=stopping_density_asymptotic(gc, lc, g),
+                 rational=stopping_density_re(gc, lc, g)) for g in gs]
+    return dict(g_star=g_star(gc, lc), g_star_re=g_star_re(gc, lc),
+                g_star_re_bound=g_star_re_bound(gc, lc),
+                P_frictionless=m.curve.crossing(lc.F, "falling"), rows=rows)
 
 
 def ai_counterfactuals(m: Model, size: float = 0.3) -> list[dict]:

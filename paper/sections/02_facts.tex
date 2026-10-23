@@ -1,89 +1,144 @@
-\section{Seven facts from arXiv}\label{sec:facts}
+\section{Evidence I: the arXiv record}\label{sec:facts}
 
-The evidence comes from the project's pre-registered tests on 1.71 million
-arXiv papers posted 2018--2025, classified into 150 text-based fine areas.
-These are complemented by a PDF sample of 25,400 papers for citation behaviour and OpenAlex
-citation counts. A paper's \emph{overlap flag} is set when an earlier paper by
-another group, posted 3 to 24 months before, lies above its area's 99th
-percentile of 2018--19 nearest-neighbour similarity. The \emph{level} of the
-flagged rate is therefore a normalisation, about 1\% in the base period. Its
-\emph{changes} carry the information. Every prediction tested below was written
-down before the test was run. \Cref{tab:facts} collects the numbers.
+This section documents five facts that discipline the model. The analysis frame
+holds 1.49 million arXiv papers posted in 2018--2025 (1.65 million through
+mid-2026), classified into 150 text-based fine areas. Volume rose by 122\% over
+2018--2025. It is complemented by a sample of 25,400 full-text PDFs for citation
+behaviour, by citation counts and reference lists, and, for the validation of
+awareness, by curated INSPIRE-HEP reference lists. A paper's \emph{overlap
+flag} is set when an earlier paper by another group, posted 3 to 24 months
+before, lies above its area's 99th percentile of 2018--19 nearest-neighbour
+TF-IDF similarity. The \emph{level} of the flagged rate, about 1\% in the base
+period, is a normalisation; its \emph{changes} carry the information.
+Text-based similarity follows \citet{hobergphillips2016} and
+\citet{kellyetal2021}. TF-IDF and sentence-embedding flags agree on only about
+a fifth of flagged papers, so we report which measure each fact uses and do not
+lean on either alone. \Cref{tab:facts} collects the numbers. Standard errors are
+clustered by author unless noted. Clustering by area would be more conservative
+and is part of the replication package.
 
 \begin{enumerate}[label=\textbf{Fact \arabic*.},ref=\arabic*,leftmargin=*]
-\item\label{fact:volume} \emph{Volume opens new ground.} The elasticity of the
-local-neighbour hazard with respect to an area's prior two-year volume is
-0.04--0.19 across similarity radii, with area and year effects. If an area's
-papers kept landing in the same idea space, randomly thinning each paper's
-observed neighbour list implies 0.53--0.89. In the all-arXiv time series, volume
-rose 113\% from 2018 to 2025 while the overlap hazard rose 13\% (elasticity
-0.19--0.27). Close overlap responds least of all.
-
-\item\label{fact:authors} \emph{Growth came from new authors.} Papers per author
-stayed flat while the number of authors grew.
+\item\label{fact:volume} \emph{Volume opens new ground.} We regress the log
+local-neighbour hazard, the rate at which a paper's similarity radius is
+populated by earlier papers, on the log of the area's prior two-year volume
+with area and year effects. From the 95th to the 25th percentile radius, the
+elasticity is 0.12--0.19. If an area's papers kept landing in the same idea
+space, randomly thinning each paper's observed neighbour list implies
+0.53--0.81 at the same radii. At the 99th percentile radius, the radius of the
+overlap flag, the estimate is 0.035 with a standard error of 0.118 (95\%
+interval $-0.20$ to $0.27$). In the all-arXiv time series, volume rose 122\%
+from 2018 to 2025 while the overlap hazard rose about 13\% (elasticity
+0.19--0.27). The model's topic is a cell of fixed size in idea space
+(\cref{rem:breadth}), so its density is the close-radius density. We therefore
+use $\mathcal E=0.15$ as the baseline and report results over $[0,0.27]$. Broad
+radii fill faster than close ones, as new topics are packed into an area's idea
+space (prediction P7 in \cref{sec:predictions}).
 
 \item\label{fact:hump} \emph{Returns are hump-shaped in topic density.} Comparing
 the same researcher across years spent in denser or sparser topics, with author
 and year effects (923,000 author-years), one standard deviation of density goes
-with 6.7\% more fractional citations per author-year. By fifth of density,
-returns relative to the middle fifth are $-8\%$ in the sparsest fifth, rise to
-$+5\%$, and fall back to $+1\%$ in the densest. A quadratic puts the peak about
-one standard deviation above mean density, with 12\% of researcher-years beyond
-it. The shape survives using the third-closest paper and restricting to
-researchers active three or more years.
+with $6.7\%$ more fractional citations per author-year (SE 0.15 percentage
+points, clustered by author). Relative to the middle fifth of density, returns
+are $-11\%$ in the sparsest fifth, $+2\%$ in the fourth fifth and $-2\%$ in the
+densest. The densest researcher-years thus earn less than the middle. A
+quadratic puts the peak about one standard deviation above mean density, with
+12\% of researcher-years beyond it. The shape survives using the third-closest
+paper and restricting to researchers active three or more years. Two caveats
+matter for interpretation. First, citations reward audience. A paper with more
+close neighbours has more potential citers, which by itself produces a rising
+gradient, so the rising arm is an upper bound on the returns to density.
+Second, papers per author-year rise slightly with density within author,
+$+0.5\%$ per standard deviation (SE 0.1). \Cref{thm:v}(v) predicts a fall. The
+discrepancy is small, but it is a failed prediction and we report it. Larger
+teams in denser topics are one candidate explanation.
 
 \item\label{fact:credit} \emph{Duplicates lose some credit, aware follow-ons gain.}
-Relative to papers in the same area-year with the same topic density,
-\emph{unaware} overlaps (which do not cite their nearest earlier paper) receive
-19\% fewer citations. \emph{Aware} overlaps (which cite it) receive 29\% more.
+Among 2018--2021 papers with at least five references, relative to papers in the
+same area-year with the same topic density, \emph{unaware} overlaps (which do not
+cite their nearest earlier paper) receive 19\% fewer citations (SE 2). \emph{Aware}
+overlaps (which cite it) receive 29\% more (SE 5). The penalty is close to the
+21\% citation penalty for scooped teams in structural biology estimated by
+\citet{hillstein2025} with a different design and field. The two estimates
+validate each other.
 
-\item\label{fact:aware} \emph{Awareness did not rise.} The aware share of close
-overlap stayed between 35\% and 42\% in every year from 2019 to 2026. It did not
-differ by exposure to large language models: $-0.5$ pp per standard deviation,
-SE 1.4.
+\item\label{fact:aware} \emph{About 60\% of close overlap is aware.} In the PDF
+sample, the raw share of flagged pairs in which the later paper cites the earlier
+one is 35--42\% in every year from 2019 to 2026. PDF matching recovers 63\% of
+citations, so the recall-corrected share is about 60\%. Recall is not constant:
+arXiv identifiers recovered per PDF rose from 5.0 in 2019 to 8.8 in 2026, and the
+raw aware share rose by 3.8 percentage points (SE 1.3) after 2022. Only the
+comparison across areas with high and low exposure to large language models is
+flat ($-0.5$ pp per standard deviation, SE 1.4). An independent check comes from
+high-energy physics, where INSPIRE-HEP curates complete reference lists. Among later
+papers by other authors that overlap an earlier paper at the area's 90th
+percentile of nearest-neighbour similarity, \empAwareInsNinety\ cite it
+(\empAwareInsSevfive\ at the 75th percentile). We calibrate to 60\%.
 
-\item\label{fact:concentration} \emph{No concentration where LLMs spread.}
-High-uptake areas were already losing pioneer papers before ChatGPT. Against
-their own extended trend, they produced \emph{more} pioneer papers afterwards:
-$+0.4$ pp (SE 0.3) in 2023--2025H1 and $+1.3$ pp (SE 0.5) from 2025H2. Local density
-fell by 1.1 and 2.7 pp.
-
-\item\label{fact:wording} \emph{The 2026 drop in measured overlap is a change in wording.}
-Word-based (TF-IDF) overlap fell in 2026 across the whole similarity
-distribution, concentrated in high-uptake areas rather than dense ones. Measured
-by meaning (sentence embeddings), close overlap did not fall.
+\item\label{fact:authors} \emph{Growth came mostly from new authors, and drafting
+tools raised output per adopter only modestly.} At the area level, papers per
+unique author identifier stayed flat while the number of authors grew. An
+area-level ratio cannot rule out a drafting effect, because entrants change the
+composition of authors. Author identifiers are also unreliable in 2025, when many
+were reissued. We therefore build an author-level panel with name-keyed
+submitter identities (\cref{sec:causal}). Submitters whose 2023 abstracts adopt
+the vocabulary that spread with large language models
+\citep{liangetal2024,kobaketal2025} raised their output in 2024--2026 by about
+\empLLMallPct\ relative to submitters who did not, and by a similar amount in
+fields where AI is not the subject. \citet{kusumegietal2025} report 36\% more
+papers for LLM adopters. Their timing rule, which dates adoption by the first
+flagged paper, mechanically generates positive dynamics \citep{renaultetal2026}.
+Classifying adoption before the outcome window, as we do, avoids this.
 \end{enumerate}
 
 \begin{table}[t]
 \centering
 \small
-\caption{Targets and tests from the arXiv evidence}\label{tab:facts}
+\caption{The arXiv facts}\label{tab:facts}
 \begin{tabularx}{\textwidth}{@{}lXl@{}}
 \toprule
 Fact & Statistic & Value \\
 \midrule
-1 & Elasticity of local density to area volume & 0.04--0.19 (time series 0.19--0.27) \\
-  & Fixed-field benchmark & 0.53--0.89 \\
-2 & Papers per author while authors grew & flat \\
-3 & Citations per author-year per SD of density (author FE) & $+6.7\%$ (SE 0.15) \\
-  & By fifth, relative to middle: sparsest / 4th / densest & $-8\%$ / $+5\%$ / $+1\%$ \\
+1 & Elasticity of local density to area volume, 95th--25th pct.\ radius & 0.12--0.19 \\
+  & \quad at the overlap radius (99th pct.) & 0.035 (0.118) \\
+  & \quad fixed-field benchmark at the same radii & 0.53--0.81 \\
+  & \quad all-arXiv time series, 2018--2025 (volume $+122\%$) & 0.19--0.27 \\
+2 & Citations per author-year per SD of density (author FE) & $+6.7\%$ (0.15 pp) \\
+  & By fifth, relative to the middle: sparsest / 4th / densest & $-11\%$ / $+2\%$ / $-2\%$ \\
   & Peak of quadratic; share of researcher-years beyond it & $\approx+1$ SD; 12\% \\
-4 & Citations: unaware overlap / aware overlap & $-19\%$ (2) / $+29\%$ (5) \\
-5 & Aware share of close overlap, 2019--2026 & 35--42\%, flat \\
-6 & Pioneer papers vs.\ trend, high-uptake areas, 2025H2+ & $+1.3$ pp (0.5) \\
-7 & Close overlap by meaning, high- vs.\ low-uptake, 2024--26H1 & $-0.19$ pp (0.24) \\
+  & Papers per author-year per SD of density & $+0.5\%$ (0.1) \\
+3 & Citations: unaware overlap / aware overlap & $-19\%$ (2) / $+29\%$ (5) \\
+4 & Aware share of close overlap: raw / recall-corrected & 35--42\% / $\approx60\%$ \\
+  & \quad INSPIRE-HEP, 90th / 75th pct.\ similarity & \empAwareInsNinety\ / \empAwareInsSevfive \\
+5 & Author-level output of LLM-style adopters, 2024--26 & $\approx$\empLLMallPct \\
 \bottomrule
 \end{tabularx}
 \begin{minipage}{\textwidth}\footnotesize\smallskip
-Notes: arXiv 2018--2025, 150 areas. Standard errors in parentheses. Facts 1 and
-3 discipline the calibration of \cref{sec:quant}. Facts 2 and 5--7 test the AI
-channels of \cref{sec:ai}. Fact 4 disciplines the credit block.
+Notes: arXiv 2018--2025, 150 areas. Standard errors in parentheses. Facts 1--4
+discipline the calibration of \cref{sec:quant}. Fact 5 bears on the drafting
+channel of \cref{prop:ai}.
 \end{minipage}
 \end{table}
 
-How do the facts map into the model? Fact~\ref{fact:volume} is the volume
+\paragraph{What we no longer claim.} An earlier version of this evidence
+reported that areas with high LLM uptake produced more pioneer papers, and
+that overlap measured by meaning did not fall. Neither survives scrutiny. The
+pioneer measure uses the same TF-IDF neighbours that changes in wording distort.
+In high-uptake areas, rare words in abstracts rose from 25.4 to 33.0 per abstract
+and hyphenated words from 6.9 to 10.5 over 2025--2026. Without detrending against
+a pre-existing decline, the pioneer estimate is $-0.8$ pp (SE 0.2), which points to
+concentration rather than dispersion. The embedding-based overlap estimate,
+$-0.19$ pp (SE 0.24) on a base near 1\%, has a minimum detectable effect at 80\%
+power of about 0.67 pp, roughly two thirds of the base. Most model channels move
+flagged overlap by 7--30\% (\cref{tab:ai}), so the test cannot discriminate.
+Finally, 13 of the 15 highest-uptake areas study AI or computer vision, so area
+exposure confounds AI as a tool with AI as a subject. The author-level design in
+Fact~\ref{fact:authors} addresses this by restricting to fields where AI is not
+the subject.
+
+\paragraph{Mapping to the model.} Fact~\ref{fact:volume} is the volume
 elasticity $\mathcal E$ of \cref{prop:volume}. Fact~\ref{fact:hump} rejects the
 equal returns of the frictionless model and motivates the catch-up cost of
-\cref{sec:catchup}. Fact~\ref{fact:credit} disciplines the credit parameters $\lambda$ and
-$\Delta/\lambda$ (\cref{lem:credit}). Facts~\ref{fact:authors} and
-\ref{fact:aware}--\ref{fact:wording} distinguish the AI channels of \cref{sec:ai}.
+\cref{sec:catchup}. Fact~\ref{fact:credit} disciplines the credit parameters
+$\lambda$ and $\Delta/\lambda$ (\cref{lem:credit}), and Fact~\ref{fact:aware}
+disciplines search precision $\sigma$ through the aware share \eqref{eq:aware}.
+None of these facts is causal. The next section turns to designs that are.

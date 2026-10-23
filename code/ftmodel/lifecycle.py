@@ -109,6 +109,67 @@ def g_star(gc: GridCurve, lc: LifeCycleParams, lz: float = 0.0):
     return lc.delta * (lc.kappa * gc.Phat / rent - 1.0)
 
 
+def consolidation_value(gc: GridCurve, lc: LifeCycleParams, P, lz: float = 0.0, n: int = 400):
+    """U(P): expected per-period payoff over a career that starts when entry
+    stops at density P, with correct expectations about consolidation.
+
+    After entry stops the topic thins at rate rho down to the mature density
+    P_m (the consolidation path of Proposition 7(iii)).  With exponential
+    careers, in units u = rho * time,
+        U(P) = int_0^inf e^{-u} zeta v(max(P e^{-u}, P_m)) du.
+    The catch-up delay is ignored in the timing of payoffs (it only scales the
+    value by the survival factor exp(-rho S / b_c)).
+    """
+    Pm = mature_density(gc, lc, lz)
+    P = float(P)
+    if P <= Pm:
+        return float(np.exp(lz + gc.lnv(P)))
+    um = np.log(P / Pm)
+    u = np.linspace(0.0, um, n)
+    f = np.exp(-u + lz + gc.lnv(P * np.exp(-u)))
+    integral = float(np.sum((f[1:] + f[:-1]) * np.diff(u)) / 2)
+    return integral + float(np.exp(-um + lz + gc.lnv(Pm)))
+
+
+def stopping_density_re(gc: GridCurve, lc: LifeCycleParams, g, lz: float = 0.0):
+    """Stopping density with forward-looking entrants (P0 -> 0).
+
+    Entry stops at the first density along the growth path at which the value
+    of joining, U(P) exp(-rho S / b_c) with S = P / (delta + g), falls to F.
+    The search starts at the mature density: below it the stock is smaller
+    than a mature topic's and the value exceeds F.
+    """
+    lnF = np.log(lc.F)
+    Pm = mature_density(gc, lc, lz)
+    kg = lc.kappa * lc.delta / (lc.delta + g)
+    f = lambda P: np.log(consolidation_value(gc, lc, P, lz)) - kg * P - lnF
+    grid = Pm * np.exp(np.linspace(0.0, np.log(np.exp(gc.lp[-1]) / Pm), 600))
+    vals = np.array([f(P) for P in grid])
+    neg = np.where(vals <= 0)[0]
+    if len(neg) == 0:
+        return np.nan
+    k = neg[0]
+    if k == 0:
+        return float(Pm)
+    return brentq(f, grid[k - 1], grid[k], xtol=1e-9)
+
+
+def g_star_re(gc: GridCurve, lc: LifeCycleParams, lz: float = 0.0):
+    """Growth rate above which forward-looking entry overshoots the peak:
+    U(Phat) exp(-kappa delta Phat / (delta + g)) = F."""
+    rent = np.log(consolidation_value(gc, lc, gc.Phat, lz)) - np.log(lc.F)
+    if rent <= 0:
+        return np.nan
+    return lc.delta * (lc.kappa * gc.Phat / rent - 1.0)
+
+
+def g_star_re_bound(gc: GridCurve, lc: LifeCycleParams, lz: float = 0.0):
+    """Sufficient condition for overshooting under rational expectations:
+    g > delta (Phat / P_m - 1), i.e. the stock at the peak is smaller than a
+    mature topic's stock (Proposition 7, part ii)."""
+    return lc.delta * (gc.Phat / mature_density(gc, lc, lz) - 1.0)
+
+
 @dataclass
 class CrossSection:
     lnP: np.ndarray       # (types, ages)
@@ -228,6 +289,36 @@ def test4_moments(cs: CrossSection, estimator: str = "pooled", noise_sd: float =
     return dict(sd_lnP=float(sd), lin=float(lin), b1=float(b[0]), b2=float(b[1]),
                 zpeak=zpeak, beyond=beyond, beyond_est=beyond_est, quint=quint,
                 zhat=float((np.log(cs.Phat) - mu) / sd), mu_lnP=float(mu))
+
+
+def composition_covariance(cs: CrossSection):
+    """Researcher-weighted covariance of log density and topic age.
+
+    If the community grows at rate g_N, topic ages in the cross-section are
+    weighted by exp(-(xi + g_N) a); d E[ln P] / d g_N = -Cov(ln P, age).  A
+    measured volume elasticity that compares areas whose growth accelerated by
+    dg over a window in which volume rose by dlnV is biased by
+    -Cov(ln P, age) dg / dlnV relative to the steady-state elasticity.
+    """
+    w = cs.w / cs.w.sum()
+    m_l = float((w * cs.lnP).sum())
+    m_a = float((w * cs.age).sum())
+    return float((w * (cs.lnP - m_l) * (cs.age - m_a)).sum())
+
+
+def composition_bias(cs: CrossSection, T: float = 7.0, dg: float = 1e-3):
+    """Bias of a measured volume elasticity from topic-age composition.
+
+    An area whose growth rate rises by dg for T years gains dg*T in log volume
+    and, because topics born in the window are more numerous, its age weights
+    for a < T scale by exp(dg (T - a)).  Returns d E[ln P] / d ln V from that
+    composition shift alone; the limit dg -> 0 is Cov(ln P, (T - a)^+) / T.
+    The steady-state elasticity E is the measured one minus this bias.
+    """
+    w0 = cs.w / cs.w.sum()
+    w1 = w0 * np.exp(dg * np.clip(T - cs.age, 0, None))
+    w1 = w1 / w1.sum()
+    return float(((w1 - w0) * cs.lnP).sum() / (dg * T))
 
 
 def phase_shares(cs: CrossSection):

@@ -22,11 +22,14 @@ from ftmodel.calibration import (NAMES, Fixed, bounds_log, calibrate, evaluate, 
 HERE = os.path.dirname(__file__)
 RESULTS = os.path.join(HERE, "..", "results")
 
-# Outcome of ftmodel.calibration.calibrate: a scan of 2048 Sobol points, Nelder-Mead from the
-# best three and from the best points of earlier calibration rounds, selected on the fine grid.
+# Outcome of the search for the corrected targets (October 2026): a scan of 2048 Sobol points
+# with Nelder-Mead from the best three, and Nelder-Mead from the previous calibration, selected
+# by the loss on the fine grid.  Both winners came from the previous calibration's
+# neighbourhood (fine losses 14.87 pooled, 11.41 within); the best Sobol starts reached
+# 16.46 and 12.00 at corners with g_med at its old upper bound of 1.
 STORED = {
-    "pooled": dict(beta=41.670204640794815, gamma=0.15892230181229888, Theta=0.0022051927403809826, F=1.7719723396629103, g_med=0.1754282236992788, g_disp=0.30500168478496453, zeta_sd=0.0664067433552573, b_c=28.62981381245267, sigma=1.5430366809195095),
-    "within": dict(beta=33.535472849974575, gamma=0.17703507338435204, Theta=0.0009851964668296444, F=1.8164037956957853, g_med=0.07243572400229235, g_disp=0.7260824284867119, zeta_sd=0.20731119134274156, b_c=28.136787915381646, sigma=1.821495646633994),
+    "pooled": dict(beta=39.00924472058154, gamma=0.15606463422321795, Theta=0.004071334010563669, F=1.767711839641088, g_med=0.18228300634123112, g_disp=0.2896105525788173, zeta_sd=0.052097496927168405, b_c=25.04874227060356, sigma=1.578655390208228),
+    "within": dict(beta=38.72673879522025, gamma=0.1864477011960337, Theta=0.0022838867701565927, F=1.9673547764527657, g_med=0.062067461825457165, g_disp=0.7304193599842183, zeta_sd=0.21594324990383268, b_c=21.200827611883142, sigma=1.9255371260274847),
 }
 
 

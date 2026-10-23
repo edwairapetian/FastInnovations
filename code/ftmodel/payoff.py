@@ -186,6 +186,25 @@ class PayoffCurve:
         c = self.coverage(P)
         return 1 - np.exp(-self.p.Theta * P * (1 - self.p.dl * self.phi(c)))
 
+    def ln_credit(self, P):
+        """ln C at the optimum (minus the erosion intensity)."""
+        P = np.atleast_1d(np.asarray(P, float))
+        c = self.coverage(P)
+        return -self.p.Theta * P * (1 - self.p.dl * self.phi(c))
+
+    def ln_social(self, P, tau: float = 0.0, extra: float = 0.0):
+        """ln of social output per unit of writing speed at private choices.
+
+        tau    share of credit lost to overlap that is a transfer to the earlier
+               paper (priority credit), so that social erosion is (1-tau) times
+               private erosion: ln C_s = (1 - tau) ln C;
+        extra  additional social loss per covering paper not averted by
+               detection, theta (lam_s - lam) with Delta_s = Delta, so that
+               s(P) = v(P) exp(-extra P).
+        """
+        P = np.atleast_1d(np.asarray(P, float))
+        return self.lnv(P) - tau * self.ln_credit(P) - extra * P
+
     # ----- landmarks ------------------------------------------------------
     def peak(self, Pmax: float = 1e4):
         """Location and height of the peak of v (unique by Theorem 1)."""

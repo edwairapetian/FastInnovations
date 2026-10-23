@@ -21,8 +21,9 @@ warnings.filterwarnings("ignore")
 from ftmodel.calibration import TARGETS, evaluate, Fixed  # noqa: E402
 from ftmodel.equilibrium import Stationary  # noqa: E402
 from ftmodel.lifecycle import (g_types, simulate, stopping_density_asymptotic,  # noqa: E402
-                               test4_moments)
-from ftmodel.report import Model, ai_counterfactuals, summary, write_json  # noqa: E402
+                               stopping_density_re, test4_moments)
+from ftmodel.report import (Model, ai_counterfactuals, re_overshooting, social_block,  # noqa: E402
+                            summary, write_json)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
@@ -112,7 +113,7 @@ def fig_planner(m, S):
     E = eta / (eta * D + ew)
     ax.plot(eta, E, color=C1, label="volume elasticity $\\mathcal{E}$")
     ax.plot(eta, eta * ew / (eta * D + ew), color=C2, label="$1-\\lambda_J=\\mathcal{E}|\\varepsilon_w|$")
-    ax.axhspan(0.04, 0.27, color=INK2, alpha=0.08, lw=0)
+    ax.axhspan(0.0, 0.27, color=INK2, alpha=0.08, lw=0)
     label(ax, 0.42, 0.14, "arXiv range\nof $\\mathcal{E}$")
     ax.axvline(S["eta"], color=GRID, lw=0.8)
     ax.set_xlabel("frontier elasticity $\\eta$")
@@ -152,7 +153,11 @@ def fig_lifecycle(m, S):
     ax = axs[1]
     g = np.exp(np.linspace(np.log(0.01), np.log(5), 200))
     Pc = [stopping_density_asymptotic(gc, lc, x) for x in g]
-    ax.plot(g, Pc, color=C1, label="$P_c^\\infty(g)$")
+    ax.plot(g, Pc, color=C1, label="myopic entrants")
+    gr = np.exp(np.linspace(np.log(0.05), np.log(5), 40))
+    ax.plot(gr, [stopping_density_re(gc, lc, x) for x in gr], color=C3, ls="--",
+            label="forward-looking entrants")
+    ax.legend(fontsize=7, loc="upper left", bbox_to_anchor=(0.0, 0.93))
     ax.axhline(S["Phat"], color=C2, lw=0.9, ls="--")
     ax.axhline(S["Pm"], color=INK2, lw=0.8, ls=":")
     ax.axhline(S["P_frictionless"], color=INK2, lw=0.8, ls="-.")
@@ -203,7 +208,8 @@ def fig_test4(m, S):
     ax.plot(zz, 0.094 * zz - 0.047 * zz ** 2, color=INK2, lw=1.0, ls="--", label="arXiv quadratic (not targeted)")
     zq = np.array([-1.4, -0.53, 0.0, 0.53, 1.4])
     qm = S["moments_pooled"]["quint"]
-    ax.plot(zq[[0, 2, 3, 4]], [-0.08, 0.0, 0.05, 0.01], ls="none", marker="s", ms=5, color=C2, label="arXiv fifths")
+    ax.plot(zq[[0, 2, 3, 4]], [TARGETS["Q1"], 0.0, TARGETS["Q4"], TARGETS["Q5"]], ls="none", marker="s",
+            ms=5, color=C2, label="arXiv fifths")
     ax.plot(zq, qm, ls="none", marker="D", ms=5, mfc="white", mew=1.4, color=C1, label="model fifths")
     ax.set_ylim(-0.3, 0.12)
     ax.set_xlabel("observed topic density (SD from mean)")
@@ -267,7 +273,7 @@ def fmt(x, d=2):
     return f"{x:.{d}f}"
 
 
-def tables(m, S, rows, Sw, mw):
+def tables(m, S, rows, Sw, mw, SB=None, RE=None):
     cal = m.cal
     th = cal["theta"]
     # ---- calibration table
@@ -277,9 +283,9 @@ def tables(m, S, rows, Sw, mw):
              r"Parameter & Meaning & Value & Source \\", r"\midrule",
              r"\multicolumn{4}{@{}l}{\emph{Set externally}} \\",
              rf"$b$ & papers read per year at full-time reading & {fx['b']:.0f} & normalisation (unit of $P$) \\",
-             rf"$\lambda$ & credit lost by an unaware duplicate & {cb['lam']:.2f} & Fact 4 ($-19\%$) \\",
+             rf"$\lambda$ & credit lost by an unaware duplicate & {cb['lam']:.2f} & Fact 3 ($-19\%$) \\",
              rf"$\kappa_p$ & credit lost by pivoting & {cal['credit_targets']['pivot_cost']:.2f} & assumption \\",
-             rf"$\Delta/\lambda$, $q$ & detection value; share proceeding & {cb['dl']:.2f}, {cb['q']:.2f} & Fact 4 ($+29\%$), \cref{{lem:credit}} \\",
+             rf"$\Delta/\lambda$, $q$ & detection value; share proceeding & {cb['dl']:.2f}, {cb['q']:.2f} & Fact 3 ($+29\%$), \cref{{lem:credit}} \\",
              rf"$\delta$ & decay of the stock's relevance & {fx['delta']:.2f} & half-life $\approx$ 2.8 years \\",
              rf"$\rho$ & rate of leaving a topic & {fx['rho']:.2f} & ten-year topic tenure \\",
              rf"$\xi$ & topic obsolescence & {fx['xi']:.2f} & 25-year topic life \\",
@@ -289,10 +295,10 @@ def tables(m, S, rows, Sw, mw):
              rf"$\theta\lambda$ & erosion per earlier paper & {th['Theta']:.4f} & fall at the top \\",
              rf"$F$ & frontier payoff & {th['F']:.3f} & sparsest fifth \\",
              rf"$b_c$ & catch-up reading speed & {th['b_c']:.0f} & premium, share beyond peak \\",
-             rf"$\sigma$ & search precision & {m.reader.sigma:.2f} & aware share (Fact 5) \\",
+             rf"$\sigma$ & search precision & {m.reader.sigma:.2f} & recall-corrected aware share \\",
              rf"$g_{{\rm med}}$, $s_g$ & diffusion rate: median, log-sd & {th['g_med']:.3f}, {th['g_disp']:.2f} & share beyond peak, fifths \\",
              rf"$s_\zeta$ & log-sd of topic fertility & {th['zeta_sd']:.3f} & gradient across topics \\",
-             rf"$\eta$ & frontier elasticity & {cal['eta']:.4f} & $\mathcal{{E}}=0.2$ (Fact 1), \eqref{{eq:eta}} \\",
+             rf"$\eta$ & frontier elasticity & {cal['eta']:.4f} & $\mathcal{{E}}={cal['E_target']:.2f}$ (Fact 1), \eqref{{eq:eta}} \\",
              r"\bottomrule", r"\end{tabular}"]
     open(os.path.join(TAB, "calibration.tex"), "w").write("\n".join(lines) + "\n")
     # ---- fit table
@@ -307,15 +313,15 @@ def tables(m, S, rows, Sw, mw):
     lines = [r"\begin{tabular}{@{}lccc@{}}", r"\toprule",
              r"Moment & arXiv & Baseline & Within-topic \\", r"\midrule",
              row("Gradient per SD of density", 0.067, mp["lin"], mwm["lin"]),
-             row("Sparsest fifth vs.\\ middle", -0.08, q[0], qw[0]),
-             row("Fourth fifth vs.\\ middle", 0.05, q[3], qw[3]),
-             row("Densest fifth vs.\\ middle", 0.01, q[4], qw[4]),
+             row("Sparsest fifth vs.\\ middle", TARGETS["Q1"], q[0], qw[0]),
+             row("Fourth fifth vs.\\ middle", TARGETS["Q4"], q[3], qw[3]),
+             row("Densest fifth vs.\\ middle", TARGETS["Q5"], q[4], qw[4]),
              row("Researcher-years beyond the peak", 0.12, S["beyond_true"], Sw["beyond_true"]),
              row("Incumbents' log premium $\\kappa P^m$", 0.15, S["premium"], Sw["premium"]),
              row("Peak of $v$ (SD above mean)", 1.0, mp["zhat"], mwm["zhat"], 2, targeted=False),
              row("Quadratic: linear term", 0.094, mp["b1"], mwm["b1"], 3, targeted=False),
              row("Quadratic: squared term", -0.047, mp["b2"], mwm["b2"], 3, targeted=False),
-             row("Aware share of flagged overlap", 0.38, S["aware_m"], Sw["aware_m"], 2),
+             row("Aware share of flagged overlap", TARGETS["aware"], S["aware_m"], Sw["aware_m"], 2),
              r"\bottomrule", r"\end{tabular}"]
     open(os.path.join(TAB, "fit.tex"), "w").write("\n".join(lines) + "\n")
     # ---- AI table
@@ -329,7 +335,7 @@ def tables(m, S, rows, Sw, mw):
               r"\par\smallskip\footnotesize Long-run stationary effects in log points ($\times100$) of a 30\% shock "
               r"(catch-up speed doubled, pivot cost halved). Density is $P^*$; output per researcher is $aF(M^*)$. "
               r"The flagged overlap rate is relative to its baseline level, which is a normalisation (\cref{sec:facts}). "
-              r"$g^*$ is the overshooting threshold of \cref{prop:toofast}."]
+              r"$g^*$ is the myopic overshooting threshold of \cref{prop:toofast}."]
     open(os.path.join(TAB, "ai_channels.tex"), "w").write("\n".join(lines) + "\n")
     # ---- welfare table
     lines = [r"\begin{tabular}{@{}lr@{}}", r"\toprule", r"Object & Value \\", r"\midrule",
@@ -342,15 +348,19 @@ def tables(m, S, rows, Sw, mw):
              rf"Frictionless benchmark: rent dissipated, $1-F/\hat v$ & {100*S['dissipated_frictionless']:.1f}\% \\",
              rf"Catch-up economy: planner's gain, $\hat w/F-1$ & {100*S['planner_gain']:.1f}\% \\",
              rf"Optimal frontier subsidy, $s^o/F$ & {100*S['subsidy']:.1f}\% \\",
-             rf"Overshooting threshold $g^*$ (per year) & {S['g_star']:.3f} \\",
+             rf"Overshooting threshold $g^*$, myopic entrants (per year) & {S['g_star']:.3f} \\",
+             rf"Overshooting threshold, forward-looking entrants & {S['g_star_re']:.3f} \\",
+             rf"Sufficient bound $\delta(\hat P/P^m-1)$ & {S['g_star_re_bound']:.3f} \\",
+             rf"Planner's gain if all overlap losses are transfers ($\tau=1$) & {100*SB['proportional'][-1]['gain']:.1f}\% \\",
+             rf"Short-run bias in $\mathcal{{E}}$ from topic-age composition (7 years) & {S['comp_bias_T7']:.3f} \\",
              rf"Slope of the entrant payoff curve $|\varepsilon_w(P^m)|$ & {abs(S['eps_w']):.3f} \\",
-             rf"Frontier elasticity $\eta$ (from $\mathcal{{E}}=0.2$) & {S['eta']:.4f} \\",
+             rf"Frontier elasticity $\eta$ (from $\mathcal{{E}}={S['E']:.2f}$) & {S['eta']:.4f} \\",
              rf"Stepping-on-toes parameter $\lambda_J=1-\mathcal{{E}}|\varepsilon_w|$ & {S['lam']:.3f} \\",
              r"\bottomrule", r"\end{tabular}"]
     open(os.path.join(TAB, "welfare.tex"), "w").write("\n".join(lines) + "\n")
 
 
-def numbers(m, S, rows, Sw):
+def numbers(m, S, rows, Sw, SB=None, RE=None):
     vP0 = float(m.curve.v(m.lc.P0)[0])
     by = {r["name"]: r for r in rows}
     macros = {
@@ -362,7 +372,7 @@ def numbers(m, S, rows, Sw):
         "calPlannerGain": f"{100*S['planner_gain']:.1f}\\%", "calSubsidy": f"{100*S['subsidy']:.1f}\\%",
         "calGstar": f"{100*S['g_star']:.0f}\\%", "calEta": f"{S['eta']:.3f}", "calLambda": f"{S['lam']:.3f}",
         "calEpsW": f"{abs(S['eps_w']):.3f}",
-        "calLambdaLo": f"{1 - 0.27 * abs(S['eps_w']):.3f}", "calLambdaHi": f"{1 - 0.04 * abs(S['eps_w']):.3f}", "calEpsV": f"{S['eps_v']:.3f}",
+        "calLambdaLo": f"{1 - 0.27 * abs(S['eps_w']):.3f}", "calEpsV": f"{S['eps_v']:.3f}",
         "calBeyond": f"{100*S['beyond_true']:.0f}\\%", "calZhat": f"{S['moments_pooled']['zhat']:.2f}",
         "calLin": f"{100*S['moments_pooled']['lin']:.1f}\\%",
         "calQone": f"${100*S['moments_pooled']['quint'][0]:.1f}$\\%",
@@ -380,6 +390,20 @@ def numbers(m, S, rows, Sw):
         "calReadOut": f"{100*by['Faster reading']['dypr']:.2f}",
         "calCatchDens": f"{100*by['Faster catch-up']['dP']:.1f}",
         "calCatchGstar": f"{abs(100*by['Faster catch-up']['dgstar']):.1f}",
+        "calGstarRE": f"{100*S['g_star_re']:.1f}\\%", "calGstarREbound": f"{100*S['g_star_re_bound']:.1f}\\%",
+        "calGstarExact": f"{100*S['g_star']:.1f}\\%",
+        "calCompBias": f"{abs(S['comp_bias_T7']):.3f}",
+        "calTauCrit": f"{SB['tau_crit_uniform']:.1f}",
+        "calThetaLamPm": f"{SB['theta_lam_Pm']:.3f}",
+        "calPsocialFull": f"{SB['proportional'][-1]['P_social']:.1f}",
+        "calPsocialZero": f"{SB['proportional'][0]['P_social']:.1f}",
+        "calGainTransfer": f"{100*SB['proportional'][-1]['gain']:.1f}\\%",
+        "calREmyopicThree": f"{[r for r in RE['rows'] if r['g'] == 2.0][0]['myopic']:.0f}",
+        "calRErationalThree": f"{[r for r in RE['rows'] if r['g'] == 2.0][0]['rational']:.0f}",
+        "calPfric": f"{S['P_frictionless']:.0f}",
+        "calPw": f"{S['Pw']:.1f}",
+        "calWPlannerGain": f"{100*Sw['planner_gain']:.1f}\\%",
+        "calWGstar": f"{100*Sw['g_star']:.0f}\\%",
     }
     with open(os.path.join(ROOT, "paper", "numbers.tex"), "w") as f:
         f.write("% Generated by code/scripts/make_figures.py -- do not edit by hand.\n")
@@ -393,14 +417,16 @@ def main():
     m, mw = Model(cal), Model(calw)
     S, Sw = summary(m), summary(mw)
     rows = ai_counterfactuals(m)
-    write_json(dict(summary=S, summary_within=Sw, ai=rows), os.path.join(RES, "results.json"))
+    SB, RE = social_block(m), re_overshooting(m)
+    write_json(dict(summary=S, summary_within=Sw, ai=rows, social=SB, rational_expectations=RE),
+               os.path.join(RES, "results.json"))
     fig_payoff(m, S)
     fig_planner(m, S)
     fig_lifecycle(m, S)
     fig_test4(m, S)
     fig_ai(rows)
-    tables(m, S, rows, Sw, mw)
-    numbers(m, S, rows, Sw)
+    tables(m, S, rows, Sw, mw, SB, RE)
+    numbers(m, S, rows, Sw, SB, RE)
     print(json.dumps({k: (round(v, 4) if isinstance(v, float) else v) for k, v in S.items()
                       if not isinstance(v, dict)}, indent=1))
     for r in rows:

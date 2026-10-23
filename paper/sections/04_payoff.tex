@@ -1,9 +1,8 @@
 \section{The payoff curve}\label{sec:payoff}
 
-Every result in the paper rests on the shape of $v$. The draft version of this
-model could establish that shape only in examples. The next theorem shows it holds for
-every learning and detection technology that satisfies
-\cref{ass:Q,ass:phi,ass:credit}.
+Every result in the paper rests on the shape of $v$. The next theorem shows
+that it is single peaked for every learning and detection technology that
+satisfies \cref{ass:Q,ass:phi,ass:credit}.
 
 \begin{assumption}[Interior reading and learning potential]\label{ass:interior}
 (a) Reading the first paper is worth its time: $b\,[\partial_R\ln Q(0,P)+\theta\Delta\varphi'(0)]>1$ for all $P>0$.
@@ -43,13 +42,26 @@ single peaked. Part (v) follows from Topkis's theorem: $\partial^2\ln
 C/\partial R\,\partial P=-\theta\Delta\varphi''(c)\,c/P\ge 0$ and $\ln Q$ is
 supermodular, so reading and density are complements.
 
-The theorem answers the draft's first open problem (``find conditions on $Q$
-and $\varphi$ that guarantee single-peakedness''). It needs no parametric
-assumption, and the conditions are economic: no increasing returns to reading,
-and diminishing returns to search. Note what the theorem does \emph{not} need.
-Duplicates may keep most of their credit, since only $\lambda>\ell$ is
-required. The single peak comes from overlap that goes unread, not from an
-assumption that overlap is worthless.
+The theorem needs no parametric assumption, and its conditions are economic:
+no increasing returns to reading, and diminishing returns to search. Note what
+it does \emph{not} need. Duplicates may keep most of their credit, since only
+$\lambda>\ell$ is required. The single peak comes from overlap that goes
+unread, not from an assumption that overlap is worthless.
+
+\begin{remark}[Where the hump comes from, and what the theorem rules out]\label{rem:scope}
+The fall in $v$ comes from \emph{bounded absorption}. What a researcher can
+learn is bounded in density ($\bar Q(R)<\infty$) and what she can read is
+bounded by $b$, while the expected number of covering papers, $\theta P$,
+grows linearly with the literature. Any model with these two features has a
+falling payoff at high density. Joint concavity of $\ln Q$ is what makes the
+rise and the fall meet at a single peak. It rules out complementarities among
+the papers one reads, for example a literature that becomes useful only once a
+critical mass of results can be combined. With such complementarities $\ln v$
+can have several local peaks, topics can have more than one stable size, and
+the comparative statics below apply locally around each falling-side crossing.
+We keep the concave case. It is the natural benchmark, and the arXiv returns
+profile (Fact~\ref{fact:hump}) shows a single hump.
+\end{remark}
 
 \begin{figure}[t]
 \centering

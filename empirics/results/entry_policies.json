@@ -1,0 +1,207 @@
+{
+ "endorsement": {
+  "new_sub": {
+   "yoy_did_math": [
+    -0.024054244786158918,
+    0.0034825456584642203
+   ],
+   "pre_mean_math": 0.14057032952945378,
+   "yoy_did_other": [
+    -0.03359894211144152,
+    0.002616960176350165
+   ],
+   "pre_mean_other": 0.2224194321445629,
+   "staggered_math_vs_other": [
+    -0.016578831085625453,
+    0.004295868215918886
+   ]
+  },
+  "no_track": {
+   "yoy_did_math": [
+    -0.008963111070964345,
+    0.0033741574024651086
+   ],
+   "pre_mean_math": 0.04334193998888523,
+   "yoy_did_other": [
+    -0.009091172484548665,
+    0.00199892696653138
+   ],
+   "pre_mean_other": 0.05404348728477658,
+   "staggered_math_vs_other": [
+    -0.005475088500505336,
+    0.0024233740887392055
+   ]
+  },
+  "lnew": {
+   "yoy_did_math": [
+    -0.18689280116470305,
+    0.031900988754811406
+   ],
+   "pre_mean_math": 4.8284659622683765,
+   "yoy_did_other": [
+    -0.15442770267179143,
+    0.03480524624164426
+   ],
+   "pre_mean_other": 6.972581774257823,
+   "staggered_math_vs_other": [
+    -0.18907121304031754,
+    0.055170016879714574
+   ]
+  }
+ },
+ "endorsement_period_means": [
+  {
+   "season": 0,
+   "grp": "math",
+   "period": "P0_sep_dec9",
+   "new_sub": 0.1384,
+   "no_track": 0.0425
+  },
+  {
+   "season": 0,
+   "grp": "math",
+   "period": "P1_dec10_jan20",
+   "new_sub": 0.1382,
+   "no_track": 0.0391
+  },
+  {
+   "season": 0,
+   "grp": "math",
+   "period": "P2_jan21_apr",
+   "new_sub": 0.1366,
+   "no_track": 0.0423
+  },
+  {
+   "season": 0,
+   "grp": "math",
+   "period": "P3_may_oct",
+   "new_sub": 0.1364,
+   "no_track": 0.043
+  },
+  {
+   "season": 0,
+   "grp": "other",
+   "period": "P0_sep_dec9",
+   "new_sub": 0.2242,
+   "no_track": 0.0554
+  },
+  {
+   "season": 0,
+   "grp": "other",
+   "period": "P1_dec10_jan20",
+   "new_sub": 0.224,
+   "no_track": 0.0535
+  },
+  {
+   "season": 0,
+   "grp": "other",
+   "period": "P2_jan21_apr",
+   "new_sub": 0.2179,
+   "no_track": 0.0511
+  },
+  {
+   "season": 0,
+   "grp": "other",
+   "period": "P3_may_oct",
+   "new_sub": 0.2206,
+   "no_track": 0.053
+  },
+  {
+   "season": 1,
+   "grp": "math",
+   "period": "P0_sep_dec9",
+   "new_sub": 0.1405,
+   "no_track": 0.0432
+  },
+  {
+   "season": 1,
+   "grp": "math",
+   "period": "P1_dec10_jan20",
+   "new_sub": 0.1207,
+   "no_track": 0.0389
+  },
+  {
+   "season": 1,
+   "grp": "math",
+   "period": "P2_jan21_apr",
+   "new_sub": 0.1132,
+   "no_track": 0.0311
+  },
+  {
+   "season": 1,
+   "grp": "math",
+   "period": "P3_may_oct",
+   "new_sub": 0.1053,
+   "no_track": 0.0271
+  },
+  {
+   "season": 1,
+   "grp": "other",
+   "period": "P0_sep_dec9",
+   "new_sub": 0.2235,
+   "no_track": 0.0533
+  },
+  {
+   "season": 1,
+   "grp": "other",
+   "period": "P1_dec10_jan20",
+   "new_sub": 0.219,
+   "no_track": 0.0555
+  },
+  {
+   "season": 1,
+   "grp": "other",
+   "period": "P2_jan21_apr",
+   "new_sub": 0.1828,
+   "no_track": 0.0415
+  },
+  {
+   "season": 1,
+   "grp": "other",
+   "period": "P3_may_oct",
+   "new_sub": 0.179,
+   "no_track": 0.0391
+  }
+ ],
+ "cs_reviews": {
+  "did": [
+   -0.01320046156536394,
+   0.000981647644087701
+  ],
+  "did_with_cs_trend": [
+   -0.010086577276753085,
+   0.0019877453889281193
+  ],
+  "leakage_noncs_primary_crosslisted_cs": [
+   -0.0017029647246201733,
+   0.0011244832541690473
+  ],
+  "cs_pre_mean_2025_jan_oct": 0.026818114493075612,
+  "cs_post_mean_2025_11_2026_10": 0.013428939051354762,
+  "noncs_pre": 0.013811566144525859,
+  "noncs_post": 0.011526114255508426,
+  "cs_reviews_per_month_pre": 289.7,
+  "cs_reviews_per_month_post": 187.1818181818182,
+  "dose_response": {
+   "n_cs_categories": 29,
+   "first_stage_d_rev_on_expo": [
+    -0.4098274981697224,
+    0.09567245951968388
+   ],
+   "first_stage_placebo_prev_year": [
+    -0.12593416663702042,
+    0.09388948319884044
+   ],
+   "reduced_form_first_author_share": [
+    -0.7034189286261523,
+    0.25855860625843047
+   ],
+   "reduced_form_placebo_prev_year": [
+    -0.3190340105315047,
+    0.17479254323538929
+   ],
+   "expo_mean": 0.027031606807123434,
+   "expo_sd": 0.015603538210513938
+  }
+ }
+}

@@ -1,8 +1,7 @@
 \section{Free topic choice without frictions}\label{sec:frictionless}
 
 We first set $\kappa=0$, so $w=v$. Newcomers move freely between topics and the
-frontier. This benchmark isolates the topic-choice margin and reproduces the
-draft's core claims, now as theorems.
+frontier. This benchmark isolates the topic-choice margin.
 
 \begin{proposition}[Equilibrium and dissipation]\label{prop:eq}
 Let \cref{ass:Q,ass:phi,ass:credit,ass:interior} hold, $\kappa=0$, and suppose
@@ -13,14 +12,28 @@ Payoff per researcher equals the frontier payoff $a\,F(M^*)<a\,\vhat$. The gain
 from cumulative knowledge, $\vhat-F(M^*)$, is competed away.
 \end{proposition}
 
-The logic is that of the open-access fishery \citep{gordon1954,weitzman1974},
-with one difference: the resource is attention to the literature, and the
-people who crowd it are the same people who must read it. Entry continues past
-the peak because a newcomer compares the \emph{average} payoff in a topic with
-the frontier. She ignores that her papers lower everyone else's payoff once
-the topic is past $\Phat$. Crossings on the rising side are unstable: one more
-entrant raises the payoff of entering. So topics fill past the peak, to the
-crossing on the falling side.
+Entry continues past the peak because a newcomer compares the \emph{average}
+payoff in a topic with the frontier. She ignores that her papers lower everyone
+else's payoff once the topic is past $\Phat$. Crossings on the rising side are
+unstable: one more entrant raises the payoff of entering. So topics fill past
+the peak, to the crossing on the falling side.
+
+\begin{remark}[Cities, clubs and topics]\label{rem:henderson}
+\Cref{prop:eq,prop:planner} have the structure of the theory of city sizes
+\citep{henderson1974} and of clubs \citep{buchanan1965,scotchmer2002}: a single-peaked
+average payoff in group size, free entry of new groups, stability only on the
+falling side, a planner at the peak of the average payoff, and an entry tax
+that decentralises it. Self-organised cities are too large for the same
+reason \citep{hendersonbecker2000}. Topics are the cities, newcomers the
+migrants, and the frontier the hinterland where new cities are founded. Three
+things distinguish topics. The hump is not assumed but derived from the two
+jobs of reading (\cref{thm:v}). The congestion is not in land or roads but in
+attention: the crowders are the readers, so whether an extra member helps or
+hurts is decided by where the topic sits on its payoff curve
+(\cref{prop:externality}). And the object the data measure, the duplication rate,
+is a function of density alone, which makes the invariance of
+\cref{prop:volume} a testable restriction rather than a curiosity.
+\end{remark}
 
 \paragraph{Volume opens new topics.} The next result is the paper's anchor. It
 says how a larger community distributes itself.
@@ -47,23 +60,48 @@ while submissions double (Fact~\ref{fact:volume}) is what the model predicts. It
 crowding is harmless.
 
 Second, a fixed field corresponds to $\eta\to\infty$. Then $\mathcal E\to1/D$:
-growth thickens existing topics. The arXiv elasticity of 0.04--0.27, against a
-fixed-field benchmark of 0.53--0.89, implies that roughly three quarters of
-growth opens new ground. Inverting \eqref{eq:E},
+growth thickens existing topics. The arXiv elasticities of 0.12--0.19 at broad
+radii and 0.035 (SE 0.118) at the closest-overlap radius, against fixed-field
+benchmarks of 0.53--0.81 (Fact~\ref{fact:volume}), imply that most growth opens
+new ground. Inverting \eqref{eq:E},
 \begin{equation}\label{eq:eta}
 \eta=\frac{\mathcal E\,|\eps_w|}{1-\mathcal E\,D},
 \end{equation}
 so the frontier elasticity is identified by the volume elasticity and the
 slope of the entrant's payoff curve (\cref{fig:planner}, right).
 
-Third, papers per author barely move when the community grows, because $\eps_x\mathcal E$
-is the product of two small numbers. Growth through new authors with flat
-papers per author (Fact~\ref{fact:authors}) is the signature of cheaper entry, not of faster
-drafting (\cref{sec:ai}).
+Third, papers per author barely move when the community grows, because
+$\eps_x\mathcal E$ is the product of two small numbers. Faster drafting, by
+contrast, raises papers per author one for one (\cref{prop:ai}). The two can
+be told apart only at the author level, because entrants change the
+composition of authors (Fact~\ref{fact:authors}).
+
+\begin{remark}[Short-run and long-run elasticities]\label{rem:shortrun}
+\Cref{prop:volume} compares steady states, while the arXiv elasticities are
+measured over 2018--2025, a period in which volume grew about 12\% a year. In
+the model, mature topics adjust to a change in $N$ at once, since the marginal
+newcomer is indifferent. The only wedge between the measured and the
+steady-state elasticity is composition. Faster growth means more young topics,
+which are thinner. If an area's growth rate rises by $\dd g$ for $T$ years,
+its age weights for topics younger than $T$ scale by $e^{\dd g(T-a)}$ and its
+log volume rises by $T\dd g$, so
+\begin{equation}\label{eq:shortrun}
+\mathcal E_{\text{measured}}=\mathcal E+\frac{\operatorname{Cov}_\omega\big(\ln P,(T-a)^+\big)}{T}+o(\dd g),
+\end{equation}
+where $\operatorname{Cov}_\omega$ is the researcher-weighted covariance over the
+cross-section of topic ages $a$. The covariance is negative because young topics
+are thin, so the measured elasticity is a lower bound. In the calibrated
+life cycle the bias over a seven-year window is $-\calCompBias$
+(\cref{sec:quant}). The long-run elasticity is therefore at most about
+$\calCompBias$ above the measured one, which leaves the conclusion that
+volume mostly opens new ground intact. Steady growth at a constant rate does
+not bias the estimate at all, because area fixed effects absorb a constant age
+composition.
+\end{remark}
 
 \begin{remark}[Reading capacity per researcher or per field]
-The draft discussed a variant with a fixed screening capacity $B$ per field, so
-that coverage is $B/P$ and researchers write full time. Topic choice still
+Consider instead a fixed screening capacity $B$ per field, so that coverage is
+$B/P$ and researchers write full time. Topic choice still
 pins density, so \cref{prop:eq,prop:volume} survive. But if topics cannot
 split, overlap rises with field volume, which the arXiv volume test rejects.
 Per-researcher capacity also keeps the time-allocation margin that separates
@@ -78,7 +116,7 @@ and the shaded rent between the payoff curve and the frontier is competed away;
 the planner puts topics at the peak. Right: the volume elasticity
 $\mathcal E$ and the stepping-on-toes wedge $1-\lambda_J=\mathcal E|\eps_w|$ as
 functions of the frontier elasticity $\eta$, at the calibrated slope of $w$. The
-shaded band is the arXiv range of $\mathcal E$.}
+shaded band is the range of arXiv estimates of $\mathcal E$.}
 \label{fig:planner}
 \end{figure}
 
@@ -109,5 +147,6 @@ researchers' private time allocation is efficient. Policies that work only
 inside topics are dissipated: writing caps, reading subsidies, better tools.
 With $\eta=0$ the equilibrium payoff stays pinned at $aF$ whatever happens
 inside topics. Policies that change the frontier are not dissipated: frontier
-grants, credit for first papers in a cluster, prizes for opening fields.
-Fund the frontier, not the reading tools.
+grants, credit for first papers in a cluster, prizes for opening fields. The
+welfare criterion here is total private credit; \cref{prop:social} shows that
+the overcrowding result survives when part of that credit is a transfer.
