@@ -157,7 +157,7 @@ def fig_lifecycle(m, S):
     gr = np.exp(np.linspace(np.log(0.05), np.log(5), 40))
     ax.plot(gr, [stopping_density_re(gc, lc, x) for x in gr], color=C3, ls="--",
             label="forward-looking entrants")
-    ax.legend(fontsize=7, loc="upper left", bbox_to_anchor=(0.0, 0.93))
+    ax.legend(fontsize=7, loc="upper left", bbox_to_anchor=(0.0, 0.88))
     ax.axhline(S["Phat"], color=C2, lw=0.9, ls="--")
     ax.axhline(S["Pm"], color=INK2, lw=0.8, ls=":")
     ax.axhline(S["P_frictionless"], color=INK2, lw=0.8, ls="-.")
@@ -165,7 +165,7 @@ def fig_lifecycle(m, S):
     label(ax, S["g_star"] * 1.1, S["Pm"] * 1.05, "$g^*$")
     label(ax, 0.012, S["Phat"] * 1.04, "$\\hat P$")
     label(ax, 0.012, S["Pm"] * 1.04, "$P^m$")
-    label(ax, 0.012, S["P_frictionless"] * 0.8, "$\\bar P_F$ (frictionless)")
+    label(ax, 0.012, S["P_frictionless"] * 1.06, "$\\bar P_F$ (frictionless)")
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda y, _: f"{y:g}"))
@@ -352,7 +352,7 @@ def tables(m, S, rows, Sw, mw, SB=None, RE=None):
              rf"Overshooting threshold, forward-looking entrants & {S['g_star_re']:.3f} \\",
              rf"Sufficient bound $\delta(\hat P/P^m-1)$ & {S['g_star_re_bound']:.3f} \\",
              rf"Planner's gain if all overlap losses are transfers ($\tau=1$) & {100*SB['proportional'][-1]['gain']:.1f}\% \\",
-             rf"Short-run bias in $\mathcal{{E}}$ from topic-age composition (7 years) & {S['comp_bias_T7']:.3f} \\",
+             rf"Short-run bias in $\mathcal{{E}}$ from topic-age composition (7 years) & ${S['comp_bias_T7']:.3f}$ \\",
              rf"Slope of the entrant payoff curve $|\varepsilon_w(P^m)|$ & {abs(S['eps_w']):.3f} \\",
              rf"Frontier elasticity $\eta$ (from $\mathcal{{E}}={S['E']:.2f}$) & {S['eta']:.4f} \\",
              rf"Stepping-on-toes parameter $\lambda_J=1-\mathcal{{E}}|\varepsilon_w|$ & {S['lam']:.3f} \\",

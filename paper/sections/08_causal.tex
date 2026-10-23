@@ -42,10 +42,11 @@ however, is first against \emph{last}. The end of a listing is also highly
 visible, a ``reverse visibility'' effect documented for arXiv by
 \citet{haqueginsparg2010} and for NBER working papers by
 \citet{feenbergetal2017}. Submitters on the two sides also differ: those just
-after the cutoff have fewer prior submissions (\empRDprior, SE \empRDpriorSE). In
-high-energy physics, where INSPIRE-HEP gives complete citation counts,
-top-of-listing papers receive \emph{fewer} citations than end-of-listing papers
-(\empRDcitesIns, SE \empRDcitesInsSE). The cutoff therefore does not isolate
+after the cutoff have fewer prior submissions (\empRDprior, SE \empRDpriorSE). Top-of-listing papers receive \emph{fewer} citations
+than end-of-listing papers: \empRDcitesIns\ log points (SE \empRDcitesInsSE) in
+high-energy physics, where INSPIRE-HEP gives complete citation counts, and
+\empRDcitesSS\ (SE \empRDcitesSSSE) across all fields in the
+\empRDcitesSSN\ papers with Semantic Scholar counts. The cutoff therefore does not isolate
 visibility, and we do not use it to test detection.
 
 \paragraph{Design B: rank within the listing.} A cleaner source of variation is
@@ -100,9 +101,10 @@ in the same topics.
 \caption{The daily cutoff. Binned means, net of category-year means, by minutes
 from the 14:00 ET cutoff (weekday submissions 2017--2022; shaded: five-minute
 donut). Left: probability of being among the first five papers of the
-category's listing. Middle: log citations (Semantic Scholar, subsample). Right:
-later near-duplicates by other authors. Papers just after the cutoff open the next
-listing; papers just before close the current one.}
+category's listing. Middle: log citations in high-energy physics (INSPIRE-HEP).
+Right: the submitter's prior submissions, a predetermined characteristic that
+jumps at the cutoff. Papers just after the cutoff open the next listing; papers
+just before close the current one.}
 \label{fig:listing}
 \end{figure}
 
