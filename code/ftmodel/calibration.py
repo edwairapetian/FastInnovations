@@ -4,13 +4,15 @@ Targets (docs/empirical_facts.md, Fact 3 = Test 4 with author fixed effects):
 
     lin      +6.7% citations per author-year per SD of topic density
     Q1,Q4,Q5 returns by fifth of density relative to the middle fifth: -11%, +2%,
-             -2% (the arXiv fifths re-expressed relative to the middle fifth; the
-             earlier -8%, +5%, +1% were deviations from each author's mean)
+             -2% (the arXiv fifths re-expressed relative to the middle fifth)
     beyond   12% of researcher-years beyond the peak of the payoff curve
-    premium  incumbents' log premium over the frontier, kappa P_m = rho T
-             (soft target 0.15: one and a half years of catch-up per ten-year tenure)
+    premium  incumbents' log premium over the frontier, -nu ln(1 - P_m / b_c) = (rho + xi) T
+             (soft target 0.15: about a year of catch-up per seven-year spell in a topic)
     aware    aware share of flagged overlap at the mature density, 0.60: the raw
              PDF-matched share (35-42%, Fact 5) divided by the 63% citation recall
+    read     incumbents' reading share of working time, 0.07: about 144 hours a year
+             spent reading scholarly articles (Tenopir and King 2008) out of about
+             2,000 working hours
 
 The quadratic summary of Test 4 (0.094 z - 0.047 z^2) is not targeted: it
 imposes a symmetric hump, while both the quintiles and the model's payoff
@@ -18,15 +20,20 @@ curve are asymmetric (a gentle concave rise and a steep fall).  We report it
 as an untargeted moment.
 
 Externally fixed (see Fixed): b = 100 papers read per year at full time (the
-unit of P), the credit block (dl, q) from Fact 4 via ftmodel.credit, delta = 0.25 (relevance half-life ~2.8y), rho = 0.10
-(ten-year topic tenure), xi = 0.04 (25-year topic life), P0 = 2 papers per
-year at birth.
+unit of P), the credit block (dl, q) from Fact 4 via ftmodel.credit, delta = 0.25
+(relevance half-life ~2.8y), rho = 0.10 (ten-year topic tenure), xi = 0.04
+(25-year topic life), P0 = 2 papers per year at birth, and the frontier block:
+explorers found a viable topic at rate s = 0.14, so that half of them found one
+before their spell ends (omega = 1/2).  The frontier block does not affect the
+cross-section; it splits the calibrated frontier value F into exploration and
+founding.
 
 Estimated: beta, gamma, Theta (payoff curve), F (frontier), g_med, g_disp
 (diffusion rates of new topics), zeta_sd (fertility dispersion), b_c
-(catch-up reading speed), sigma (search precision).  The analogue of the author-fixed-effects design
-is the pooled cross-section of researcher-years (researchers who move across
-topics); the within-topic estimator is reported as a robustness check.
+(catch-up reading speed), sigma (search precision).  The analogue of the
+author-fixed-effects design is the pooled cross-section of researcher-years
+(researchers who move across topics); the within-topic estimator is reported as
+a robustness check.
 """
 from __future__ import annotations
 
@@ -37,19 +44,21 @@ import numpy as np
 from scipy.optimize import minimize
 
 from .credit import CreditTargets, credit_block
-from .lifecycle import LifeCycleParams, g_star, mature_density, simulate, test4_moments
+from .lifecycle import (LifeCycleParams, founder_value, g_star_myopic, mature_density,
+                        simulate, test4_moments)
 from .payoff import GridCurve, PayoffCurve, ReaderParams
 
-TARGETS = dict(lin=0.067, Q1=-0.11, Q4=0.02, Q5=-0.02, beyond=0.12, premium=0.15, aware=0.60)
-SCALES = dict(lin=0.008, Q1=0.015, Q4=0.012, Q5=0.012, beyond=0.03, premium=0.06, aware=0.03)
+TARGETS = dict(lin=0.067, Q1=-0.11, Q4=0.02, Q5=-0.02, beyond=0.12, premium=0.15, aware=0.60,
+               read=0.07)
+SCALES = dict(lin=0.008, Q1=0.015, Q4=0.012, Q5=0.012, beyond=0.03, premium=0.06, aware=0.03,
+              read=0.01)
 
 NAMES = ("beta", "gamma", "Theta", "F", "g_med", "g_disp", "zeta_sd", "b_c", "sigma")
-LOWER = dict(beta=0.1, gamma=0.05, Theta=1e-4, F=0.8, g_med=0.05, g_disp=0.2, zeta_sd=0.02, b_c=20.0,
+LOWER = dict(beta=0.1, gamma=0.05, Theta=1e-4, F=0.8, g_med=0.05, g_disp=0.2, zeta_sd=0.02, b_c=8.0,
              sigma=0.3)
 # g_med <= 0.5: the median new topic takes at least about 3.5 years to grow from
 # P0 to mature density.  Searches with g_med up to 1 end in corners where almost
-# every topic overshoots (and beta, b_c and zeta_sd sit at their lower bounds)
-# without a lower loss than the interior solution.
+# every topic overshoots without a lower loss than the interior solution.
 UPPER = dict(beta=50.0, gamma=1.0, Theta=0.02, F=2.5, g_med=0.5, g_disp=1.5, zeta_sd=0.4, b_c=300.0,
              sigma=10.0)
 
@@ -61,12 +70,17 @@ class Fixed:
     rho: float = 0.10
     xi: float = 0.04
     P0: float = 2.0
+    s_rate: float = 0.14
     credit: CreditTargets = field(default_factory=CreditTargets)
     estimator: str = "pooled"
 
     @property
     def dl(self) -> float:
         return credit_block(self.credit)["dl"]
+
+    @property
+    def omega(self) -> float:
+        return self.s_rate / (self.rho + self.xi + self.s_rate)
 
 
 def bounds_log():
@@ -78,10 +92,16 @@ def build(theta: dict, fx: Fixed, fine: bool = False):
                       dl=fx.dl, sigma=theta["sigma"])
     gc = GridCurve(PayoffCurve(rp), n=3000 if fine else 1200)
     grid = dict(n_g=41, n_z=51, dt=0.05) if fine else dict(n_g=15, n_z=15, dt=0.1, horizon=100.0)
-    lc = LifeCycleParams(F=theta["F"], kappa_s=fx.rho / theta["b_c"], delta=fx.delta, rho=fx.rho,
-                         xi=fx.xi, P0=fx.P0, g_med=theta["g_med"], g_disp=theta["g_disp"],
+    lc = LifeCycleParams(F=theta["F"], b_c=theta["b_c"], delta=fx.delta, rho=fx.rho, xi=fx.xi,
+                         P0=fx.P0, g_med=theta["g_med"], g_disp=theta["g_disp"],
                          zeta_sd=theta["zeta_sd"], **grid)
     return rp, gc, lc
+
+
+def reading_share(cs, gc) -> float:
+    """Researcher-weighted mean reading share of incumbents (writing members) in the cross-section."""
+    x = gc.x(np.exp(cs.lnP))
+    return float((cs.w * (1 - x)).sum() / cs.w.sum())
 
 
 def evaluate(theta: dict, fx: Fixed, fine: bool = False, estimator: str | None = None):
@@ -91,8 +111,11 @@ def evaluate(theta: dict, fx: Fixed, fine: bool = False, estimator: str | None =
     rp, gc, lc = build(theta, fx, fine)
     if not (5 < gc.Phat < 500):
         return None
+    # the first follower of a newborn topic (empty stock) must beat the frontier
+    if gc.lnv(fx.P0) < np.log(theta["F"]):
+        return None
     Pm = mature_density(gc, lc)
-    if not np.isfinite(Pm) or gc.lnv(fx.P0) < np.log(theta["F"]) - 1e-3:  # newborn topics must attract followers
+    if not np.isfinite(Pm):
         return None
     cs = simulate(gc, lc)
     m = test4_moments(cs, estimator=estimator or fx.estimator)
@@ -100,8 +123,9 @@ def evaluate(theta: dict, fx: Fixed, fine: bool = False, estimator: str | None =
     phi = float(cv.phi(cv.coverage(Pm))[0])
     q = credit_block(fx.credit)["q"]
     out = dict(lin=m["lin"], Q1=m["quint"][0], Q4=m["quint"][3], Q5=m["quint"][4],
-               beyond=m["beyond"], premium=lc.kappa * Pm, aware=q * phi / (1 - (1 - q) * phi))
-    info = dict(rp=rp, gc=gc, lc=lc, cs=cs, raw=m, Pm=Pm, g_star=g_star(gc, lc))
+               beyond=m["beyond"], premium=float(-lc.cu.ln_gamma(Pm)),
+               aware=q * phi / (1 - (1 - q) * phi), read=reading_share(cs, gc))
+    info = dict(rp=rp, gc=gc, lc=lc, cs=cs, raw=m, Pm=Pm, g_star=g_star_myopic(gc, lc))
     return out, info
 
 
@@ -139,6 +163,9 @@ def calibrate(fx: Fixed | None = None, n_scan: int = 2048, n_polish: int = 3, se
         if L < 1e3:
             scored.append((L, x))
     scored.sort(key=lambda t: t[0])
+    if verbose:
+        print(f"scan: {len(scored)} admissible of {n_scan}; best {[round(L, 2) for L, _ in scored[:5]]}",
+              flush=True)
     starts = [x for _, x in scored[:n_polish]]
     for th in seeds or []:
         starts.append(np.clip(np.log([th[k] for k in NAMES]), lo, hi))
@@ -156,22 +183,47 @@ def calibrate(fx: Fixed | None = None, n_scan: int = 2048, n_polish: int = 3, se
     return best, float(best_fine)
 
 
+def frontier_block(gc, lc, fx: Fixed, a: float = 4.0, E_target: float = 0.15, cs=None) -> dict:
+    """Split the frontier value into exploration and founding, and set the frontier's
+    depletion from the volume elasticity of density.
+
+    Life cycle: U_F is the founders' realised tenure-average payoff and
+    e = (F - omega U_F) / (1 - omega).  Stationary approximation (founders' topics
+    mature at once): U_F = v(P_m).  eta_F inverts E = eta_F / (eta_F D + |eps_w| + theta_F eps_v).
+    """
+    from .equilibrium import Economy, Stationary
+    cs = simulate(gc, lc) if cs is None else cs
+    Pm = mature_density(gc, lc)
+    UF = founder_value(cs, lc)
+    om = fx.omega
+    F = lc.F
+    vPm = float(gc.curve.v(Pm)[0])
+    e_lc = (F - om * UF) / (1 - om)
+    e_st = (F - om * vPm) / (1 - om)
+    eco = Economy(a=a, cu=lc.cu, e=e_st, s=fx.s_rate, eta_F=0.0, founders=True)
+    st = Stationary(gc.curve, eco)
+    th_st = st.theta_F(1.0, Pm)
+    eta = st.eta_from_E(Pm, E_target, th_st)
+    return dict(s=fx.s_rate, omega=om, U_F=UF, v_Pm=vPm, e_lc=e_lc, e_st=e_st,
+                theta_F_lc=om * UF / F, theta_F_st=th_st, eta_F=float(eta), E_target=E_target,
+                eta_F_no_founders=float(st.eta_from_E(Pm, E_target, 0.0)))
+
+
 def to_calibration(theta: dict, fx: Fixed, E_target: float = 0.15, a: float = 4.0) -> dict:
     """Assemble the calibration dictionary used by ftmodel.report."""
-    from .equilibrium import Economy, Stationary
     rp, gc, lc = build(theta, fx, fine=True)
     cb = credit_block(fx.credit)
-    Pm = mature_density(gc, lc)
-    s = Stationary(gc.curve, Economy(a=a, kappa=lc.kappa, Fbar=lc.F))
-    eta = s.eta_from_E(Pm, E_target)
+    fr = frontier_block(gc, lc, fx, a=a, E_target=E_target)
     return dict(
         theta={k: float(v) for k, v in theta.items()},
         reader=asdict(rp),
         lifecycle=asdict(lc),
         credit=cb,
         credit_targets=asdict(fx.credit),
-        fixed=dict(b=fx.b, delta=fx.delta, rho=fx.rho, xi=fx.xi, P0=fx.P0, estimator=fx.estimator),
-        a=a, E_target=E_target, eta=float(eta),
+        fixed=dict(b=fx.b, delta=fx.delta, rho=fx.rho, xi=fx.xi, P0=fx.P0, s_rate=fx.s_rate,
+                   estimator=fx.estimator),
+        frontier=fr,
+        a=a, E_target=E_target, eta=fr["eta_F"],
         targets=TARGETS, scales=SCALES,
     )
 

@@ -1,0 +1,121 @@
+\section{Catch-up costs, rents and social value}\label{sec:catchup}
+
+The frictionless benchmark predicts equal returns across topics. The arXiv data
+reject this (Fact~\ref{fact:hump}). The same researcher earns more citations in
+denser topics over most of the density range, and less in the densest ones. We
+now let $\kappa>0$: newcomers must read a topic's stock before contributing.
+
+\subsection{Mature topics}
+
+\begin{proposition}[Mature topics under catch-up costs]\label{prop:mature}
+Let \cref{ass:Q,ass:phi,ass:credit,ass:interior} hold and $\kappa>0$.
+\begin{enumerate}[label=(\roman*)]
+\item $w(P)=v(P)e^{-\kappa P}$ is strictly log-concave, with a unique peak $\hat P_w<\Phat$.
+\item In a topic equilibrium the mature density $P^m$ solves $w(P^m)=F(M)$ on the falling side of $w$. Incumbents earn $a\,v(P^m)$ per period. Their log premium over the frontier equals the catch-up cost, $\ln[v(P^m)/F(M)]=\kappa P^m=\rho T$, where $T=S/b_c$ is catch-up time.
+\item Mature topics lie on the \emph{rising} side of $v$ if and only if catch-up is costly relative to the rent at the peak: $\kappa\Phat>\ln(\vhat/F)$.
+\item Let topics differ in fertility $\zeta$, so that payoffs are $\zeta v(P)$, and let $P^m(\zeta)$ solve $\zeta w(P)=F$. Across mature topics, log returns rise with log density with slope exactly equal to the premium:
+\[
+\frac{\dd\ln[\zeta\,v(P^m(\zeta))]}{\dd\ln P^m(\zeta)}=\kappa P^m(\zeta)>0.
+\]
+\end{enumerate}
+\end{proposition}
+
+Catch-up turns the dissipated rent into a protected one. Incumbents earn more
+than the frontier, and the premium exactly offsets what a newcomer gives up
+while reading the stock. More fertile topics attract more entrants, have
+larger stocks and so protect larger premia. This yields a positive returns--density
+gradient across topics, whether those topics lie left or right of $\Phat$.
+In the data the same gradient also reflects audience size, since a paper with more
+close neighbours has more potential citers. The measured gradient of 6.7\% per
+standard deviation (Fact~\ref{fact:hump}) is therefore an upper bound on the
+catch-up premium. We use it as such in \cref{sec:quant}.
+
+\subsection{Rising incumbent returns, falling entrant returns}
+
+The interesting object is the gap between what incumbents earn, $v$, and what a
+newcomer can expect over her career, $w=ve^{-\kappa P}$. Incumbents never pay
+the catch-up cost again. Newcomers and the planner do. The welfare statement
+follows almost by definition of stability, so we state it as a corollary and
+put the weight on what it implies for measurement.
+
+\begin{corollary}[Overcrowding with rising returns]\label{cor:overcrowd}
+In every stable topic equilibrium, one more member in a topic of density $P$
+changes total output of the other members by $n\,a\,w'(P)\,\dd P/\dd n<0$.
+This counts both the spillover on incumbents ($v'$) and the extra catch-up she
+imposes on future newcomers ($-\kappa v$). If $\kappa\Phat>\ln(\vhat/F)$, then
+$\hat P_w<P^m<\Phat$: incumbents' returns rise with density ($v'(P^m)>0$) while
+the topic is too crowded ($w'(P^m)<0$). The loss of output per researcher in
+the large-topic limit is $1-F/\hat w$, where $\hat w=w(\hat P_w)$.
+\end{corollary}
+
+The measured gradient is the incumbents' private return to density. A
+newcomer values a topic net of the reading she must do to join it, and so does
+the planner. Rising incumbent returns are the footprint of the catch-up rent,
+not of an untapped spillover. A natural reading of Fact~\ref{fact:hump} is that
+most researcher-years sit where more density raises returns, so most topics are
+too thin. The corollary says that this reading conflates $v$ with $w$. Two
+kinds of topic can be too thin. The first is young topics that have not yet
+filled. The second, if the frontier is attractive enough, is newborn topics that
+never find followers (\cref{rem:coordination}).
+
+\begin{remark}[Coordination at the frontier]\label{rem:coordination}
+A lone pioneer earns less than a group, since $v$ rises at first. Can new topics
+then stay too thin because nobody wants to be the first follower? With a
+continuum of topics and entry that responds to payoffs, the answer turns on a
+single inequality. If $F<v(P_0)$, the first follower of a newborn topic already
+beats the frontier, entry snowballs along the rising side, and no topic is
+stuck. If $F>v(P_0)$, newborn topics attract no followers, although a
+coordinated group would earn $\vhat>F$. Science then holds too many topics that
+are too small, and the planner would fix it by seeding followers. The
+calibrated model is in the first case (\cref{sec:quant}).
+\end{remark}
+
+\subsection{Social value and priority transfers}
+
+The welfare statements so far count private credit. Priority credit is partly a
+transfer \citep{merton1957,hillstein2025}. When a later paper turns out to
+duplicate an earlier one, some of the credit it loses goes to the earlier
+paper, so part of the ``loss'' from overlap is redistribution. Conversely, a
+duplicate may be worth less to science than its residual citations suggest. We
+therefore separate social value from credit. Let the social value of a project
+be $Q\,C_s$, with
+\[
+C_s(R,P)=\exp\{-\theta P[\lambda_s-\Delta_s\varphi(R/P)]\},
+\]
+where $\lambda_s$ is the share of a project's social value lost per unread
+covering paper and $\Delta_s$ the part of it that detection averts. Researchers
+still choose $r^*(P)$ to maximise credit, and social output per unit of
+writing speed in a topic of density $P$ is
+$s(P)=(1-r^*)\,Q(br^*,P)\,C_s(br^*,P)$, with $s_w(P)=s(P)e^{-\kappa P}$. The
+catch-up cost is a real resource cost, reading time, and is not a transfer.
+
+\begin{proposition}[Social value]\label{prop:social}
+\begin{enumerate}[label=(\roman*)]
+\item One more member changes the social output of the others by $n\,a\,s_w'(P)\,\dd P/\dd n$, where
+\[
+\frac{s'(P)}{s(P)}=\frac{v'(P)}{v(P)}-\theta\big[(\lambda_s-\lambda)-(\Delta_s-\Delta)\psi(c^*)\big]+\theta b(\Delta_s-\Delta)\varphi'(c^*)\,r^{*\prime}(P),
+\]
+with $\psi(c)=\varphi(c)-c\varphi'(c)\ge0$.
+\item \emph{(Uniform wedge.)} If $\Delta_s=\Delta$, then $s(P)=v(P)e^{-\theta(\lambda_s-\lambda)P}$ exactly. Social and private values then differ like a change in the catch-up cost, from $\kappa$ to $\kappa+\theta(\lambda_s-\lambda)$. The equilibrium is overcrowded relative to the social optimum if and only if the share of overlap losses that are transfers, $\tau\equiv(\lambda-\lambda_s)/\lambda$, satisfies
+\[
+\tau<\frac{|\eps_w(P^m)|}{\theta\lambda P^m}.
+\]
+In particular overcrowding is stronger when duplicates are worth less to science than to their authors ($\lambda_s>\lambda$).
+\item \emph{(Proportional transfer.)} If a share $\tau$ of every overlap loss is a transfer, $\ln C_s=(1-\tau)\ln C$, the social optimum density maximises $\ln v(P)-\tau\ln C^*(P)-\kappa P$, where $C^*(P)=C(br^*(P),P)$.
+\end{enumerate}
+\end{proposition}
+
+Part (ii) gives a sharp test. Overcrowding survives any degree of transfer as
+long as the slope of the entrant's payoff curve at the mature density exceeds
+the expected erosion intensity $\theta\lambda P^m$. In the calibrated model the
+slope is \calEpsW\ against an erosion intensity of \calThetaLamPm, so the
+critical transfer share is \calTauCrit, above one. Under proportional
+transfers (part (iii)), the social optimum moves from \calPsocialZero\ to
+\calPsocialFull\ papers a year if all overlap losses are transfers, still below
+the mature density of \calPm. Transfers therefore shrink the welfare gain from
+optimal topic choice, from \calPlannerGain\ to \calGainTransfer\ of output per
+researcher, but they do not reverse its sign. The catch-up burden that newcomers
+impose on one another is a real resource cost, and on its own it keeps mature
+topics too dense. The transfer critique matters for magnitudes, and especially
+for the frictionless benchmark, where the dissipated rent is a difference in
+private payoffs; it does not matter for the direction of the inefficiency.

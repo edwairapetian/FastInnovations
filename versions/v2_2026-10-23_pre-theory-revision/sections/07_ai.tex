@@ -1,0 +1,83 @@
+\section{Faster writing scales science, better reading crowds it}\label{sec:ai}
+
+New tools, artificial intelligence among them, enter the model through several
+parameters. Each leaves a different footprint, and the footprints of writing and
+reading tools point in opposite directions.
+
+\begin{proposition}[Footprints of new research tools]\label{prop:ai}
+In the large-topic limit:
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Faster drafting} ($a\uparrow$) acts like a larger community. Density moves with elasticity $\mathcal E$ (zero if $\eta=0$) and the number of topics with elasticity $1-D\mathcal E$. Papers per researcher rise with elasticity $1+\eps_x\mathcal E$, and output per researcher with elasticity $1-\mathcal E|\eps_w|$.
+\item \emph{Cheaper entry into science} ($c\downarrow$, with $N$ set by $aF(M)=\omega+c$ and $\eta>0$) raises $N$. Density rises with elasticity $\mathcal E$ with respect to $N$, papers per researcher move with elasticity $\eps_x\mathcal E\approx 0$, and new topics absorb a share $1-D\mathcal E$ of growth.
+\item \emph{Better reading, learning or search, or cheaper pivots} ($b$, $\beta$ or $\sigma\uparrow$, $\kappa_p\downarrow$) raise $v$ and $w$ at every density. Density rises and the number of topics falls: science concentrates.
+\item \emph{Faster catch-up} ($b_c\uparrow$, for example review articles or literature-summarising tools) raises $w$ at every density, with the effects in (iii). It also lowers the overshooting threshold of \cref{prop:toofast}, so more topics grow too fast.
+\item \emph{Better search} ($\sigma\uparrow$) raises the aware share $A$ at any given reading coverage.
+\end{enumerate}
+\end{proposition}
+
+Parts (iii) and (iv) follow from the envelope theorem. Each parameter raises
+$g(r,P)$ at every $(r,P)$, hence raises $v$. A pointwise upward shift of a
+single-peaked curve moves its falling-side crossing with a fixed $F$ to the right.
+The effect on the measured overlap rate is ambiguous in general: denser topics
+generate more overlap, but better detection removes more of it.
+\Cref{tab:ai} reports the calibrated magnitudes.
+
+\begin{proposition}[Reading improvements are dissipated]\label{prop:solow}
+Let $\omega$ be any parameter that raises $w$ at every density and leaves $F$
+unchanged. In the large-topic limit, $\dd P^*/\dd\omega>0$ and
+$\dd M^*/\dd\omega<0$, and
+\[
+\frac{\dd\ln(Y/N)}{\dd\omega}=-\eta\,\frac{\dd\ln M^*}{\dd\omega}=\eta\left|\frac{\dd\ln M^*}{\dd\omega}\right|\ge0,
+\]
+with equality if and only if $\eta=0$. By contrast, $\dd\ln(Y/N)/\dd\ln a=1-\mathcal E|\eps_w|$.
+\end{proposition}
+
+\paragraph{The asymmetry.} Writing speed multiplies every payoff, including the
+frontier's. Newcomers spread out, so a faster pen raises output almost one for
+one and leaves duplication nearly unchanged in the long run. Reading speed
+improves only existing topics. Newcomers crowd in until those topics are no
+better than the frontier, so the improvement is competed away. Output per
+researcher equals the frontier payoff $aF(M^*)$, and a reading improvement
+raises it only because fewer topics are open and the remaining directions are
+more fertile, which is a gain of order $\eta$. A reading tool is worth
+subsidising, on this criterion, only if it also makes new topics easier to open,
+that is, if it raises $F$.
+
+The asymmetry does not require a perfectly elastic frontier. \Cref{prop:solow}
+holds for any $\eta$, and the two elasticities can be compared directly. A
+proportional improvement in reading that raises $\ln w$ by $\dd\omega$ at every
+density raises $\ln P^*$ by $\dd\omega/(\eta D+|\eps_w|)$ and output per
+researcher by $\eta D\,\dd\omega/(\eta D+|\eps_w|)=D\mathcal E\,\dd\omega$. The
+same proportional improvement in writing raises output per researcher by
+$(1-\mathcal E|\eps_w|)\,\dd\omega$. The ratio of the two gains is
+$D\mathcal E/(1-\mathcal E|\eps_w|)$, which is small exactly when the volume
+elasticity of density is small, as Fact~\ref{fact:volume} finds. The asymmetry
+is thus tied to an observable rather than to an assumption about $F$.
+
+The proposition matches \citet{evans2008}, who finds that online access
+narrowed the set of papers that get cited, and \citet{haoetal2026}, who find
+that AI tools expand individual scientists' impact but contract science's
+collective focus. Gains from access to frontier knowledge measured for
+individuals or topics \citep{iariaetal2018,biasimoser2021} are real, but in
+equilibrium they are partly competed away at the level of science.
+
+\begin{table}[t]
+\centering
+\caption{The footprints of new research tools in the calibrated model}\label{tab:ai}
+\input{tables/ai_channels}
+\end{table}
+
+\paragraph{What the data can and cannot yet say.} \Cref{sec:facts,sec:causal}
+take the footprints to the arXiv record. At the author level, adopters of
+LLM-style writing raised their output by about \empLLMallPct\ relative to
+comparable non-adopters, also in fields where AI is not the subject of research
+(Fact~\ref{fact:authors}). The drafting channel is therefore present but so far
+small. The area-level evidence on pioneers and on overlap measured by meaning
+cannot separate channels: the first is confounded by changes in wording and the
+second is underpowered (\cref{sec:facts}). The reading and catch-up channels
+remain predictions. The model says that when literature-summarising tools
+become widespread, topics will get denser, fewer new ones will open, more
+fast-growing topics will overshoot, and output per researcher will barely rise.
+The arXiv rule that took most review articles out of computer science in
+November 2025 is a first shock to catch-up costs. \Cref{sec:causal} reports its
+first stage, and \cref{sec:predictions} states what the model predicts it will do.

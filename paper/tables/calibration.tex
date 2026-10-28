@@ -4,6 +4,7 @@ Parameter & Meaning & Value & Source \\
 \midrule
 \multicolumn{4}{@{}l}{\emph{Set externally}} \\
 $b$ & papers read per year at full-time reading & 100 & normalisation (unit of $P$) \\
+$a$ & projects per year at full-time production & 4 & normalisation \\
 $\lambda$ & credit lost by an unaware duplicate & 0.19 & Fact 3 ($-19\%$) \\
 $\kappa_p$ & credit lost by pivoting & 0.30 & assumption \\
 $\Delta/\lambda$, $q$ & detection value; share proceeding & 0.37, 0.31 & Fact 3 ($+29\%$), \cref{lem:credit} \\
@@ -11,14 +12,16 @@ $\delta$ & decay of the stock's relevance & 0.25 & half-life $\approx$ 2.8 years
 $\rho$ & rate of leaving a topic & 0.10 & ten-year topic tenure \\
 $\xi$ & topic obsolescence & 0.04 & 25-year topic life \\
 $P_0$ & flow of a newborn topic & 2 & a few papers per year \\
+$s$ & explorers' success rate & 0.14 & $\omega=s/(\rho+\xi+s)=0.50$ \\
 \multicolumn{4}{@{}l}{\emph{Calibrated (\cref{tab:fit})}} \\
-$\beta$, $\gamma$ & learning efficiency, curvature & 39.01, 0.156 & hump in returns \\
-$\theta\lambda$ & erosion per earlier paper & 0.0041 & fall at the top \\
-$F$ & frontier payoff & 1.768 & sparsest fifth \\
-$b_c$ & catch-up reading speed & 25 & premium, share beyond peak \\
-$\sigma$ & search precision & 1.58 & recall-corrected aware share \\
-$g_{\rm med}$, $s_g$ & diffusion rate: median, log-sd & 0.182, 0.29 & share beyond peak, fifths \\
-$s_\zeta$ & log-sd of topic fertility & 0.052 & gradient across topics \\
-$\eta$ & frontier elasticity & 0.0067 & $\mathcal{E}=0.15$ (Fact 1), \eqref{eq:eta} \\
+$\beta$, $\gamma$ & learning efficiency, curvature & 39.47, 0.157 & hump in returns \\
+$\theta\lambda$ & erosion per earlier paper & 0.0066 & fall at the top \\
+$F$ & frontier value & 1.760 & sparsest fifth \\
+$b_c$ & catch-up reading speed (speed limit) & 38.6 & premium, share beyond peak \\
+$\sigma$ & search precision & 1.61 & recall-corrected aware share \\
+$g_{\rm med}$, $s_g$ & diffusion rate: median, log-sd & 0.180, 0.29 & share beyond peak, fifths \\
+$s_\zeta$ & log-sd of topic fertility & 0.043 & gradient across topics \\
+$e$ & explorers' output (life cycle) & 1.696 & $F=(1-\omega)e+\omega\bar U_F$ \\
+$\eta_F$ & frontier depletion & 0.0166 & $\mathcal{E}=0.15$ (Fact 1), \eqref{eq:E} \\
 \bottomrule
 \end{tabular}

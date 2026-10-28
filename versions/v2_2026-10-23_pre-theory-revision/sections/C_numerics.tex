@@ -1,0 +1,66 @@
+\section{Numerical methods and verification}\label{app:numerics}
+
+\paragraph{Solving the researcher's problem.} For each $P>0$ the first-order
+condition $\partial_r\ln g(r,P)=0$ has a unique root in $[0,1)$ because $\ln g$ is
+strictly concave in $r$. We find it by vectorised bisection (60 steps)
+followed by three Newton steps, and set $r^*=0$ when $\partial_r\ln g(0,P)\le0$.
+The derivative $v'/v$ is computed from the envelope formula
+\eqref{eq:envelope}, not by differencing. Peaks and crossings use bounded
+Brent searches on the log-concave curves.
+
+\paragraph{Stationary equilibrium and planner.} The equilibrium is the solution of
+$\ln w(P)=\ln F(M(P))$ on $[\hat P_w,\infty)$. Here $M(P)$ solves
+$\Phi(M)+Mn(P)=N$, and the left side minus the right side is strictly decreasing
+(proof of \cref{prop:eq}). The constrained planner maximises output over $P$ along the
+resource constraint. The full planner maximises over $(P,x)$ by Nelder--Mead.
+
+\paragraph{Forward-looking entry.} The value $U(P)$ is computed by the trapezoid
+rule on 400 nodes of the consolidation path plus the closed-form tail at $P^m$.
+The stopping density is the first root of $\ln U(P)-\kappa\delta P/(\delta+g)=\ln F$
+above $P^m$, bracketed on a log grid and refined by Brent's method.
+
+\paragraph{Life cycles.} The growth phase has closed forms,
+$P=P_0e^{gt}$ and $S=P(1-e^{-(g+\delta)t})/(g+\delta)$. The stopping time is found
+on a fine time grid and refined by linear interpolation. Consolidation and
+maturity follow \cref{prop:toofast}(iii). Diffusion rates and fertility are lognormal, truncated at $\pm2.5$ log
+standard deviations and integrated on evenly spaced nodes. Because mature
+density is very elastic with respect to fertility ($1/|\eps_w|\approx7$),
+untruncated tails, where a few extremely fertile topics carry many
+researchers, make the moments converge very slowly. Topic-years are weighted by members, $P/x^*(P)$, and by topic
+survival, $e^{-\xi t}$. Observed log density adds classical measurement error
+with a standard deviation of 0.3, integrated by seven-point Gauss--Hermite
+quadrature. Besides matching the noisy arXiv proxy, this makes the quintile
+moments smooth in the parameters. The search uses a coarse grid (15 diffusion
+rates, 15 fertility levels, $\Delta t=0.1$). Candidates are re-ranked, and all
+reported moments computed, on a fine grid (41 diffusion rates, 51 fertility
+levels, $\Delta t=0.05$). Across grids the gradient and the share beyond the
+peak move by less than half a percentage point. The quintile moments move by
+up to one point, because the cut points between fifths fall in different places.
+The search bounds the median diffusion rate of new topics at 0.5 a year, so that
+the median topic takes at least about three and a half years to mature. With the
+bound at 1, both the baseline and the within-topic searches end in corners in
+which the median rate hits the bound, almost every topic overshoots, and the
+learning efficiency, catch-up speed and fertility dispersion sit at their lower
+bounds. The corners' losses (16.5 baseline, 12.0 within-topic) are higher than
+those of the interior solutions we report (14.9 and 11.4).
+
+\paragraph{Verification.} The file \texttt{code/tests/test\_propositions.py}
+checks every analytical result numerically:
+\begin{itemize}
+\item log-concavity, single-peakedness, $v(0)=1$ and $v\to0$ on 25 random parameter draws satisfying \cref{ass:Q,ass:phi,ass:credit,ass:interior};
+\item the envelope formula against finite differences, and the monotonicity of $r^*(P)$ (\cref{thm:v});
+\item the initial slope $v'(0^+)=\sup_\varrho\nu_0(\varrho)$ (\cref{ass:interior}(b));
+\item the externality decomposition and its sign (\cref{prop:externality});
+\item existence, uniqueness and the falling-side location of equilibrium for several $(\kappa,\eta)$, and dissipation (\cref{prop:eq});
+\item the volume elasticity \eqref{eq:E} against finite differences, and exact invariance to $N$ and $a$ when $\eta=0$ (\cref{prop:volume});
+\item the planner's first-order condition, the ordering $\hat P_w<P^o<P^*$, the large-topic limit and the vanishing writing wedge (\cref{prop:planner});
+\item the cross-topic returns gradient $\kappa P^m$ (\cref{prop:mature}) and overcrowding with rising returns (\cref{cor:overcrowd});
+\item the monotonicity and limits of the myopic stopping density, the threshold $g^*$, and $P_c\ge P_c^\infty(g)$ for finite birth flows (\cref{prop:toofast}(i));
+\item under forward-looking entry, the ordering $g^*\le g^*_{RE}\le\delta(\Phat/P^m-1)$, overshooting above the bound and none below $g^*$, deeper overshooting than under myopia for fast topics, and stopping beyond the frictionless density as $g\to\infty$ (\cref{prop:toofast}(ii)--(iii));
+\item the social-value identities and the overcrowding condition under transfers (\cref{prop:social});
+\item the composition bias of the short-run volume elasticity against its covariance formula (\cref{rem:shortrun});
+\item dissipation of reading improvements when $\eta=0$, and, when $\eta>0$, the sign of $\dd\ln(Y/N)/\dd\omega=-\eta\,\dd\ln M^*/\dd\omega>0$ (\cref{prop:solow});
+\item the stepping-on-toes formula \eqref{eq:sot} against finite differences (\cref{prop:sot});
+\item a Monte Carlo check of the credit formula \eqref{eq:credit} (\cref{lem:credit}).
+\end{itemize}
+All checks pass.

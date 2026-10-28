@@ -13,25 +13,38 @@ replication package contains the text.
 should be concentrated in clusters whose flow grew faster than their stock, that
 is, with a high flow-to-stock ratio $P/S$ (\cref{prop:toofast}). Among mature
 clusters the returns curve should be monotone.
+\item \emph{Slow clusters die young.} Among clusters born in the same year, those
+whose flow grew slowly in their first years should be abandoned more often, and
+the hazard should fall sharply above a threshold growth rate
+(\cref{prop:toofast}(i)).
 \item \emph{Returns follow the stock, density follows the flow.} Holding flow
 density fixed, returns should rise with the cluster's depreciated stock of
-literature (\cref{prop:mature}(ii): the premium is $\rho S/b_c$).
-\item \emph{Newcomers start slowly where stocks are large.} The lag between a
-newcomer's arrival in a cluster and her first paper there, and the length of her
-first reference list, should rise with the cluster's stock. Incumbents should
-show no such gradient.
-\item \emph{The cross-topic gradient is the catch-up premium plus audience.} The
-returns gradient from researchers who switch clusters should exceed the log
-premium of incumbents over pioneers in the clusters they join by the audience
-effect, which can be measured with citations from outside the cluster.
+literature (\cref{prop:mature}(ii): the premium is $(\rho+\xi)T(P,S)$).
+\item \emph{Newcomers start slowly where stocks are large and flows are fast.}
+The lag between a newcomer's arrival in a cluster and her first paper there, and
+the length of her first reference list, should rise with the cluster's stock,
+and convexly with its flow as the flow approaches what newcomers can read
+(\cref{lem:career}). Incumbents should show no such gradient.
+\item \emph{The cross-topic gradient is the catch-up elasticity plus audience.}
+The returns gradient from researchers who switch clusters should exceed the log
+premium of incumbents over pioneers in the clusters they join, by the gap
+between the catch-up elasticity and the premium (\cref{prop:mature}(iv)) and by
+the audience effect, which can be measured with citations from outside the
+cluster.
 \item \emph{Close overlap is pinned; broad neighbourhoods fill.} The volume
 elasticity should rise with the similarity radius, from near zero at the overlap
 radius toward the fixed-field benchmark at broad radii (Fact~\ref{fact:volume}
 already shows this ordering), and the ordering should survive embedding-based
-similarity.
+similarity. The ratio of the two elasticities measures how easily topics open
+inside existing fields (\cref{prop:nested}).
+\item \emph{Founders stay.} The share of a cluster's founding authors who keep
+publishing in it, and their returns there relative to their earlier exploratory
+work, measure the founders' share of the frontier's value, $\theta_F$. Areas with
+a larger $\theta_F$ should gain more from reading tools (\cref{thm:incidence}).
 \item \emph{Stepping on toes across areas.} Areas with a larger volume elasticity
 of density should show stronger diminishing returns to researchers in citation
-output, with $1-\lambda_J=\mathcal E|\eps_w|$ area by area (\cref{prop:sot}).
+output, with $1-\lambda_J^{\rm eq}=\mathcal E|\eps_w|$ area by area
+(\cref{prop:sot}).
 \item \emph{Search costs and detection.} Google was blocked in mainland China
 from 2014 \citep{zhengwang2020}. Relative to Hong Kong-based and overseas
 Chinese authors in the same topics, mainland-based authors' close overlaps
@@ -61,7 +74,13 @@ co-authors' names.
 high-uptake fields where AI is not the subject should form fewer new clusters,
 thicken existing ones, and show more overshooting by fast-growing clusters.
 Overlap measured by meaning should rise in dense clusters, and citations per
-author-year should not rise (\cref{prop:ai}(iii)--(iv), \cref{prop:solow}).
+author-year should rise by much less than the time the tools save, except where
+the people who open new clusters use them (\cref{prop:ai}(iii)--(iv),
+\cref{thm:incidence}).
+\item \emph{Production shocks and closure.} A large, fast rise in production
+speed should raise the flow of the densest clusters most, lengthen newcomers'
+time to first paper there, and cut entry into them for a while
+(\cref{thm:speed}(iv)).
 \item \emph{Better search raises the aware share.} If search tools improve, the
 share of close overlaps that cite the earlier paper should rise, with no
 offsetting fall in the overlap rate in sparse clusters (\cref{prop:ai}(v)).

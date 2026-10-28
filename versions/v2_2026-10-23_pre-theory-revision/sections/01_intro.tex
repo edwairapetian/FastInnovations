@@ -1,0 +1,165 @@
+\section{Introduction}\label{sec:intro}
+
+Submissions to arXiv more than doubled between 2018 and 2025, and in September
+2026 the archive received a record 40,363 papers. Large language models now
+draft text faster than any researcher can, and they are starting to read and
+summarise for us too. Two opposite hopes and fears follow. Faster writing
+might flood science with duplicates. Better reading tools might be the remedy
+and raise research productivity. This paper argues that free choice of
+research topics turns both intuitions around. Faster writing scales science,
+while better reading tools are largely competed away.
+
+The argument rests on one observation: researchers choose not only how much to
+read and write but \emph{where} to work. Reading has two jobs. It
+\emph{teaches}: what one reads raises the quality of one's own work, and more so
+in a topic with more to learn from. It \emph{protects}: each earlier paper may
+already cover one's project, and reading is how one finds out. Unaware
+duplicates lose part of their credit; detected overlaps can be turned into
+follow-ons that cite the earlier work, or abandoned. These two jobs make the
+payoff of working in a topic rise with the flow of its literature while there is
+much to learn, and fall once more of that flow goes unread. Newcomers enter
+topics until they are no better than the frontier, where new topics are opened.
+
+\paragraph{The headline result.} A tool that speeds up writing raises the payoff
+of everything a researcher does, including opening a new topic. Newcomers spread
+out, so output per researcher rises almost one for one with writing speed, and
+the duplication rate barely moves (\cref{prop:ai,prop:solow}). A tool that
+speeds up reading, search or catching up on a literature raises the payoff only
+of working inside existing topics. Newcomers crowd in until those topics are
+again no better than the frontier. Density rises, fewer topics are opened, and
+output per researcher rises only to the extent that the frontier improves as
+fewer directions are taken. The gain from better reading is dissipated by entry
+in the same way that a better road into a city is capitalised into its size.
+This asymmetry gives one reason why decades of better access to the literature
+have coincided with falling measured research productivity
+\citep{bloometal2020}.
+
+\paragraph{What is new, and what is not.} The equilibrium structure is that of
+a system of cities \citep{henderson1974} or of clubs \citep{buchanan1965}. The
+average payoff is single peaked in group size, new groups enter freely,
+equilibria are stable only on the falling side, the planner sits at the peak
+of the average payoff, and an entry tax decentralises the optimum. Self-organised
+cities are too large for the same reason \citep{hendersonbecker2000,scotchmer2002}.
+We use this structure and claim four things that it does not provide. First,
+a microfoundation of the hump in the two jobs of reading, valid for any
+learning and detection technology in a broad class. The proof uses joint
+log-concavity of the researcher's problem in reading time and density
+(\cref{thm:v}), and the hump comes from bounded absorption against a covering
+hazard that grows with the literature. Second, the crowders are the readers:
+the sign of the spillover from one more paper is derived from the envelope
+theorem rather than assumed, and it changes along the payoff curve
+(\cref{prop:externality}). Third, the duplication rate is pinned by entry, with
+an exact volume elasticity of density built from observables
+(\cref{prop:volume}). Fourth, the writing--reading asymmetry, together with a
+sufficient statistic for the stepping-on-toes parameter of growth theory
+(\cref{prop:sot}). A catch-up cost, the need to read a topic's stock before
+contributing \citep{jones2009}, adds a wedge that the city literature lacks:
+incumbents' returns rise with density even where newcomers find topics too
+crowded (\cref{cor:overcrowd}).
+
+\paragraph{Evidence.} We confront the model with the arXiv record in two ways.
+The descriptive evidence (\cref{sec:facts}) comes from 1.49 million papers posted
+in 2018--2025, classified into 150 text-based areas. The anchor fact is that volume
+opens new ground. From the 95th to the 25th percentile similarity radius, local
+density rises with area volume at an elasticity of 0.12--0.19, against 0.53--0.81
+if papers kept landing in the same idea space. At the closest-overlap radius the
+estimate is 0.035, though it is imprecise (SE 0.118). Returns are hump-shaped in
+topic density. Unaware duplicates lose about a fifth of their citations, close to
+the 21\% penalty for scooped teams in \citet{hillstein2025}, while aware
+follow-ons gain. Once corrected for citation recall, about 60\% of close overlap
+is aware.
+
+The quasi-experimental evidence (\cref{sec:causal}) uses arXiv's own rules on a
+new panel of 2.2 million arXiv submissions with exact timestamps through
+15~October 2026. Four shocks speak to the margins the model relies on.
+\begin{itemize}
+\item \emph{Entry cost.} In January 2026, arXiv stopped endorsing new submitters
+on the strength of an institutional e-mail address alone; Mathematics had moved
+in December 2025. The share of papers by first-time submitters fell by
+\empEndOther\ percentage points (about \empEndOtherRel) in the affected
+sections, net of the year before. The staggered timing matches the rule.
+\item \emph{Catch-up cost.} From November 2025, review and position papers in
+computer science needed prior peer review. Review-type papers in computer
+science halved relative to other archives, more so in categories that had
+relied on them. First-time authorship fell more in those categories, though a
+smaller pre-trend of the same sign makes this suggestive.
+\item \emph{Writing cap.} From October 2026, each person may submit at most two
+papers a month. The cap removed about \empCapRemoved\ of papers. Total volume
+kept growing at its usual seasonal pace, so per-submitter caps are a weak lever
+on volume.
+\item \emph{Readership.} A paper's position in the daily listing depends on how
+many others submitted earlier that day. We use this to test the
+detection channel directly. Position has only a small effect on citations, and
+no detectable effect on later overlapping work or on the share of it that cites
+the paper, with tight bounds. Overlap is detected by targeted search rather than
+by browsing.
+\end{itemize}
+At the author level, adopters of LLM-style writing raised their output by about
+\empLLMallPct\ relative to non-adopters. That is far less than the 36\% of
+\citet{kusumegietal2025}, whose design has been criticised for mechanically
+generating positive dynamics \citep{renaultetal2026}.
+
+\paragraph{Magnitudes.} The calibrated model is disciplined by the corrected
+arXiv moments (\cref{sec:quant}). The reading--writing asymmetry is the
+quantitatively robust prediction: a 30\% faster pen raises output per researcher
+by \calWriteOut\ log points, while 30\% faster reading raises it by only
+\calReadOut. The static welfare cost of crowding is small. Optimal topic choice
+would raise output per researcher by \calPlannerGain\ in the baseline calibration
+and \calWPlannerGain\ in the within-topic one, and overlap destroys only about
+\calErosion\ of credit at mature density. The frictionless benchmark, in which
+catch-up is free and topics fill until the whole rent at the peak is dissipated,
+would lose \calDissip; it is a counterfactual, not the calibrated economy. The
+direction of the inefficiency survives treating all priority credit lost to
+overlap as a transfer between racers (\cref{prop:social}). With the measured
+volume elasticity, topic crowding explains little of the decline in research
+productivity.
+
+\paragraph{Implications.} Two further results follow, and we collect them in
+\cref{sec:macro}. Because the stock of literature lags its flow, topics whose
+literature grows faster than a threshold rate overshoot their best density.
+This survives forward-looking entry: rational entrants overshoot more than
+myopic ones once a topic grows fast, because what deters entry is the stock,
+and a young topic has little of it (\cref{prop:toofast}). And the
+stepping-on-toes parameter equals one minus the product of the volume
+elasticity of density and the slope of the entrant's payoff curve.
+
+\paragraph{Related literature.} The paper joins five literatures. The first is
+the economics of science and priority
+\citep{merton1957,merton1961,dasguptadavid1994,stephan1996,hillstein2025,hillstein2025race,bobtcheffetal2017}
+and the philosophy of the division of cognitive labour
+\citep{kitcher1990,strevens2003}. We add reading as a choice with two
+distinct roles, and derive rather than assume the costs of duplication.
+\citet{hillstein2025race} show that priority races lower quality; our cost of
+crowding works through detection and catch-up instead, and the two are
+complementary. The second is the theory of excess entry, common pools, cities and
+clubs
+\citep{gordon1954,weitzman1974,mankiwwhinston1986,henderson1974,buchanan1965,hendersonbecker2000,scotchmer2002}
+and of patent races \citep{loury1979,dasguptastiglitz1980}. Our resource is
+attention to a literature, and the crowders are its readers. The third is the
+direction of research
+\citep{bryanlemus2017,hopenhaynsquintani2021,carnehlschneider2025,bramoullesaintpaul2010,rzhetskyetal2015,fosteretal2015,myers2020,borjasdoran2012,borjasdoran2015,azoulayetal2019}.
+\citet{carnehlschneider2025} model the choice of question by novelty and
+feasibility. We model the choice by density, derive the hump, and measure the
+margin. \citet{borjasdoran2015} document that researchers move in idea space in
+response to crowding, which is the margin our model turns on. The fourth is the
+macroeconomics of ideas and of access to knowledge
+\citep{romer1990,aghionhowitt1992,jones1995,kortum1997,weitzman1998,bloometal2020,jones2009,ekerdtwu2024,furmanstern2011,murrayetal2016,iariaetal2018,biasimoser2021,evans2008,mccabesnyder2015,agrawaletal2016,parketal2023}.
+We give stepping on toes an equilibrium foundation and explain why better access
+to the literature need not raise productivity. The fifth is artificial
+intelligence in science
+\citep{agrawaletal2019,brynjolfssonetal2019,jones2025ai,duedeetal2026,haoetal2026,liangetal2024,kusumegietal2025}.
+\citet{jones2025ai} studies AI in a task-based R\&D production function, and
+\citet{duedeetal2026} model LLMs as labour-augmenting technology that shifts
+effort across projects. We separate writing, entry, reading, search and catch-up
+channels by their equilibrium footprints. Methodologically, our text-based
+density measures follow \citet{hobergphillips2016} and \citet{kellyetal2021}, and
+the listing-position design builds on \citet{haqueginsparg2009,haqueginsparg2010}
+and \citet{feenbergetal2017}.
+
+\Cref{sec:model} sets up the model and \cref{sec:payoff} derives the payoff
+curve. \Cref{sec:frictionless,sec:catchup} characterise equilibrium, welfare and
+social value. \Cref{sec:ai} states the writing--reading asymmetry.
+\Cref{sec:facts,sec:causal} present the descriptive and quasi-experimental
+evidence, \cref{sec:quant} quantifies the model, \cref{sec:macro} collects
+the implications for fast-growing topics and growth, \cref{sec:predictions}
+lists out-of-sample predictions, and \cref{sec:conclusion} concludes.

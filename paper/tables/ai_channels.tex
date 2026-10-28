@@ -1,16 +1,18 @@
 \small
-\begin{tabular}{@{}llrrrrrrr@{}}
+\setlength{\tabcolsep}{3.6pt}
+\begin{tabular}{@{}llrrrrrrrr@{}}
 \toprule
-Channel & Shock & Density & Topics & Papers/ & Output/ & Flagged & Aware & $g^*$ \\
- & & & & researcher & researcher & overlap & share (pp) & (pp) \\
+ & & \multicolumn{3}{c}{Output per researcher} & \multicolumn{5}{c}{Footprints ($\omega=0.5$)} \\
+\cmidrule(lr){3-5}\cmidrule(l){6-10}
+Tool & Shock & Fixed & Long run & Long run & Density & Topics & Papers/ & Flagged & Aware \\
+ & & topics & $\omega=0$ & $\omega=0.5$ & & & researcher & overlap & (pp) \\
 \midrule
-Faster drafting & $a\times1.3$ & $+3.7$ & $+22.1$ & $+26.1$ & $+26.1$ & $+4.9$ & $-1.2$ & $+0.0$ \\
-Cheaper entry & $N\times1.3$ & $+3.7$ & $+22.1$ & $-0.1$ & $-0.1$ & $+4.9$ & $-1.2$ & $+0.0$ \\
-Faster reading & $b\times1.3$ & $+30.7$ & $-34.4$ & $-0.2$ & $+0.2$ & $+31.7$ & $-1.0$ & $-4.1$ \\
-Better learning & $\beta\times1.3$ & $+47.7$ & $-55.2$ & $-1.4$ & $+0.4$ & $+63.4$ & $-15.1$ & $-11.4$ \\
-Better search & $\sigma\times1.3$ & $+1.5$ & $-1.6$ & $+0.0$ & $+0.0$ & $-10.1$ & $+12.7$ & $+0.5$ \\
-Faster catch-up & $b_c\times 2$ & $+92.2$ & $-97.5$ & $-2.7$ & $+0.7$ & $+122.5$ & $-27.2$ & $-24.1$ \\
-Cheaper pivots & $\kappa_p\div 2$ & $+7.8$ & $-8.9$ & $-0.3$ & $+0.1$ & $-26.9$ & $-20.4$ & $-0.4$ \\
+Faster production & $a\times1.3$ & $+26.2$ & $+26.0$ & $+26.0$ & $+3.8$ & $+22.0$ & $+26.1$ & $+5.0$ & $-1.2$ \\
+Faster reading & $b\times1.3$ & $+2.0$ & $+0.3$ & $+1.5$ & $+7.8$ & $-8.0$ & $+0.5$ & $+1.8$ & $+6.4$ \\
+Better learning & $\beta\times1.3$ & $+4.1$ & $+0.5$ & $+2.9$ & $+14.6$ & $-16.3$ & $-0.4$ & $+19.1$ & $-4.6$ \\
+Better search & $\sigma\times1.3$ & $+0.1$ & $+0.0$ & $+0.1$ & $+0.5$ & $-0.4$ & $+0.1$ & $-11.2$ & $+12.9$ \\
+Cheaper pivots & $\kappa_p\div 2$ & $+0.6$ & $+0.1$ & $+0.5$ & $+2.5$ & $-3.0$ & $-0.2$ & $-35.9$ & $-18.3$ \\
+Faster catch-up & $b_c\times1.3$ & $+2.6$ & $+0.4$ & $+1.0$ & $+26.3$ & $-27.1$ & $-0.8$ & $+34.6$ & $-8.3$ \\
 \bottomrule
 \end{tabular}
-\par\smallskip\footnotesize Long-run stationary effects in log points ($\times100$) of a 30\% shock (catch-up speed doubled, pivot cost halved). Density is $P^*$; output per researcher is $aF(M^*)$. The flagged overlap rate is relative to its baseline level, which is a normalisation (\cref{sec:facts}). $g^*$ is the myopic overshooting threshold of \cref{prop:toofast}.
+\par\smallskip\footnotesize Stationary economy, solved exactly. Log points ($\times100$) of a 30\% shock (pivot cost halved). \emph{Fixed topics}: change in the newcomer's payoff $w$ at the mature density, which for a speed-up equals the time it saves (\cref{lem:timeshares}). \emph{Long run}: change in output per researcher $aF$, with the frontier's depletion $\eta_F$ set so that the volume elasticity is 0.15, for explorers who never stay ($\omega=0$) and for founders who stay in the topics they open with probability $\omega$. The flagged overlap rate is relative to its baseline level, which is a normalisation.

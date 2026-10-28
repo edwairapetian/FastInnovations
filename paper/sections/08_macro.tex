@@ -1,68 +1,83 @@
-\section{Implications: topics that grow too fast, and growth}\label{sec:macro}
+\section{Implications: topics that grow too fast, growth and policy}\label{sec:macro}
 
 \subsection{When innovation is too fast}
 
 The stock of literature lags its flow. A topic whose literature grows fast has a
 small stock relative to its current density, so joining it is cheap. This
-subsection shows that such topics overshoot their best density, and that the
-result does not rely on newcomers being myopic.
+subsection shows that such topics overshoot their best density, that topics
+that grow too slowly never take off, and that overshooting does not rely on
+newcomers being myopic.
 
 Consider a topic born with flow $P_0$ and an empty stock. Potential newcomers
 learn about the topic over time. While entry pays, they join at a rate that
 makes the topic's flow grow at the diffusion rate $g$, $P(t)=P_0e^{gt}$, and the
-stock follows $\dot S=P-\delta S$. Diffusion is the only friction on the speed of
-entry. Entry stops at the first date $t_s$ at which the value of joining falls to
-the frontier payoff, and $P_s=P(t_s)$ is the \emph{stopping density}. After
-$t_s$ no one joins, members leave at rate $\rho$, and the topic thins until entry
-resumes at the mature density $P^m$. Under the fast-stock approximation of
-\cref{prop:mature}, entry resumes when $w(P)=F$.
-
-Two kinds of newcomer bracket the possibilities. A \emph{myopic} newcomer values
-the topic at its current payoff, so her value relative to the frontier is
-$v(P)e^{-\rho S/b_c}/F$. A \emph{forward-looking} newcomer correctly anticipates
-that the topic will consolidate after entry stops. Her expected payoff per period
-over a career that starts at density $P$ is
-\[
-U(P)=\int_0^\infty e^{-u}\,v\big(\max\{Pe^{-u},P^m\}\big)\,\dd u,
-\]
-where $u=\rho\times$ time. Her value is $U(P)e^{-\rho S/b_c}/F$.
-
-\begin{proposition}[Too fast]\label{prop:toofast}
-Let mature topics lie on the rising side of $v$ ($\kappa\Phat>\ln(\vhat/F)$), let
-$w(P_0)>F$ and consider the limit $P_0\to0$, in which $S=P/(\delta+g)$ along the
-growth path.
-\begin{enumerate}[label=(\roman*)]
-\item \emph{(Myopic entry.)} The stopping density $P_c(g)$ solves $v(P)\exp(-\kappa\delta P/(\delta+g))=F$ on its falling side. It is continuous and strictly increasing in $g$, with $P_c(0)=P^m$ and $\lim_{g\to\infty}P_c(g)=\Pbar_F$, the frictionless density where $v=F$. The topic overshoots the peak, $P_c>\Phat$, if and only if
-\begin{equation}\label{eq:gstar}
-g>g^*\equiv\frac{\rho\,\Phat}{b_c\ln(\vhat/F)}-\delta .
+stock follows $\dot S=P-\delta S$ from $S(0)=0$, so that along the growth path
+\begin{equation}\label{eq:growthstock}
+S(P)=\frac{P}{g+\delta}\Big[1-\Big(\frac{P_0}{P}\Big)^{(g+\delta)/g}\Big]<\frac{P}{g+\delta}.
 \end{equation}
-\item \emph{(Forward-looking entry.)} A topic that grows faster than
+Diffusion is the only friction on the speed of entry. Entry stops at the first
+date $t_s$ at which the value of joining falls to the frontier value, and
+$P_s=P(t_s)$ is the \emph{stopping density}. After $t_s$ no one joins, members
+leave at rate $\rho$, and the topic thins. If it stopped above its mature
+density, entry resumes when it has thinned to $P^m$. (We use the stationary
+stock for that date.) If it stopped below, it stalled in the valley described
+next.
+
+Two kinds of newcomer bracket the possibilities. A \emph{myopic} newcomer
+expects the flow to stay at its current level, so her value relative to the
+frontier is $v(P)\big[1+\delta S/(b_c-P)\big]^{-\nu}/F$ (\cref{lem:career}). A
+\emph{forward-looking} newcomer correctly anticipates that the topic will thin
+once entry stops. She reads her backlog \eqref{eq:backlog} along the actual
+path of the flow and counts payoffs only once it is cleared:
 \[
-g^*_{RE}\equiv\frac{\rho\,\Phat}{b_c\ln\big(v(P^m)/F\big)}-\delta=\delta\Big(\frac{\Phat}{P^m}-1\Big)
+U(P_s,S_s)=(\rho+\xi)\int_{T(P_s,S_s)}^\infty e^{-(\rho+\xi)t}\,v\big(\max\{P_se^{-\rho t},P^m\}\big)\,\dd t,
 \]
-overshoots the peak, $P_s>\Phat$. A topic that grows slower than $g^*$ does not. Since $v(P^m)<\vhat$, $g^*<g^*_{RE}$.
-\item \emph{(Fast topics overshoot more under foresight.)} $U(P)>v(P)$ whenever $v(P)$ lies below the average of $v$ along the consolidation path from $P$, which holds for every $P$ sufficiently beyond the peak. For such topics forward-looking newcomers keep entering after myopic ones would stop: $P_s>P_c$. As $g\to\infty$, $P_s$ converges to the root of $U(P)=F$, which exceeds the frictionless density $\Pbar_F$.
-\item \emph{(Consolidation.)} After entry stops, incumbents stay, since their continuation value ($v(P_c)$ under myopia, $U(P_s)$ under foresight) exceeds $F$. The topic thins at rate $\rho$ to $P^m$ and spends $\ln(P_s/\Phat)/\rho$ periods beyond the peak.
+where $T(P_s,S_s)$ is now her catch-up time when the flow thins. Her value is
+$U/F$.
+
+\begin{proposition}[Too slow and too fast]\label{prop:toofast}
+Let mature topics lie on the rising side of $v$, with $\Phat<b_c$, and let the
+first follower of a newborn topic beat the frontier, $v(P_0)>F$.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{(Take-off.)} Under myopic entry the stopping density $P_c(g)$ is nondecreasing in $g$ and below $b_c$ for every $g$. If $w(P_0)<F$, there is a take-off threshold $g_0>0$: topics that grow more slowly stall below $P^m$, in the valley where a stationary topic is not worth joining; topics that grow faster reach at least $P^m$.
+\item \emph{(Overshooting.)} A topic overshoots the peak, $P_c(g)>\Phat$, if and only if $g>g^*\equiv\max\{g_0,g_{\hat P}\}$, where $g_{\hat P}$ is the rate at which a myopic newcomer at the peak density still beats the frontier, $\vhat\,[1+\delta S(\Phat)/(b_c-\Phat)]^{-\nu}=F$. It satisfies
+\begin{equation}\label{eq:gstar}
+g_{\hat P}\le g^*_\infty\equiv\frac{\delta\,\Phat}{(b_c-\Phat)\big[(\vhat/F)^{1/\nu}-1\big]}-\delta,
+\end{equation}
+with equality in the limit of a negligible birth flow, $P_0/\Phat\to0$, in the stock.
+\item \emph{(Forward-looking entry.)} A topic that takes off and grows faster than
+\[
+g^*_{RE}\equiv\delta\Big[\frac{\Phat\,(b_c-P^m)}{P^m\,(b_c-\Phat)}-1\Big]
+\]
+overshoots the peak under forward-looking entry.
+\item \emph{(Consolidation.)} After entry stops above $P^m$, incumbents stay, since their continuation value exceeds $F$. The topic thins at rate $\rho$ to $P^m$ and spends $\ln(P_s/\Phat)/\rho$ periods beyond the peak.
 \end{enumerate}
 \end{proposition}
 
 The proposition gives a clean answer to the question whether ``too fast'' is an
-equilibrium phenomenon. The friction that produces overshooting is the stock lag,
-not myopia. Part (ii) has a simple logic. If entry stopped before the peak, the
-future path of the topic would lie between $P^m$ and the peak, where $v$ is at
-least $v(P^m)$. A newcomer at the stopping date would face a stock of
-$P/(\delta+g)$, smaller than a mature topic's $P^m/\delta$ whenever $g$ exceeds
-$g^*_{RE}$. She would therefore earn more than a newcomer to a mature topic,
-who earns exactly $F$, and entry could not have stopped. Foresight raises the
-threshold a little, because a forward-looking newcomer at the peak anticipates
-the decline. But it deepens the overshoot of fast topics, because a newcomer to a
-topic far beyond its peak anticipates that consolidation will bring it back
-towards its best density. With instantaneous diffusion, a newborn topic with no
-stock fills past even the frictionless density. In the calibration the
-myopic threshold is \calGstarExact\ a year, the forward-looking one
-\calGstarRE, and the sufficient bound \calGstarREbound. A topic that grows at
+equilibrium phenomenon. The friction that produces overshooting is the stock
+lag, not myopia. Part (iii) has a simple logic. If entry stopped before the
+peak, the future path of the topic would lie between $P^m$ and the peak, where
+$v$ is at least $v(P^m)$, and the flow would fall, so a newcomer would read
+less than if it stayed put. A newcomer at the stopping date faces a stock of at
+most $P/(g+\delta)$. Whenever $g$ exceeds $g^*_{RE}$ her catch-up is shorter
+than in a mature topic, so she earns more than a newcomer to a mature topic,
+who earns exactly $F$, and entry could not have stopped.
+
+Part (i) is new to this version and follows from the exact catch-up time. A
+newborn topic is worth joining because it has no stock. If it grows slowly, its
+stock catches up with its flow before the topic is dense enough to be worth
+joining in its own right, and entry stalls. In the calibration a stalled topic
+is never worth joining again: its flow falls faster than its stock, so it thins
+and is abandoned. Topics that grow too slowly die in the valley between their
+birth and maturity; topics that grow too fast overshoot. Both are failures of the same coordination, in opposite
+directions. In the calibration the take-off threshold is \calGtakeoff\ a year,
+the myopic overshooting threshold is \calGstarExact, against a closed-form
+bound of \calGstarInf, and forward-looking entry overshoots above
+\calGstarRE, with a sufficient bound of \calGstarREbound. A topic that grows at
 200\% a year stops at \calRErationalThree\ papers a year with foresight, against
-\calREmyopicThree\ without (\cref{fig:lifecycle}).
+\calREmyopicThree\ without (\cref{fig:lifecycle}), and below the speed limit of
+\calBc\ in both cases.
 
 The result locates the overcrowded researcher-years in topics whose literature
 grew fast, which persist long after the rush because incumbents never pay the
@@ -75,10 +90,11 @@ literature-summarising tools that make catching up cheap make overshooting
 \centering
 \includegraphics[width=\textwidth]{figures/fig3_lifecycle.pdf}
 \caption{Topic life cycles. Left: density paths for topics with different
-diffusion rates $g$ in the calibrated model; topics that grow fast overshoot the
-peak $\Phat$ and consolidate slowly. Right: the stopping density as a function of
-$g$ for myopic and forward-looking newcomers, rising from the mature density
-$P^m$; with foresight, fast topics fill past the frictionless density $\Pbar_F$.}
+diffusion rates $g$ in the calibrated model. A topic that grows too slowly
+stalls and is abandoned (dashed); topics that grow fast overshoot the peak
+$\Phat$ and consolidate slowly. Right: the stopping density as a function of
+$g$ for myopic and forward-looking newcomers. It jumps at the take-off
+threshold and stays below the speed limit $b_c$.}
 \label{fig:lifecycle}
 \end{figure}
 
@@ -86,41 +102,72 @@ $P^m$; with foresight, fast topics fill past the frictionless density $\Pbar_F$.
 
 Growth models since \citet{jones1995} let the flow of new ideas scale with
 researchers as $N^{\lambda_J}$, $\lambda_J<1$, and call $1-\lambda_J$ ``stepping on
-toes''. The parameter is reduced form. Here the flow of credited novel output
-is $Y=N\,a\,F(M^*(N))$, because in equilibrium every researcher's career payoff
-equals the frontier's. (We write $\lambda_J$ to keep $\lambda$ for the credit lost
-by an unaware duplicate.)
+toes''. The parameter is reduced form, and what it holds fixed matters. Here
+the flow of credited output is $Y=N\,a\,F$ (\cref{lem:little}).
 
 \begin{proposition}[Stepping on toes]\label{prop:sot}
 In the large-topic limit,
 \begin{equation}\label{eq:sot}
-\lambda_J\equiv\frac{\dd\ln Y}{\dd\ln N}=1-\eta\,\frac{\dd\ln M^*}{\dd\ln N}=1-\mathcal E\,|\eps_w(P^*)|.
+\lambda_J^{\rm eq}\equiv\frac{\dd\ln Y}{\dd\ln N}=1-\mathcal E\,|\eps_w(P^*)|,
+\qquad
+\lambda_J^{M}\equiv\frac{\partial\ln Y}{\partial\ln N}\Big|_{M}=1+\frac{\eps_w(P^*)}{D}.
 \end{equation}
-If, in addition, topics opened later are less fertile, with fertility elasticity $\eta_f\ge0$ (\cref{app:fertility}), the right-hand side of \eqref{eq:sot} is an upper bound on $\lambda_J$.
+$\lambda_J^{\rm eq}$ lets the number of topics adjust; $\lambda_J^M$ holds the
+open topics fixed and adds researchers to them. If, in addition, topics opened
+later are less fertile, with fertility elasticity $\eta_f\ge0$
+(\cref{app:fertility}), the first expression is an upper bound.
 \end{proposition}
 
-The formula is a sufficient statistic built from two observable objects: the
-volume elasticity of density, $\mathcal E$ (Fact~\ref{fact:volume}), and the
-elasticity of the entrant's payoff curve at equilibrium density,
-$\eps_w=\eps_v-\kappa P^*$. Crowding does not amplify frontier depletion. It
-buffers it. The density margin absorbs part of the growth in researchers, so
-fewer new topics are opened and the frontier deteriorates more slowly. The cost
-of crowding shows up in the \emph{level} of productivity, not in its elasticity.
-With $\mathcal E$ between 0 and 0.27 and the calibrated slope of $w$,
-$\lambda_J$ lies between \calLambdaLo\ and one (\cref{sec:quant}). Topic
-crowding and access depletion therefore explain little of the measured decline in
-research productivity \citep{bloometal2020}. The rest must come from falling
-fertility of new topics ($\eta_f$, which density data do not identify) or from
-selection on researcher ability \citep{ekerdtwu2024}.
+Jones's parameter holds the stock of knowledge fixed. If the open topics count
+as knowledge, the relevant object is $\lambda_J^M$, the return to adding
+researchers to the topics that exist, which the slope of the newcomer's payoff
+curve alone determines. If topics are a choice, the relevant object is
+$\lambda_J^{\rm eq}$, which is built from two observables: the volume
+elasticity of density, $\mathcal E$ (Fact~\ref{fact:volume}), and the slope of
+the newcomer's payoff curve at equilibrium density, $\eps_w$. Crowding does not
+amplify frontier depletion. It buffers it. The density margin absorbs part of
+the growth in researchers, so fewer new topics are opened and the frontier
+deteriorates more slowly. In the calibration $\lambda_J^{\rm eq}=\calLambda$
+and $\lambda_J^M=\calLambdaFixed$. With $\mathcal E$ between 0 and 0.27,
+$\lambda_J^{\rm eq}$ lies between \calLambdaLo\ and one (\cref{sec:quant}). On
+either definition, topic crowding and access depletion explain little of the
+measured decline in research productivity \citep{bloometal2020}. The rest must
+come from falling fertility of new topics ($\eta_f$, which density data do not
+identify) or from selection on researcher ability \citep{ekerdtwu2024}.
 
 \subsection{Policy}
 
-The policy implications follow from where the rents go. Anything that raises the
-payoff of working inside existing topics is competed away: better reading
-tools, search engines, summarisers, and caps on writing. Anything that raises the
-frontier is not. Writing tools scale science because they scale the frontier
-too. The planner opens more topics than free entry does and puts each at the
-peak of the entrant's payoff curve. A frontier subsidy of \calSubsidy\ of the
-frontier payoff decentralises the optimum (\cref{prop:planner}). In practice that
-means credit, grants and prizes for opening new lines of work rather than for
-contributing to crowded ones.
+The policy implications follow from where the rents go. Anything that raises
+the payoff of working inside existing topics is competed away unless it also
+reaches the people who open new ones. Anything that raises the frontier is
+not. In the stationary economy the planner puts each topic at the peak of the
+newcomer's payoff curve, and a flat frontier subsidy decentralises the optimum
+(\cref{prop:planner}). Topics are not born at their mature density, though, and
+the subsidy has a side effect at birth.
+
+\begin{proposition}[Policy that depends on a topic's age]\label{prop:policy}
+Consider the life-cycle economy at a given frontier value $F$.
+\begin{enumerate}[label=(\roman*)]
+\item A flat subsidy $s$ to exploring, or a flat tax $s$ on joining open topics, deters the first follower of every newborn topic if $s>v(P_0)-F$. No topic then takes off.
+\item An entry tax proportional to the stock a newcomer must read, $\tau S$, is zero in a newborn topic and never deters its first followers. With $\tau^o=\delta(\hat w-F)/\hat P_w$ it puts mature topics at the peak of the newcomer's payoff curve, as in the stationary optimum.
+\end{enumerate}
+\end{proposition}
+
+In the calibration the stationary subsidy, \calSubsidy\ of the frontier value,
+is almost as large as the newborn margin, $\ln[v(P_0)/F]=\calNewborn$, so a
+flat subsidy would bring the economy to the edge of the regime in which new
+topics attract no followers. Even short of that edge it is a blunt instrument.
+It raises the bar for every newcomer, including those who carry a young topic
+through the valley before it is worth joining in its own right, so the take-off
+threshold rises from \calPolLFGtakeoff\ to \calPolSubsidyGtakeoff\ and more
+young topics die. With founders who stay, the frontier value itself changes by
+\calPolSubsidyF, and output per researcher-year on the life cycle rises by only
+\calPolSubsidyGain. The stock-proportional tax is zero at birth and small while
+a topic's stock is still small, so it raises the take-off threshold by less, to
+\calPolTaxGtakeoff; it brings mature topics close to the peak of the newcomer's
+payoff curve and raises output by \calPolTaxGain, more than half of the
+stationary planner's gain. In
+practice a tax on the stock means credit, grants and prizes that reward
+contributions to young topics and to new lines of work more than
+contributions to old, crowded ones. Faster catch-up tools work in the opposite
+direction: they lower the effective tax on joining crowded topics.

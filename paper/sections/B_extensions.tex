@@ -4,14 +4,15 @@
 
 Suppose topics also differ in fertility, and later topics are less fertile.
 The $m$-th topic opened has fertility $f(m)=\bar f\,m^{-\eta_f}$, so members of
-topic $m$ earn $a f(m)$ times the payoff curve. Explorers succeed with
-probability $\pi(M)=\bar\pi M^{-\eta_a}$, which captures \emph{access
-depletion}: elasticity $\eta_a$, the $\eta$ of the main text. A successful
-explorer opens a topic of fertility $f(M)$. Newcomers are indifferent between
-topic $m$ and exploring when
+topic $m$ earn $a f(m)$ times the payoff curve. The value of exploring falls
+with the number of open topics at elasticity $\eta_a$, which captures
+\emph{access depletion}: the $\eta_F$ of the main text. A successful explorer
+opens a topic of fertility $f(M)$. Newcomers are indifferent between topic $m$
+and exploring when
 \[
-f(m)\,w(P_m)=\pi(M)f(M)\iff w(P_t)=\bar\pi\,M^{-\eta_a}\,t^{\eta_f},\qquad t\equiv m/M\in(0,1].
+f(m)\,w(P_m)=F(M)f(M)\iff w(P_t)=\bar F\,M^{-\eta_a}\,t^{\eta_f},\qquad t\equiv m/M\in(0,1],
 \]
+where for simplicity founders' payoffs are absorbed into $\bar F$ ($\theta_F=0$).
 \begin{proposition}[Scale invariance under fertility depletion]
 (i) If $\eta_a=0$, the distribution of densities across topics, and hence of
 overlap rates and aware shares, is invariant to $N$ and $a$, whatever the value of
@@ -29,7 +30,7 @@ density, $1-\eta_a\mathcal D=1-\mathcal E|\eps_w|$.
 (i) With $\eta_a=0$ the indifference condition pins $P_t$ as a function of the
 relative rank $t$ alone. Members per topic $n(P_t)$ are then invariant, so
 $M=N/\int_0^1n(P_t)\dd t$ scales with $N$. (ii) Every researcher's career payoff is
-$a\pi(M)f(M)$, so $Y=Na\bar\pi\bar f M^{-\eta_a-\eta_f}$ and
+$aF(M)f(M)$, so $Y=Na\bar F\bar f M^{-\eta_a-\eta_f}$ and
 $\lambda_J=1-(\eta_a+\eta_f)\mathcal D$. At a fixed rank, $\eps_w(P_t)\,\dd\ln
 P_t=-\eta_a\,\dd\ln M$. Substituting into $N=M\int_0^1n(P_t)\dd t$ gives
 $\dd\ln N=\dd\ln M\,(1+\eta_a\E_n[D/|\eps_w|])$.
@@ -44,10 +45,120 @@ see. This is why \cref{prop:sot} delivers an upper bound on $\lambda_J$.
 
 With fertility $\zeta$ drawn independently at a topic's birth, a mature topic
 solves $\zeta w(P^m)=F$. More fertile topics are denser, their incumbents earn
-more, and the cross-sectional returns gradient is $\kappa P^m$
-(\cref{prop:mature}(iv)). Topics with $\zeta\hat w<F$ cannot sustain
+more, and the cross-sectional returns gradient is $\eps_\Gamma(P^m)$
+(\cref{prop:mature}(iv)). The most fertile topics sit closest to the speed
+limit (\cref{thm:speed}). Topics with $\zeta\hat w<F$ cannot sustain
 replacement entry. They shrink once their growth spurt ends and are eventually
-abandoned. This is the model's version of research lines that die out.
+abandoned, like topics that grow too slowly to take off (\cref{prop:toofast}).
+
+\subsection{Nested topics and the radius pattern}\label{app:nested}
+
+Fact~\ref{fact:volume} finds that the volume elasticity of density rises with
+the similarity radius: it is close to zero at the radius of close overlap and
+larger at broad radii. The model's topic is a neighbourhood of fixed size
+(\cref{rem:breadth}), and a two-scale version delivers the pattern. Let idea
+space consist of \emph{fields} of fixed breadth, each containing topic cells.
+A researcher can join an open topic, open a new topic inside an existing field,
+or open a new field. Opening a topic inside a field is worth
+$F_T(m)=\bar F_T\,m^{-\eta_T}$, where $m$ is the number of open topics per field,
+and opening a field is worth $F_B(M_B)=\bar F_B\,M_B^{-\eta_B}$, where $M_B$ is
+the number of fields. Learning and covering act within topics.
+
+\begin{proposition}[The radius pattern]\label{prop:nested}
+In the large-topic limit, the volume elasticity of density at the topic scale is
+\[
+\mathcal E_T\equiv\frac{\dd\ln P^*}{\dd\ln N}=\frac{1}{D+|\eps_w|\,(1/\eta_T+1/\eta_B)},
+\]
+and the volume elasticity of density at the field scale, papers per unit of
+field breadth $mP^*$, is
+\[
+\mathcal E_B\equiv\frac{\dd\ln(m^*P^*)}{\dd\ln N}=\mathcal E_T\Big(1+\frac{|\eps_w|}{\eta_T}\Big)\ge\mathcal E_T .
+\]
+If topics are easy to open inside fields and fields hard to open
+($\eta_T\ll\eta_B$), $\mathcal E_T$ is close to zero while $\mathcal E_B$ is close
+to $1/(1+\eta_T/\eta_B)$: close overlap is pinned while broad neighbourhoods
+fill. With neither margin open ($\eta_T,\eta_B\to\infty$) both equal $1/D$, the
+fixed-field benchmark.
+\end{proposition}
+\begin{proof}
+Indifference among the three options gives $w(P)=F_T(m)=F_B(M_B)$ and the
+adding-up condition is $N=M_B\,m\,n(P)$. Log-differentiating,
+$\eps_w\,\dd\ln P=-\eta_T\,\dd\ln m=-\eta_B\,\dd\ln M_B$ and
+$\dd\ln N=\dd\ln M_B+\dd\ln m+D\,\dd\ln P$. Substituting
+$\dd\ln m=(|\eps_w|/\eta_T)\,\dd\ln P$ and $\dd\ln M_B=(|\eps_w|/\eta_B)\,\dd\ln P$
+gives $\mathcal E_T$, and $\dd\ln(mP)=(1+|\eps_w|/\eta_T)\,\dd\ln P$ gives
+$\mathcal E_B$. The limits follow directly.
+\end{proof}
+
+The proposition turns the radius pattern of Fact~\ref{fact:volume} into a
+prediction and a measurement. The ratio of the broad-radius to the fine-radius
+elasticity identifies $1+|\eps_w|/\eta_T$, the ease of opening topics within
+existing fields. The ambitious version of this extension is a continuous idea
+space with a wide learning kernel and a narrow covering kernel, in which
+topics form endogenously as in the spatial models of
+\citet{lucasrossihansberg2002} and \citet{allenarkolakis2014}. A wide learning
+kernel adds a spillover from neighbouring topics, which makes opening a topic
+next to existing ones more attractive than opening one in empty space, and so
+raises $\mathcal E_B$ relative to $\mathcal E_T$. We leave that version to future
+work.
+
+\subsection{Learning from the stock}\label{app:stock}
+
+In the main text learning draws on the flow and catch-up on the stock. Let
+learning instead draw on the effective literature
+$L=(1-\chi)P+\chi\,\delta S$, with $\chi\in[0,1]$, while covering papers still
+arrive with the flow. In a stationary topic $\delta S=P$, so $L=P$, and every
+stationary result is unchanged: the payoff curve, the mature density, the
+speed limit and the incidence of tools. Along a growth path the stock lags, so
+$L<P$ and a young topic offers less to learn from than a mature topic of the
+same density. Two things follow. A newborn topic, which has no stock, offers
+its first follower $v$ evaluated at $L=(1-\chi)P_0$, which is below $v(P_0)$; the
+condition for newborn topics to attract followers tightens. In the
+calibration it fails for every $\chi$ above \calChiBar: if more than that share
+of learning drew on the accumulated stock, no new topic would ever find a
+follower. Below that bound young topics are less attractive, so they need to
+grow faster to take off and to overshoot. With $\chi=\calChiHalf$ the take-off
+threshold rises from \calGtakeoff\ to \calGtakeoffChiHalf\ and the overshooting
+threshold from \calGstarExact\ to \calGstarChiHalf. Learning from the flow is
+therefore not a convenience: it is what lets topics be born.
+
+\subsection{Search for overlap on every project}\label{app:perproject}
+
+In the main text a researcher's reading protects all her projects at once.
+Suppose instead that overlap must be checked project by project, as our
+evidence on targeted search suggests. Each project takes $1/a$ of production
+time plus a search time $t$ in which the researcher screens $b_st$ papers of her
+topic's literature, so that each earlier covering paper is caught with
+probability $\varphi(b_st/P)$. Learning still comes from the reading share $r$.
+Her payoff per period is
+\[
+a\,\frac{(1-r)\,Q(br,P)}{1+a\,t}\,\exp\Big\{-\theta P\big[\lambda-\Delta\varphi(b_st/P)\big]-\theta_c\lambda_cP\Big\}.
+\]
+Let $\varsigma\equiv at/(1+at)$ be the share of project time spent searching.
+
+\begin{proposition}[Per-project search]\label{prop:perproject}
+(i) At a fixed density, a production speed-up raises the payoff by $(1-\varsigma)\,\dd\ln a$ and a search speed-up by $\varsigma\,\dd\ln b_s$: per unit of time saved, every speed-up is still worth the same.
+(ii) Faster production lowers the papers screened per project, $b_st$, and so raises the share of earlier covering papers that go undetected.
+(iii) Production speed no longer drops out of the payoff curve: $v$ depends on $a$ through $\varsigma$.
+\end{proposition}
+\begin{proof}
+(i) By the envelope theorem, $\partial\ln(\text{payoff})/\partial\ln a=1-at/(1+at)$
+at the optimal $t$, and $\partial/\partial\ln b_s=\theta\Delta\varphi'(c_s)c_s$ with
+$c_s=b_st/P$, which the first-order condition for $t$,
+$\theta\Delta\varphi'(c_s)\,b_s/P=a/(1+at)$, equates to $at/(1+at)$. Time saved per
+project is $(1/a)\dd\ln a$ and $t\,\dd\ln b_s$ respectively, and both are valued
+at the same shadow price. (ii) Write the first-order condition as
+$G(t,a)\equiv\theta\Delta\varphi'(b_st/P)\,b_s/P-a/(1+at)=0$. Then
+$\partial G/\partial a=-1/(1+at)^2<0$, and $\partial G/\partial t<0$ by the
+second-order condition, so $\dd t/\dd a=-(\partial G/\partial a)/(\partial G/\partial t)<0$:
+search per project falls, and with it detection. (iii) follows from (i).
+\end{proof}
+
+Per-project search narrows the gap between production and reading tools at
+fixed topics, since production is only a share $1-\varsigma$ of a project, and it
+makes faster production raise the rate of unaware duplicates. The incidence
+results of \cref{sec:ai} are unchanged in form: what matters for the long run
+is still how a tool moves the frontier relative to existing topics.
 
 \subsection{Heterogeneous ability}
 
@@ -55,33 +166,41 @@ abandoned. This is the model's version of research lines that die out.
 researcher ability. Let ability $z$ multiply a researcher's credit. If ability
 and reading are complements ($Q$ increasing in $z\,R$), able researchers gain
 more from dense literatures and sort into them. If ability also raises the
-pioneer's success probability, they sort to the frontier. Which force wins
-determines whether the dense-topic premium in Fact~\ref{fact:hump} partly reflects
-sorting. Author fixed effects remove level differences in ability but not
-ability-specific returns to density. The two can be separated by interacting
-density with pre-period ability (early-career citations), which we leave for
-future work.
+explorer's founding rate, they sort to the frontier, where they also raise
+$\theta_F$. Which force wins determines whether the dense-topic premium in
+Fact~\ref{fact:hump} partly reflects sorting. Author fixed effects remove level
+differences in ability but not ability-specific returns to density. The two
+can be separated by interacting density with pre-period ability (early-career
+citations), which we leave for future work.
 
 \subsection{Credit rules}
 
-Partial credit enters only through $\Theta=\theta\lambda$ and $\Delta/\lambda$.
-\Cref{thm:v} requires $\lambda>\ell$ and nothing else. The sign of the externality
-at a stable equilibrium (\cref{prop:eq,cor:overcrowd}) therefore survives
-whenever duplicates earn some credit. Replication value can be added as a
-positive social value of aware follow-ons that is not credited privately. This
-raises the social value of detection relative to the private one, but it
-does not change the sign of $w'$ at equilibrium.
+Partial credit enters only through $\Theta=\theta\lambda$, $\Delta/\lambda$ and
+$\Theta_c=\theta_c\lambda_c$. \Cref{thm:v} requires $\lambda>\ell$ and nothing else.
+The sign of the externality at a stable equilibrium
+(\cref{prop:eq,cor:overcrowd}) therefore survives whenever duplicates earn some
+credit. Concurrent overlap adds a term linear in density that no reading
+prevents: it steepens the fall of $v$ at high density without changing what
+reading is worth for protection. Replication value can be added as a positive
+social value of aware follow-ons that is not credited privately. This raises
+the social value of detection relative to the private one, but it does not
+change the sign of $w'$ at equilibrium.
 
-\subsection{Transitional dynamics after a writing shock}
+\subsection{Transitional dynamics after a production shock}\label{app:transition}
 
 A one-time increase in $a$ raises every topic's flow immediately, before
 membership adjusts. Topics jump to the right along $v$, overlap rises, and
-incumbents' payoffs fall. If the jump lands beyond $\Phat$, the shock is crowding.
-Newcomers then go to the frontier and topics thin through turnover, returning
-to $P^*$ at rate $\rho$. The overlap rate spikes and decays with half-life
+incumbents' payoffs change by $\eps_v\,\dd\ln a$. The newcomer's payoff falls, by
+$|\eps_w|\,\dd\ln a$ at the old membership, so newcomers go to the frontier and
+topics thin through turnover, returning towards $P^*$ at rate $\rho$. Topics
+that the shock pushes past the speed limit close entirely until their flow
+falls back below $b_c$ (\cref{thm:speed}(iv)). In the calibration, closing even
+the densest mature topics requires production speed to rise by a factor of
+\calCloseAlpha; a fourfold rise closes topics that hold \calCloseFour\ of
+mature researcher-years. The overlap rate spikes and decays with half-life
 $\ln2/\rho$. Papers per author rise immediately and stay higher. The
 author-level estimate of Fact~\ref{fact:authors}, about \empLLMallPct\ more
-papers for adopters, bounds the size of the writing shock so far. With adopters a minority of
+papers for adopters, bounds the size of the production shock so far. With adopters a minority of
 active submitters (about one in fifteen in our classification), the aggregate
-increase in effective writing speed is at most a few percent, too small to
-produce a visible spike in overlap.
+increase in effective production speed is at most a few percent, too small to
+produce a visible spike in overlap or to close any topic.

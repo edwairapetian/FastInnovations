@@ -3,46 +3,60 @@
 This section puts numbers on the mechanisms. The aim is not to fit every
 moment of the arXiv record. It is to check that one parameterisation of the
 model reproduces the main facts with plausible primitives, and to read off its
-implications for rents, overcrowding, new research tools and growth.
+implications for rents, the speed limit, the incidence of research tools,
+topic life cycles and growth.
 
 \subsection{Strategy}
 
 We use the functional forms of \cref{sec:model}: harmonic learning
-\eqref{eq:Qexample} and exponential detection. Time is measured in years.
-\Cref{tab:calibration} lists the parameters. Some are set externally. The
-unit of density is fixed by $b=100$ papers read per year at full-time reading.
-Careers leave a topic at $\rho=0.10$ (ten-year tenure), the stock's relevance
-decays at $\delta=0.25$ (a half-life of about three years), topics become
-obsolete at $\xi=0.04$, and a newborn topic produces $P_0=2$ papers a year. The
-credit block comes from Fact~\ref{fact:credit} through \cref{lem:credit}. With
-exponential follow-on credit and a pivot that costs 30\% of a project, the
-$+29\%$ premium of aware follow-ons and the $-19\%$ penalty of unaware
-duplicates imply that 31\% of detected overlaps proceed and that detection
-averts \(\Delta/\lambda=37\%\) of erosion.
+\eqref{eq:Qexample}, exponential detection and the exact catch-up time
+\eqref{eq:T}. Time is measured in years. \Cref{tab:calibration} lists the
+parameters. Some are set externally. The unit of density is fixed by $b=100$
+papers read per year at full-time reading, and production speed by $a=4$
+projects per year at full-time production. Careers leave a topic at $\rho=0.10$
+(ten-year tenure), the stock's relevance decays at $\delta=0.25$ (a half-life of
+about three years), topics become obsolete at $\xi=0.04$, and a newborn topic
+produces $P_0=2$ papers a year. The credit block comes from
+Fact~\ref{fact:credit} through \cref{lem:credit}. With exponential follow-on
+credit and a pivot that costs 30\% of a project, the $+29\%$ premium of aware
+follow-ons and the $-19\%$ penalty of unaware duplicates imply that 31\% of
+detected overlaps proceed and that detection averts $\Delta/\lambda=37\%$ of
+erosion. We set concurrent overlap to zero: our moments do not separate it from
+erosion by unread earlier work, and attributing all erosion to unread work
+gives reading its largest protective value. Explorers found a viable topic at
+rate $s=0.14$, so that half of them found one before their spell ends
+($\omega=1/2$). The frontier block splits the calibrated frontier value into
+exploration and founding; it does not affect the cross-section, and we report
+results for $\omega$ between 0 and 3/4.
 
 The remaining parameters are calibrated jointly: learning ($\beta,\gamma$),
-erosion ($\theta\lambda$), search precision ($\sigma$), the frontier payoff
-$F$, catch-up speed $b_c$, and the distributions of diffusion rates and
-fertility. The targets are the corrected returns profile of
-Fact~\ref{fact:hump}: the gradient per standard deviation of density, the
-returns of the sparsest, fourth and densest fifths relative to the middle one
-($-11\%$, $+2\%$, $-2\%$), and the 12\% of researcher-years beyond the peak.
-We add the recall-corrected aware share of 60\% at mature density
-(Fact~\ref{fact:aware}), which disciplines $\sigma$. A soft target puts the
-incumbents' log premium $\kappa P^m=\rho T$ at about 0.15, a year and a half of
-catch-up per ten-year tenure. Since the measured gradient also reflects
+erosion ($\theta\lambda$), search precision ($\sigma$), the frontier value $F$,
+catch-up speed $b_c$, and the distributions of diffusion rates and fertility.
+The targets are the corrected returns profile of Fact~\ref{fact:hump}: the
+gradient per standard deviation of density, the returns of the sparsest,
+fourth and densest fifths relative to the middle one ($-11\%$, $+2\%$, $-2\%$),
+and the 12\% of researcher-years beyond the peak. We add the recall-corrected
+aware share of 60\% at mature density (Fact~\ref{fact:aware}), which
+disciplines $\sigma$, and the share of incumbents' time spent reading. Faculty
+report about 144 hours a year reading scholarly articles
+\citep{tenopirking2008}, about 7\% of a working year. This target disciplines
+the time-share value of reading tools (\cref{lem:timeshares}), which the
+previous version of the model left free. A soft target puts the incumbents'
+log premium $(\rho+\xi)T$ at about 0.15, about a year of catch-up per
+seven-year spell in a topic. Since the measured gradient also reflects
 audience, this is generous to the catch-up channel. We simulate the stationary
-cross-section of topic life cycles and run the arXiv regressions on it. As in the
-data, density is measured with error. Only 58\% of a paper's nearest neighbours
-fall in its own fine area. We add classical noise with a standard deviation of
-0.3 in log density, which implies a reliability of about 0.8. Researchers who
-move between topics supply the identifying variation in an author-fixed-effects
-design, and the model has no ability differences. The baseline analogue is
-therefore the cross-section of researcher-years. The within-topic analogue,
-which uses only life-cycle variation, is a robustness check. The search is a
-quasi-random scan of 2,048 points followed by Nelder--Mead from the best points,
-with the winner selected on a fine simulation grid (\cref{app:numerics}). The
-frontier elasticity $\eta$ is then set from \eqref{eq:eta} with $\mathcal E=0.15$
+cross-section of topic life cycles and run the arXiv regressions on it. As in
+the data, density is measured with error. Only 58\% of a paper's nearest
+neighbours fall in its own fine area. We add classical noise with a standard
+deviation of 0.3 in log density, which implies a reliability of about 0.8.
+Researchers who move between topics supply the identifying variation in an
+author-fixed-effects design, and the model has no ability differences. The
+baseline analogue is therefore the cross-section of researcher-years. The
+within-topic analogue, which uses only life-cycle variation, is a robustness
+check. The search is a quasi-random scan of 2,048 points followed by
+Nelder--Mead from the best points and from the previous calibration, with the
+winner selected on a fine simulation grid (\cref{app:numerics}). The frontier's
+depletion $\eta_F$ is then set from \eqref{eq:eta} with $\mathcal E=0.15$
 (Fact~\ref{fact:volume}).
 
 \begin{table}[t]
@@ -59,33 +73,43 @@ frontier elasticity $\eta$ is then set from \eqref{eq:eta} with $\mathcal E=0.15
 $^\dagger$ Not targeted. Baseline: cross-section of researcher-years (movers
 across topics). Within-topic: topic fixed effects, recalibrated. Density is the
 researcher-weighted standardised log flow, measured with noise as in the data.
+The reading share is from \citet{tenopirking2008}.
 \end{table}
 
 \subsection{Fit}
 
-\Cref{tab:fit} and \cref{fig:test4} compare model and data. The calibrated model
-reproduces the gradient (\calLin\ against 6.7\%), the rise from the sparsest
-fifth (\calQone\ against $-11\%$), the share of researcher-years beyond the peak
-of the payoff curve (\calBeyond\ against 12\%), the aware share at mature
-density (\calAware\ against 60\%) and, without targeting it, the location of the
-peak (\calZhat\ standard deviations above mean density, against about one). The
-incumbents' premium falls short of its soft target, which is generous to the
-catch-up channel because the measured gradient also reflects audience.
+\Cref{tab:fit} and \cref{fig:test4} compare model and data. The baseline
+calibration reproduces the aware share at mature density (\calAware\ against
+60\%), the reading share of incumbents' time (\calReadCS\ against 7\%), most of
+the share of researcher-years beyond the peak of the payoff curve
+(\calBeyond\ against 12\%) and most of the rise from the sparsest fifth
+(\calQone\ against $-11\%$). Without targeting it, the peak lies \calZhat\
+standard deviations above mean density, against about one in the data. The
+gradient falls short (\calLin\ against 6.7\%), and so does the incumbents'
+premium, which is generous to the catch-up channel because the measured
+gradient also reflects audience. Exact catch-up makes the problem harder than
+it was with the linear approximation: the newcomer's payoff curve now falls
+about twice as steeply at the mature density, and fast topics stop well below
+the densities they reached before, so the life cycle generates less
+overshooting for a given distribution of diffusion rates.
 
-The model does not reproduce the top of the profile. In the corrected data the
-densest fifth earns \emph{less} than the middle ($-2\%$). In the model the
-fourth and densest fifths earn \calQfour\ and \calQfive. The source of the miss
-is composition. The densest researcher-years in the model include the most
+The model still does not reproduce the top of the profile. In the corrected
+data the densest fifth earns \emph{less} than the middle ($-2\%$). In the model
+the fourth and densest fifths earn \calQfour\ and \calQfive. The source of the
+miss is composition. The densest researcher-years in the model include the most
 fertile mature topics, whose incumbents earn high returns, alongside the
 overshooting topics that pull returns down. Erosion in mature topics is small,
 about \calErosion\ of credit, so the payoff curve falls only gently beyond its
-peak. Searches that allow faster diffusion find corner solutions in which almost
-every topic overshoots, without a lower loss (\cref{app:numerics}). The fall at
-the top points to crowding costs in dense topics beyond duplication and catch-up,
-or to audience effects that flatter the middle of the distribution. We regard
-it as the model's main quantitative failure. \calShareMature\ of
-researcher-years are in mature topics, \calShareCons\ in topics consolidating
-after a growth spurt, and \calShareGrowth\ in growing topics.
+peak. The fall at the top points to crowding costs in dense topics beyond
+duplication and catch-up, to concurrent overlap, which we set to zero, or to
+audience effects that flatter the middle of the distribution. We regard it as
+the model's main quantitative failure. \calShareMature\ of researcher-years are
+in mature topics, \calShareCons\ in topics consolidating after a growth spurt or
+declining after a stall, and \calShareGrowth\ in growing topics. The
+within-topic calibration fits its moments more closely (\cref{tab:fit}). Its
+median diffusion rate is low, \calWGmed\ a year, so young topics grow slowly and
+the life-cycle variation it relies on is spread over many years; relaxing the
+bounds of the search does not change it.
 
 \begin{figure}[t]
 \centering
@@ -105,61 +129,102 @@ after fast growth.}
 
 \begin{table}[t]
 \centering\small
-\caption{Rents, overcrowding and growth in the calibrated model}\label{tab:welfare}
+\caption{Rents, the speed limit, welfare and growth in the calibrated model}\label{tab:welfare}
 \input{tables/welfare}
 \end{table}
 
-\paragraph{Overcrowding and rents.} The payoff curve peaks at $\Phat=\calPhat$
-papers a year. Mature topics sit below the peak, at $P^m=\calPm$, and the
-entrant's payoff curve peaks at $\hat P_w=\calPw$. Incumbents earn a premium of
-\calPremium\ over the frontier, the reward for \calT\ years of catch-up. Even
-with rising incumbent returns ($\eps_v(P^m)=\calEpsV>0$), the entrant's payoff
-curve is falling at the mature density ($|\eps_w|=\calEpsW$), so mature topics are
-too crowded once the catch-up burden is counted (\cref{cor:overcrowd}). Moving
-every topic to the peak of $w$ raises output per researcher by \calPlannerGain\
-(\calWPlannerGain\ in the within-topic calibration, whose entrant payoff curve is
-steeper at the mature density). The optimal frontier subsidy is \calSubsidy\ of the
-frontier payoff. The static welfare cost of crowding is small. If all credit
-lost to overlap were a transfer between racers, the gain would be
-\calGainTransfer\ (\cref{prop:social}). The frictionless benchmark, in which catch-up
-is free and topics fill to the density where $v=F$, would dissipate
-\calDissip\ of output per researcher. That number describes a counterfactual
-economy, not the calibrated one.
+\paragraph{Rents and the speed limit.} The payoff curve peaks at
+$\Phat=\calPhat$ papers a year, the newcomer's payoff curve at
+$\hat P_w=\calPw$, and mature topics sit between them, at $P^m=\calPm$. The speed
+limit is $b_c=\calBc$ papers a year: mature topics sit at \calSpeedRatio\ of it,
+and the most fertile at \calSpeedRatioTop. Catching up takes \calT\ years at the
+mature density and \calTpeak\ at the peak. Incumbents earn a premium of
+\calPremium\ over the frontier, and the cross-topic returns gradient, the
+catch-up elasticity $\eps_\Gamma=\calEpsG$, is steeper than the premium, as
+\cref{prop:mature}(iv) requires. Even with rising incumbent returns
+($\eps_v(P^m)=\calEpsV>0$), the newcomer's payoff curve is falling at the mature
+density ($|\eps_w|=\calEpsW$), so mature topics are too crowded once the
+catch-up burden is counted (\cref{cor:overcrowd}). Moving every topic to the
+peak of $w$ raises output per researcher by \calPlannerGain\ (\calWPlannerGain\
+in the within-topic calibration). The frictionless benchmark, in which catch-up
+is free and topics fill to the density where $v=F$, would dissipate \calDissip\
+of output per researcher. That number describes a counterfactual economy, not
+the calibrated one.
 
-\paragraph{Writing and reading tools.} \Cref{tab:ai} and \cref{fig:ai} report the
-long-run effects of 30\% improvements in each channel. Faster drafting raises
-output per researcher by \calWriteOut\ log points: almost one for one, as
-\cref{prop:solow} predicts. It raises papers per researcher by as much and
-spreads researchers over more topics. Faster reading raises density by
-\calReadDens\ log points and shrinks the number of topics, but raises output per
-researcher by only \calReadOut\ log points. Faster catch-up is the most powerful
-concentrating force. Doubling catch-up speed raises mature density by
-\calCatchDens\ log points and lowers the overshooting threshold by
-\calCatchGstar\ percentage points, so many more topics grow too fast. Better
-search lowers flagged overlap and raises the aware share. Cheaper entry leaves
-papers per author and density nearly unchanged and opens new topics.
+\paragraph{The incidence of research tools.} \Cref{tab:ai,tab:incidence} and
+\cref{fig:incidence} report the effects of 30\% improvements in each channel.
+Reading takes \calRm\ of an incumbent's time at the mature density, so faster
+reading is worth $r^*/(1-r^*)=\calTimeValueRead$ per log point at a fixed topic:
+a 30\% faster reader gains \calReadFixed\ log points, a 30\% faster producer
+\calWriteFixed. Per hour saved, the two are worth the same. Entry then ranks
+them. The producer keeps almost everything, \calWriteOut\ log points. If
+explorers never stay in the topics they open, the reader keeps
+\calReadOutNoF\ log points, \calReadPassNoF\ of her gain, close to the floor
+$\mathcal ED$ of \eqref{eq:passthrough}. If founders stay with probability one
+half, she keeps \calReadOut, or \calReadPass. Per hour saved, a production tool
+is therefore worth between \calPerHour\ and \calPerHourNoF\ times a reading
+tool. Catch-up tools keep \calCatchPassNoF\ without founders and \calCatchPass\
+with them; founders never catch up, so their gain reaches the frontier only
+through the density of the topics founders end up in.
 
-\paragraph{Fast topics.} The overshooting thresholds are \calGstarExact\ a year
-for myopic newcomers and \calGstarRE\ for forward-looking ones, with a
-sufficient bound of \calGstarREbound\ (\cref{prop:toofast}). These are fast but
-not unusual rates for hot topics on arXiv.
+On the simulated life cycle the founders' channel is weaker for catch-up
+tools and somewhat weaker for reading tools. Founders spend much of their
+tenure in topics still growing at a pace set by diffusion, so the frontier
+value rises by \calLCReadF\ of a reading gain and by only \calLCCatchF\ of a
+catch-up gain. Output per researcher-year, which also counts the rents of
+newcomers who enter growing topics before entry pays only the frontier value,
+rises by more: \calLCReadY\ of a reading gain (\calLCReadYnoF\ without founders),
+\calLCCatchY\ of a catch-up gain and \calLCProdY\ of a production gain. These
+rents raise life-cycle output per researcher \calLCRent\ above the frontier
+value. The footprints in \cref{tab:ai} follow \cref{prop:ai}. Faster reading
+raises density by \calReadDens\ log points; faster catch-up raises it by
+\calCatchDens\ and lowers the overshooting threshold by \calCatchGstar\
+percentage points, so more topics grow too fast; better search raises the aware
+share by \calSearchAware\ percentage points.
 
-\paragraph{Growth.} Inverting \eqref{eq:eta} with $\mathcal E=0.15$ gives a frontier
-elasticity of $\eta=\calEta$, and the stepping-on-toes parameter is
-$\lambda_J=1-\mathcal E|\eps_w|=\calLambda$. Over the arXiv range $\mathcal
-E\in[0,0.27]$ it lies between \calLambdaLo\ and one. The short-run bias from
-topic-age composition (\cref{rem:shortrun}) is $-\calCompBias$ over a
-seven-year window, so even the upper end of the long-run range keeps $\lambda_J$
-close to one. Topic crowding and access depletion explain little of the
-diminishing returns to research found by \citet{bloometal2020}. Their estimates
-require $\lambda_J$ well below one, which in our framework must come from
-fertility depletion (\cref{app:fertility}) or from selection.
+\begin{table}[t]
+\centering
+\caption{How much of each tool survives entry, and readership}\label{tab:incidence}
+\input{tables/incidence_lc}
+\end{table}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\textwidth]{figures/fig5_ai_channels.pdf}
-\caption{Long-run effects of new research tools in the calibrated model (30\%
-shocks; catch-up speed doubled; pivot cost halved). Log points $\times100$; aware
-share in percentage points.}
-\label{fig:ai}
+\includegraphics[width=\textwidth]{figures/fig5_incidence.pdf}
+\caption{The incidence of research tools in the calibrated model (30\% shocks).
+Left: long-run gain in output per researcher as a share of the gain at fixed
+topics, without founders, with founders who stay (stationary), and on the
+simulated life cycle. Right: the share that survives entry as a function of
+the founders' probability $\omega$, from the incidence formula and, for the
+frontier value alone, on the life cycle.}
+\label{fig:incidence}
 \end{figure}
+
+\paragraph{Readership.} Valued by readership ($\alpha=1$ in
+\cref{prop:audience}), a 30\% faster pen adds \calAudWrite\ log points and 30\%
+faster reading \calAudRead: a faster pen leaves total reading unchanged and
+cuts reads per paper by \calReadsDrop. With readership given half the weight of
+credit ($\alpha=1/2$) the two tools are worth about the same, \calAudWriteHalf\
+and \calAudReadHalf\ log points. Which tool scales science depends on the unit,
+and the unit is a choice about what science values.
+
+\paragraph{Topic life cycles.} A newborn topic beats the frontier by
+\calNewborn, so its first followers join, but a stationary topic of the same
+density would not be worth joining. Topics that grow more slowly than
+\calGtakeoff\ a year stall in the valley and are abandoned, and topics that grow
+faster than \calGstarExact\ overshoot the peak (\cref{prop:toofast}); with
+foresight the overshooting threshold is \calGstarRE. These are fast but not
+unusual rates for hot topics on arXiv.
+
+\paragraph{Growth.} Inverting \eqref{eq:eta} with $\mathcal E=0.15$ gives a frontier
+depletion of $\eta_F=\calEta$ (\calEtaNoF\ without founders), and the
+stepping-on-toes parameter is $\lambda_J^{\rm eq}=1-\mathcal E|\eps_w|=\calLambda$ when
+topics adjust and $\lambda_J^M=1+\eps_w/D=\calLambdaFixed$ when open topics are
+held fixed (\cref{prop:sot}). Over the arXiv range $\mathcal E\in[0,0.27]$,
+$\lambda_J^{\rm eq}$ lies between \calLambdaLo\ and one. The short-run bias from
+topic-age composition (\cref{rem:shortrun}) is $-\calCompBias$ over a
+seven-year window, so even the upper end of the long-run range keeps
+$\lambda_J^{\rm eq}$ close to one. Topic crowding and access depletion explain
+little of the diminishing returns to research found by \citet{bloometal2020}.
+Their estimates require $\lambda_J$ well below one, which in our framework must
+come from fertility depletion (\cref{app:fertility}) or from selection.

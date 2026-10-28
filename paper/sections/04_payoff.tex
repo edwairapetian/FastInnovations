@@ -8,23 +8,23 @@ satisfies \cref{ass:Q,ass:phi,ass:credit}.
 (a) Reading the first paper is worth its time: $b\,[\partial_R\ln Q(0,P)+\theta\Delta\varphi'(0)]>1$ for all $P>0$.
 (b) A thin literature is worth reading: for some $\varrho>0$,
 \[
-\nu_0(\varrho)\equiv\lim_{P\downarrow 0}\frac{Q(\varrho P,P)-1}{P}-\frac{\varrho}{b}-\theta\big[\lambda-\Delta\varphi(\varrho)\big]>0.
+\nu_0(\varrho)\equiv\lim_{P\downarrow 0}\frac{Q(\varrho P,P)-1}{P}-\frac{\varrho}{b}-\theta\big[\lambda-\Delta\varphi(\varrho)\big]-\theta_c\lambda_c>0.
 \]
 \end{assumption}
 
-Part (b) compares, at the first papers of a topic, the gain from learning along the
-ray $R=\varrho P$ with the time spent reading and the overlap risk. In the
-example it reads $\sup_\varrho\{\gamma\beta\varrho/(1+\varrho)-\varrho/b-\theta[\lambda-\Delta(1-e^{-\sigma\varrho})]\}>0$.
+Part (b) compares, at the first papers of a topic, the gain from learning along
+the ray $R=\varrho P$ with the time spent reading and the overlap risk. In the
+example it reads $\sup_\varrho\{\gamma\beta\varrho/(1+\varrho)-\varrho/b-\theta[\lambda-\Delta(1-e^{-\sigma\varrho})]\}>\theta_c\lambda_c$.
 
 \begin{theorem}[The payoff curve]\label{thm:v}
 Under \cref{ass:Q,ass:phi,ass:credit}:
 \begin{enumerate}[label=(\roman*)]
-\item $v$ is continuous on $\R_+$, $v(0)=1$, $v(P)\ge e^{-\theta\lambda P}>0$ and $\lim_{P\to\infty}v(P)=0$.
+\item $v$ is continuous on $\R_+$, $v(0)=1$, $v(P)\ge e^{-(\theta\lambda+\theta_c\lambda_c)P}>0$ and $\lim_{P\to\infty}v(P)=0$.
 \item $\ln v$ is concave on $(0,\infty)$. Under \cref{ass:interior}(a) it is strictly concave.
 \item Under \cref{ass:interior}, there is a unique $\Phat\in(0,\infty)$ such that $v$ is strictly increasing on $[0,\Phat]$ and strictly decreasing on $[\Phat,\infty)$, with $\vhat\equiv v(\Phat)>1$. For every $F\in(0,\vhat)$ the equation $v(P)=F$ has exactly one root above $\Phat$.
 \item (Envelope) $v$ is differentiable on $(0,\infty)$ with
 \begin{equation}\label{eq:envelope}
-\frac{v'(P)}{v(P)}=\underbrace{\partial_P\ln Q(R^*,P)}_{\text{more to learn from}}\;-\;\underbrace{\theta\big[\lambda-\Delta\big(\varphi(c^*)-c^*\varphi'(c^*)\big)\big]}_{\text{more to miss}},
+\frac{v'(P)}{v(P)}=\underbrace{\partial_P\ln Q(R^*,P)}_{\text{more to learn from}}\;-\;\underbrace{\theta\big[\lambda-\Delta\big(\varphi(c^*)-c^*\varphi'(c^*)\big)\big]-\theta_c\lambda_c}_{\text{more to miss}},
 \end{equation}
 where $R^*=b\,r^*(P)$ and $c^*=R^*/P$.
 \item The optimal reading share $r^*(P)$ is unique and nondecreasing in $P$. Papers per researcher, $a\,x^*(P)$, are nonincreasing in density.
@@ -33,14 +33,15 @@ where $R^*=b\,r^*(P)$ and $c^*=R^*/P$.
 
 The proof (\cref{app:proofs}) rests on one observation. $\ln g$ is
 \emph{jointly} concave in reading time and density. $\ln(1-r)$ and $\ln Q$ are
-concave by assumption. The erosion exponent $-\theta\lambda P+\theta\Delta\,P\varphi(R/P)$
-is linear plus the perspective of the concave function $\varphi$, and
-perspectives preserve concavity. Maximising a jointly concave function over
-one argument leaves a concave function of the other, so $\ln v$ is concave. A
-log-concave function that starts at one, rises, and vanishes at infinity is
-single peaked. Part (v) follows from Topkis's theorem: $\partial^2\ln
-C/\partial R\,\partial P=-\theta\Delta\varphi''(c)\,c/P\ge 0$ and $\ln Q$ is
-supermodular, so reading and density are complements.
+concave by assumption. The erosion exponent
+$-\theta\lambda P+\theta\Delta\,P\varphi(R/P)-\theta_c\lambda_cP$ is linear plus
+the perspective of the concave function $\varphi$, and perspectives preserve
+concavity. Maximising a jointly concave function over one argument leaves a
+concave function of the other, so $\ln v$ is concave. A log-concave function
+that starts at one, rises, and vanishes at infinity is single peaked. Part (v)
+follows from Topkis's theorem: $\partial^2\ln C/\partial R\,\partial
+P=-\theta\Delta\varphi''(c)\,c/P\ge 0$ and $\ln Q$ is supermodular, so reading
+and density are complements.
 
 The theorem needs no parametric assumption, and its conditions are economic:
 no increasing returns to reading, and diminishing returns to search. Note what
@@ -66,17 +67,36 @@ profile (Fact~\ref{fact:hump}) shows a single hump.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig1_payoff_curve.pdf}
-\caption{The payoff curve and its two forces. Left: $v(P)$ and the entrant's
-career payoff $w(P)=v(P)e^{-\kappa P}$ in the calibrated model, with the peak
-$\Phat$, the frictionless equilibrium (where $v=F$) and the mature density
-under catch-up costs (where $w=F$). Right: the decomposition
-\eqref{eq:envelope} of $v'/v$ into the learning and overlap terms, and the
-optimal reading share.}
+\caption{The payoff curve and its two forces. Left: $v(P)$ and the newcomer's
+payoff $w(P)=v(P)(1-P/b_c)^\nu$ in the calibrated model, with the peak $\Phat$,
+the mature density $P^m$ where $w=F$, and the speed limit $b_c$ at which $w$
+vanishes. Right: the decomposition \eqref{eq:envelope} of $v'/v$ into the
+learning and overlap terms, and the optimal reading share.}
 \label{fig:payoff}
 \end{figure}
 
-\paragraph{The sign of the spillover.} Let one more paper appear in a topic. By the
-envelope theorem, the change in every other member's payoff is exactly
+\paragraph{The value of time.} The envelope theorem also prices every speed-up
+inside a topic.
+
+\begin{lemma}[Time shares]\label{lem:timeshares}
+At a fixed density, $\partial\ln v/\partial\ln b=r^*(P)/(1-r^*(P))$, while a
+faster production speed raises a researcher's payoff by $\dd\ln a$. A speed-up
+of a task that takes a share $s_k$ of her time ($s_r=r^*$ for reading,
+$s_x=x^*$ for production) by $\dd\ln(\text{speed})$ saves $s_k\,\dd\ln(\text{speed})$
+of her time and raises her payoff by $s_k\,\dd\ln(\text{speed})/x^*(P)$. Per unit
+of time saved, every speed-up is worth the same, $1/x^*(P)$.
+\end{lemma}
+
+The proof is two lines (\cref{app:proofs}). By the envelope theorem
+$\partial\ln v/\partial\ln b=r\,\partial_R\ln(QC)\,b$, and the first-order
+condition sets $b\,\partial_R\ln(QC)=1/(1-r)$. A 30\% faster reader in a topic
+where reading takes 7\% of time therefore gains about two log points, and a
+30\% faster producer about 26. The difference is the share of time each task
+takes, not anything about entry. It is entry that ranks tools whose value per
+hour saved is the same, and \cref{sec:ai} shows how.
+
+\paragraph{The sign of the spillover.} Let one more paper appear in a topic. By
+the envelope theorem, the change in every other member's payoff is exactly
 $a\,v'(P)$. The researchers' own reallocation of time is second order.
 
 \begin{proposition}[Spillover sign]\label{prop:externality}

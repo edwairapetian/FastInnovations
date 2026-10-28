@@ -1,0 +1,215 @@
+\section{Model}\label{sec:model}
+
+The economy is stationary. Time is continuous, but within a topic the relevant
+literature is a flow, so we describe a researcher's choices per unit of time.
+
+\subsection{Researchers, topics and time}
+
+There is a continuum of topics. Topics that are open are ex ante identical. A
+mass $N$ of researchers each has one unit of time per period, split into a
+share $x$ spent writing and a share $r=1-x$ spent reading. Writing full time
+yields $a$ papers (projects) per period. Topic $j$ hosts $n_j$ researchers who
+write, and receives a flow of
+\begin{equation}\label{eq:flow}
+P_j = a\,x\,n_j
+\end{equation}
+papers per period. $P_j$ is the topic's \emph{density}. We call the ratio of
+writing speed to reading speed, $a/b$, the \emph{pace} of science.
+
+\subsection{Reading teaches}
+
+A researcher who reads full time reads $b$ papers per period, so a reading
+share $r$ yields $R=b\,r$ papers drawn from her topic's flow. What she reads
+raises the quality of her own work by the factor $Q(R,P)$.
+
+\begin{assumption}[Learning]\label{ass:Q}
+$Q:\R_+^2\to[1,\infty)$ is continuous, twice continuously differentiable on
+$\R_{++}^2$, nondecreasing in both arguments, with $Q(0,P)=Q(R,0)=1$ and
+$\bar Q(R)\equiv\sup_P Q(R,P)<\infty$ for every $R$. Moreover $\ln Q$ is
+jointly concave and supermodular on $\R_+^2$.
+\end{assumption}
+
+Nothing is learned without reading or without a literature to read, and what
+one can learn is bounded by what one reads. Concavity of $\ln Q$ rules out
+increasing returns to reading. Supermodularity says that reading is worth
+more in a topic with more to learn from. Our running example is
+\begin{equation}\label{eq:Qexample}
+Q(R,P) = \big(1+\beta\,h(R,P)\big)^{\gamma},\qquad h(R,P)=\frac{RP}{R+P},\qquad \beta>0,\;\gamma\in(0,1].
+\end{equation}
+The harmonic aggregator $h$ is close to $R$ when the reader samples a small
+part of a rich literature and close to $P$ when she reads a thin literature
+exhaustively. Because $h$ is concave and homogeneous of degree one, the
+example satisfies \cref{ass:Q} (\cref{app:proofs}).
+
+\subsection{Reading protects}
+
+Each paper in the flow \emph{covers} a given project independently with a small
+probability. The number of covering papers is therefore
+Poisson with mean $\theta P$. A covering paper is caught only if it is read. With reading
+coverage $c=R/P$ it is caught with probability $\varphi(c)$.
+
+\begin{assumption}[Detection]\label{ass:phi}
+$\varphi:\R_+\to[0,1]$ is continuous and twice differentiable on $(0,\infty)$,
+with $\varphi(0)=0$, $\varphi'>0$ and $\varphi''<0$.
+\end{assumption}
+
+Concavity says that the first papers one reads are the most informative about
+overlap. Random reading with replacement gives $\varphi(c)=1-e^{-c}$. Our
+example $\varphi(c)=1-e^{-\sigma c}$ indexes \emph{search precision} by
+$\sigma$: a better search engine finds covering papers sooner.
+
+\paragraph{Credit.} Overlap erodes credit multiplicatively. Each covering paper
+that goes unread turns part of the project into a duplicate and removes a
+share $\lambda$ of its credit. When a covering paper is caught, the
+researcher chooses between two options. She can \emph{pivot} to a fresh variant at a time cost
+that leaves a share $1-\kappa_p$. Or she can \emph{proceed} as a follow-on
+that cites the earlier paper and keeps a share $\delta$ drawn from a
+distribution $G$. She proceeds if $\delta>1-\kappa_p$. The expected share kept
+after a detection is $1-\ell\equiv\E\max\{\delta,1-\kappa_p\}$.
+
+\begin{assumption}[Credit]\label{ass:credit}
+$0\le \ell<\lambda\le 1$ and $\theta>0$.
+\end{assumption}
+
+Detection is valuable ($\ell<\lambda$), and duplicates need not earn zero
+($\lambda<1$ is allowed). The arXiv evidence (Fact~\ref{fact:credit}) requires
+both. Credit here is private. \Cref{sec:catchup} separates it from social
+value, since part of the credit lost to overlap may be a transfer to the
+earlier paper. Let $\Delta\equiv\lambda-\ell$ and $q\equiv 1-G(1-\kappa_p)$, the share
+of detections that proceed.
+
+\begin{lemma}[Credit and overlap]\label{lem:credit}
+Under \cref{ass:phi,ass:credit}, expected credit per project is
+\begin{equation}\label{eq:credit}
+C(R,P)=\exp\!\Big\{-\theta P\big[\lambda-\Delta\,\varphi(R/P)\big]\Big\}.
+\end{equation}
+Covering papers that the researcher does not pivot away from (\emph{flagged
+overlap}) arrive at rate $\theta P\,[1-(1-q)\varphi]$. A share
+\begin{equation}\label{eq:aware}
+A=\frac{q\,\varphi}{1-(1-q)\,\varphi}
+\end{equation}
+of them is \emph{aware}: the later paper cites the earlier one. Unaware
+duplicates keep a share $1-\lambda$ of credit. Aware follow-ons keep
+$\E[\delta\mid\delta>1-\kappa_p]$, which can exceed one.
+\end{lemma}
+
+The lemma follows from Poisson thinning. Detected and undetected covering
+papers are independent Poisson counts with means $\theta P\varphi$ and
+$\theta P(1-\varphi)$, and $\E[t^K]=e^{-\mu(1-t)}$ for $K\sim$ Poisson$(\mu)$.
+Three features matter below. Only $\theta\lambda$ and $\Delta/\lambda$ enter
+payoffs. Aware follow-ons are selected on high $\delta$, which is why they can
+out-earn comparable papers. And the measured overlap flag is a fixed share of
+covering events. Its level is a normalisation; its changes are not.
+
+\subsection{The researcher's problem}
+
+A researcher in a topic of density $P$ earns credit $a\,x\,Q(R,P)\,C(R,P)$ per
+period. Writing $x$ projects is worth $x$, and each is worth $QC$. Dividing
+by the common factor $a$,
+\begin{equation}\label{eq:g}
+g(r,P)\equiv(1-r)\,Q(br,P)\,C(br,P),\qquad v(P)\equiv\max_{r\in[0,1)}g(r,P).
+\end{equation}
+The \emph{payoff curve} $v$ is the central object of the paper. Writing speed $a$
+scales every payoff and so drops out of $v$. The researcher takes $P$ as given:
+she ignores both that her papers teach her colleagues and that they add to
+what her colleagues must read.
+
+\begin{remark}[Topic size and what density measures]\label{rem:breadth}
+A topic has a fixed set of projects: the coverage rate $\theta$ is a property
+of the topic and does not shrink when the topic attracts more people. This is
+a normalisation, not a restriction, once density is measured locally. Let a
+field of breadth $B$ consist of $B$ cells of unit breadth, each receiving a
+flow $P/B$, and let researchers read and be covered within their own cell, so
+that the coverage rate per paper is $\theta_0/B$. The field is then $B$
+independent copies of a unit topic with density $P/B$, and every result below
+holds with $P$ replaced by $P/B$. The model's topic is therefore a
+neighbourhood of fixed size in idea space, and $P$ is papers per unit of idea
+space: the quantity that nearest-neighbour similarity measures. If papers fall
+at rate $P/B$ in a $d$-dimensional space, the distance to the $k$-th nearest
+earlier paper scales as $(kB/P)^{1/d}$. ``Opening a topic'' means moving into
+an empty cell, and the question of whether topics broaden as they grow becomes
+the question of how the volume elasticity varies with the similarity radius,
+which \cref{sec:facts} measures.
+\end{remark}
+
+\subsection{The frontier, careers and catch-up}
+
+\paragraph{Frontier.} Instead of joining an open topic, a researcher may explore
+new ground. An explorer opens a viable topic with probability $\pi(M)$, where $M$
+is the measure of topics already open. If she succeeds, her output is worth
+$f_0$ per unit of writing speed: the founding papers of a field. The frontier
+pays $a\,F(M)$ in expectation, with $F(M)=f_0\,\pi(M)$. We assume $\pi$ is
+continuous, positive and nonincreasing, with elasticity
+$\eta\equiv -M\pi'(M)/\pi(M)\ge 0$: as more directions are taken, a fruitful
+new one is harder to find \citep{kortum1997,bloometal2020}. Opening $M$ topics
+takes $\Phi(M)=\int_0^M \dd m/\pi(m)$ researchers. We assume $F(M)<\vhat$, the
+peak of the payoff curve defined below, so open topics are worth joining. A
+newly opened topic attracts followers only if a thin topic beats the frontier,
+$F<v(P_0)$, where $P_0$ is the flow of a newborn topic.
+
+\paragraph{Careers and catch-up.} Researchers leave their topic at rate $\rho$
+(retirement, a change of field) and are replaced by newcomers who choose a
+topic. The literature a newcomer must master is a stock $S$ that accumulates
+the flow and loses relevance at rate $\delta$: $\dot S=P-\delta S$, so
+$S=P/\delta$ in a stationary topic. A newcomer must read it at speed $b_c$
+before contributing. This is the \emph{catch-up} cost: a topic-level version
+of the burden of knowledge of \citet{jones2009}. Explorers face no stock.
+
+\begin{lemma}[Career value]\label{lem:career}
+With exponential careers, a newcomer who joins a stationary topic of density
+$P$ and then earns $a\,v(P)$ per period obtains, relative to an explorer, the
+expected career value $w(P)/F(M)$, where
+\begin{equation}\label{eq:w}
+w(P)\equiv v(P)\,e^{-\kappa P},\qquad \kappa\equiv\frac{\rho}{\delta\, b_c}.
+\end{equation}
+In a stationary topic a share $1-e^{-\kappa P}$ of members are catching up,
+so $w(P)$ is also output per member and the topic has
+$n(P)=P\,e^{\kappa P}/(a\,x^\ast(P))$ members, where $x^*(P)$ is the optimal
+writing share.
+\end{lemma}
+
+Catch-up takes $T=S/b_c=P/(\delta b_c)$ periods, and a career survives it with
+probability $e^{-\rho T}=e^{-\kappa P}$. The frictionless benchmark is
+$\kappa=0$ ($b_c\to\infty$). Incumbents earn $a\,v(P)$ per period;
+newcomers earn $a\,w(P)$ on average over their careers.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{Notation}\label{tab:notation}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.3cm}X@{\hspace{1.2em}}>{\raggedright\arraybackslash}p{2.1cm}X@{}}
+\toprule
+$a$, $b$ & papers written / read per period at full time & $P$ & topic density (flow of papers per period) \\
+$x$, $r$ & writing and reading shares, $r=1-x$ & $R=br$, $c=R/P$ & papers read; reading coverage \\
+$Q(R,P)$ & quality gain from what is read & $\varphi(c)$ & probability a covering paper is caught \\
+$\theta$ & coverage rate per earlier paper & $\lambda$, $\ell$ & credit lost per unread / caught covering paper \\
+$g(r,P)$, $v(P)$ & payoff per unit of $a$; its maximum & $\Phat$, $\vhat$ & peak of $v$ and its height \\
+$F(M)$, $\pi(M)$ & frontier payoff; explorer's success probability & $\eta$ & elasticity of $\pi$ in topics opened $M$ \\
+$\rho$, $\delta$ & career turnover; decay of the stock's relevance & $S$, $b_c$ & stock of literature; catch-up reading speed \\
+$\kappa=\rho/(\delta b_c)$ & catch-up cost per unit of density & $w(P)$ & newcomer's career payoff, $v(P)e^{-\kappa P}$ \\
+$P^*$, $P^m$ & equilibrium (mature) density & $\mathcal E$ & elasticity of density with respect to $N$ \\
+$g$, $g^*$ & topic diffusion rate; overshooting threshold & $\lambda_J$ & stepping-on-toes parameter of \citet{jones1995} \\
+$\lambda_s$, $\tau$ & social loss per unread covering paper; transfer share & $U(P)$ & entrant's expected payoff along the consolidation path \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Equilibrium}
+
+\begin{definition}[Topic equilibrium]\label{def:eq}
+A stationary topic equilibrium is a density $P^*$ for every open topic,
+a writing share $x^*$ and a measure $M^*$ of open topics such that:
+(i) $x^*=x^*(P^*)$ solves \eqref{eq:g};
+(ii) newcomers are indifferent between joining any open topic and exploring:
+$w(P^*)=F(M^*)$;
+(iii) the allocation is stable under entry: $w'(P^*)<0$;
+(iv) researchers add up: $\Phi(M^*)+M^*n(P^*)=N$.
+\end{definition}
+
+Condition (iii) selects allocations that survive the adjustment
+$\dot n_j\propto w(P_j)-F(M)$. At a crossing where $w$ rises, one more entrant
+raises the payoff of entering and draws in more. Topics in equilibrium need
+not have the same density a priori, but (ii) and (iii) leave a single
+admissible density, so they do. We state results in the \emph{large-topic
+limit} $\Phi(M)/N\to 0$. Here topics are large relative to the researcher time
+needed to open one, as they are in the data, where pioneers are a small share
+of authors. \Cref{app:proofs} gives the general expressions.

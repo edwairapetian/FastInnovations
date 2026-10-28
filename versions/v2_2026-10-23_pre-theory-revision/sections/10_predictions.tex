@@ -1,0 +1,74 @@
+\section{Out-of-sample predictions}\label{sec:predictions}
+
+The catch-up extension was added after the returns-by-density evidence was
+seen, so that evidence cannot test it. The predictions below were not used to
+build the model. They are stated before the relevant data were analysed, and
+several before the data exist. To make the claim verifiable they should be
+deposited in a public registry before they are taken to the data. The
+replication package contains the text.
+
+\paragraph{Predictions testable with existing data.}
+\begin{enumerate}[label=\textbf{P\arabic*.},leftmargin=*]
+\item \emph{Overcrowding is young and fast.} The fall in returns beyond the peak
+should be concentrated in clusters whose flow grew faster than their stock, that
+is, with a high flow-to-stock ratio $P/S$ (\cref{prop:toofast}). Among mature
+clusters the returns curve should be monotone.
+\item \emph{Returns follow the stock, density follows the flow.} Holding flow
+density fixed, returns should rise with the cluster's depreciated stock of
+literature (\cref{prop:mature}(ii): the premium is $\rho S/b_c$).
+\item \emph{Newcomers start slowly where stocks are large.} The lag between a
+newcomer's arrival in a cluster and her first paper there, and the length of her
+first reference list, should rise with the cluster's stock. Incumbents should
+show no such gradient.
+\item \emph{The cross-topic gradient is the catch-up premium plus audience.} The
+returns gradient from researchers who switch clusters should exceed the log
+premium of incumbents over pioneers in the clusters they join by the audience
+effect, which can be measured with citations from outside the cluster.
+\item \emph{Close overlap is pinned; broad neighbourhoods fill.} The volume
+elasticity should rise with the similarity radius, from near zero at the overlap
+radius toward the fixed-field benchmark at broad radii (Fact~\ref{fact:volume}
+already shows this ordering), and the ordering should survive embedding-based
+similarity.
+\item \emph{Stepping on toes across areas.} Areas with a larger volume elasticity
+of density should show stronger diminishing returns to researchers in citation
+output, with $1-\lambda_J=\mathcal E|\eps_w|$ area by area (\cref{prop:sot}).
+\item \emph{Search costs and detection.} Google was blocked in mainland China
+from 2014 \citep{zhengwang2020}. Relative to Hong Kong-based and overseas
+Chinese authors in the same topics, mainland-based authors' close overlaps
+should have become less often aware, and their papers more often unaware
+duplicates, after 2014 (\cref{lem:credit} with lower $\sigma$). The share of
+covering papers they pivot away from cannot be observed, so the prediction is
+on the aware share and on the citation penalty of their overlaps.
+\end{enumerate}
+
+\paragraph{Predictions for the arXiv rule changes of 2025--2026.}
+\begin{enumerate}[label=\textbf{P\arabic*.},leftmargin=*,resume]
+\item \emph{Endorsement.} Relative to the other sections, Mathematics in
+2026 and all sections in 2026--2027 relative to trend should show fewer pioneer
+papers (new clusters) in proportion to the fall in entrants. Local density at
+the overlap radius, the flagged overlap rate and the aware share should not
+change detectably (\cref{prop:ai}(ii) with small $\mathcal E$).
+\item \emph{Review articles.} In computer-science clusters where reviews had been
+common, mature density should fall and the number of clusters rise relative to
+other computer-science clusters over 2026--2027. Fast-growing clusters there
+should overshoot less (higher $g^*$) and newcomers' first papers should come
+later and with longer reference lists (\cref{prop:ai}(iv), P3).
+\item \emph{Submission cap.} The cap should leave total volume, papers per
+author and the overlap rate within a few percent of trend. Submissions by
+previously heavy submitters should be replaced partly by submissions in their
+co-authors' names.
+\item \emph{Reading tools.} When literature-summarising tools are widely used,
+high-uptake fields where AI is not the subject should form fewer new clusters,
+thicken existing ones, and show more overshooting by fast-growing clusters.
+Overlap measured by meaning should rise in dense clusters, and citations per
+author-year should not rise (\cref{prop:ai}(iii)--(iv), \cref{prop:solow}).
+\item \emph{Better search raises the aware share.} If search tools improve, the
+share of close overlaps that cite the earlier paper should rise, with no
+offsetting fall in the overlap rate in sparse clusters (\cref{prop:ai}(v)).
+\end{enumerate}
+
+Two earlier predictions have already been settled. Equal returns (full
+dissipation) is rejected, and the catch-up cost replaces it. A detection
+channel that runs through the prominence of a paper's announcement is rejected
+by the listing-rank design (\cref{sec:causal}), which locates detection in
+deliberate search.

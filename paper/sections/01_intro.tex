@@ -2,37 +2,59 @@
 
 Submissions to arXiv more than doubled between 2018 and 2025, and in September
 2026 the archive received a record 40,363 papers. Large language models now
-draft text faster than any researcher can, and they are starting to read and
-summarise for us too. Two opposite hopes and fears follow. Faster writing
-might flood science with duplicates. Better reading tools might be the remedy
-and raise research productivity. This paper argues that free choice of
-research topics turns both intuitions around. Faster writing scales science,
-while better reading tools are largely competed away.
+produce research text faster than any researcher can, and they are starting to
+read and summarise for us too. Two opposite hopes and fears follow. Faster
+production might flood science with duplicates. Better reading tools might be
+the remedy and raise research productivity. This paper argues that free choice
+of research topics decides between them, and that what matters about a tool is
+not how much time it saves but whom it helps: the people who open new topics,
+or the people who join existing ones.
 
 The argument rests on one observation: researchers choose not only how much to
-read and write but \emph{where} to work. Reading has two jobs. It
+read and produce but \emph{where} to work. Reading has two jobs. It
 \emph{teaches}: what one reads raises the quality of one's own work, and more so
 in a topic with more to learn from. It \emph{protects}: each earlier paper may
 already cover one's project, and reading is how one finds out. Unaware
 duplicates lose part of their credit; detected overlaps can be turned into
 follow-ons that cite the earlier work, or abandoned. These two jobs make the
 payoff of working in a topic rise with the flow of its literature while there is
-much to learn, and fall once more of that flow goes unread. Newcomers enter
-topics until they are no better than the frontier, where new topics are opened.
+much to learn, and fall once more of that flow goes unread. Newcomers must also
+read a topic's accumulated literature before they can contribute, and they
+enter topics until they are no better off than at the frontier, where new
+topics are opened by founders who then stay in them.
 
-\paragraph{The headline result.} A tool that speeds up writing raises the payoff
-of everything a researcher does, including opening a new topic. Newcomers spread
-out, so output per researcher rises almost one for one with writing speed, and
-the duplication rate barely moves (\cref{prop:ai,prop:solow}). A tool that
-speeds up reading, search or catching up on a literature raises the payoff only
-of working inside existing topics. Newcomers crowd in until those topics are
-again no better than the frontier. Density rises, fewer topics are opened, and
-output per researcher rises only to the extent that the frontier improves as
-fewer directions are taken. The gain from better reading is dissipated by entry
-in the same way that a better road into a city is capitalised into its size.
-This asymmetry gives one reason why decades of better access to the literature
-have coincided with falling measured research productivity
-\citep{bloometal2020}.
+\paragraph{The results.} Three results organise the paper.
+
+\emph{Frontier incidence.} In a stationary equilibrium every option a
+researcher takes is worth the same, so output per researcher equals the value
+of opening a new topic (\cref{lem:little}). A research tool is therefore worth,
+in the long run, what it adds to that value (\cref{thm:incidence}). Inside a
+topic, every speed-up is worth exactly the time it saves (\cref{lem:timeshares}):
+because researchers spend little of their time reading, a faster reader gains
+little, but per hour saved she gains as much as a faster producer. Entry then
+ranks the tools. A tool that speeds up production raises the value of
+everything a researcher does, including founding a topic, and survives entry
+almost entirely. A tool that speeds up reading reaches the frontier only
+through founders, who read in the topics they open. A tool that speeds up
+catching up on a literature reaches it least, since founders never have to
+catch up. The share of a reading gain that survives entry is at least the
+volume elasticity of density, which the data measure, and rises with the share
+of the frontier's value that founders earn as incumbents.
+
+\emph{A speed limit.} A newcomer can catch up with a literature only if it
+grows more slowly than she can read it (\cref{lem:career}). Topics whose flow
+exceeds that speed are closed to newcomers, however rewarding they are, and
+incumbents' rents near the limit grow without bound (\cref{thm:speed}). A tool
+that lets everyone produce faster raises every topic's flow at once and can
+push the densest topics past the limit. Because the stock of literature lags
+its flow, topics that grow fast overshoot their best density, even when
+newcomers see it coming, and topics that grow too slowly stall before they are
+worth joining and are abandoned (\cref{prop:toofast}).
+
+\emph{Units.} Measured by credited output, faster production scales science.
+Measured by readership, it adds nothing, because total reading is fixed by
+researchers' time and more papers share it; then only reading tools raise
+output (\cref{prop:audience}). We report both.
 
 \paragraph{What is new, and what is not.} The equilibrium structure is that of
 a system of cities \citep{henderson1974} or of clubs \citep{buchanan1965}. The
@@ -50,12 +72,12 @@ the sign of the spillover from one more paper is derived from the envelope
 theorem rather than assumed, and it changes along the payoff curve
 (\cref{prop:externality}). Third, the duplication rate is pinned by entry, with
 an exact volume elasticity of density built from observables
-(\cref{prop:volume}). Fourth, the writing--reading asymmetry, together with a
-sufficient statistic for the stepping-on-toes parameter of growth theory
-(\cref{prop:sot}). A catch-up cost, the need to read a topic's stock before
-contributing \citep{jones2009}, adds a wedge that the city literature lacks:
-incumbents' returns rise with density even where newcomers find topics too
-crowded (\cref{cor:overcrowd}).
+(\cref{prop:volume}). Fourth, the frontier-incidence theorem and the speed
+limit, which together say which research tools scale science and when a
+literature grows too fast to join. The catch-up cost, the need to read a
+topic's stock before contributing \citep{jones2009}, adds a wedge that the city
+literature lacks: incumbents' returns rise with density even where newcomers
+find topics too crowded (\cref{cor:overcrowd}).
 
 \paragraph{Evidence.} We confront the model with the arXiv record in two ways.
 The descriptive evidence (\cref{sec:facts}) comes from 1.49 million papers posted
@@ -100,28 +122,37 @@ At the author level, adopters of LLM-style writing raised their output by about
 generating positive dynamics \citep{renaultetal2026}.
 
 \paragraph{Magnitudes.} The calibrated model is disciplined by the corrected
-arXiv moments (\cref{sec:quant}). The reading--writing asymmetry is the
-quantitatively robust prediction: a 30\% faster pen raises output per researcher
-by \calWriteOut\ log points, while 30\% faster reading raises it by only
-\calReadOut. The static welfare cost of crowding is small. Optimal topic choice
-would raise output per researcher by \calPlannerGain\ in the baseline calibration
-and \calWPlannerGain\ in the within-topic one, and overlap destroys only about
-\calErosion\ of credit at mature density. The frictionless benchmark, in which
-catch-up is free and topics fill until the whole rent at the peak is dissipated,
-would lose \calDissip; it is a counterfactual, not the calibrated economy. The
-direction of the inefficiency survives treating all priority credit lost to
-overlap as a transfer between racers (\cref{prop:social}). With the measured
-volume elasticity, topic crowding explains little of the decline in research
-productivity.
+arXiv moments and by survey evidence that researchers spend about 7\% of their
+working time reading articles \citep{tenopirking2008} (\cref{sec:quant}). At a
+given topic, a 30\% faster producer gains \calWriteFixed\ log points and a 30\%
+faster reader \calReadFixed: the same per hour saved. In the long run the
+producer keeps almost all of it. The reader keeps \calReadPassNoF\ of her gain
+if explorers never stay in the topics they open, and \calReadPass\ if they stay
+with probability one half; catch-up tools keep \calCatchPass. Per hour saved, a
+production tool is worth between \calPerHour\ and \calPerHourNoF\ times a reading
+tool. On the simulated life cycle, where founders spend much of their tenure in
+topics still growing at a pace set by diffusion, catch-up tools barely reach
+the frontier, and the rents of diffusion-limited entry let more of every gain
+survive. Valued by readership instead, the ranking reverses: a 30\% faster pen
+adds \calAudWrite\ log points and 30\% faster reading \calAudRead. The static
+welfare cost of crowding is small: optimal topic choice would raise output per
+researcher by \calPlannerGain, and overlap destroys about \calErosion\ of credit
+at mature density. Mature topics sit at \calSpeedRatio\ of the speed limit, the
+most fertile at \calSpeedRatioTop. With the measured volume elasticity, topic
+crowding explains little of the decline in research productivity.
 
-\paragraph{Implications.} Two further results follow, and we collect them in
-\cref{sec:macro}. Because the stock of literature lags its flow, topics whose
-literature grows faster than a threshold rate overshoot their best density.
-This survives forward-looking entry: rational entrants overshoot more than
-myopic ones once a topic grows fast, because what deters entry is the stock,
-and a young topic has little of it (\cref{prop:toofast}). And the
-stepping-on-toes parameter equals one minus the product of the volume
-elasticity of density and the slope of the entrant's payoff curve.
+\paragraph{Implications.} \Cref{sec:macro} collects three further results.
+Topics that grow faster than a threshold rate overshoot their best density, and
+rational entrants overshoot more than myopic ones once a topic grows fast,
+because what deters entry is the stock, and a young topic has little of it.
+The stepping-on-toes parameter of growth theory has two measurable versions,
+depending on whether open topics count as knowledge, and both are close to one.
+And policy has to depend on a topic's age. A flat subsidy to the frontier,
+optimal in a stationary economy, is almost as large as the margin by which a
+newborn topic beats the frontier in the calibration; it raises the bar for the
+early followers who carry young topics to maturity, and so kills more of them.
+A tax on joining topics in proportion to their stock is zero at birth and
+reaches most of the optimum without that side effect (\cref{prop:policy}).
 
 \paragraph{Related literature.} The paper joins five literatures. The first is
 the economics of science and priority
@@ -131,11 +162,15 @@ and the philosophy of the division of cognitive labour
 distinct roles, and derive rather than assume the costs of duplication.
 \citet{hillstein2025race} show that priority races lower quality; our cost of
 crowding works through detection and catch-up instead, and the two are
-complementary. The second is the theory of excess entry, common pools, cities and
-clubs
+complementary. \citet{chuevans2021} document that progress slows in large
+fields as attention stays with established work, which our speed limit
+rationalises. The second is the theory of excess entry, common pools, cities
+and clubs
 \citep{gordon1954,weitzman1974,mankiwwhinston1986,henderson1974,buchanan1965,hendersonbecker2000,scotchmer2002}
 and of patent races \citep{loury1979,dasguptastiglitz1980}. Our resource is
-attention to a literature, and the crowders are its readers. The third is the
+attention to a literature, and the crowders are its readers; spatial models of
+endogenous agglomeration \citep{lucasrossihansberg2002,allenarkolakis2014}
+suggest how topics could form in a continuous idea space. The third is the
 direction of research
 \citep{bryanlemus2017,hopenhaynsquintani2021,carnehlschneider2025,bramoullesaintpaul2010,rzhetskyetal2015,fosteretal2015,myers2020,borjasdoran2012,borjasdoran2015,azoulayetal2019}.
 \citet{carnehlschneider2025} model the choice of question by novelty and
@@ -144,22 +179,24 @@ margin. \citet{borjasdoran2015} document that researchers move in idea space in
 response to crowding, which is the margin our model turns on. The fourth is the
 macroeconomics of ideas and of access to knowledge
 \citep{romer1990,aghionhowitt1992,jones1995,kortum1997,weitzman1998,bloometal2020,jones2009,ekerdtwu2024,furmanstern2011,murrayetal2016,iariaetal2018,biasimoser2021,evans2008,mccabesnyder2015,agrawaletal2016,parketal2023}.
-We give stepping on toes an equilibrium foundation and explain why better access
-to the literature need not raise productivity. The fifth is artificial
-intelligence in science
+We give stepping on toes an equilibrium foundation and explain when better
+access to the literature raises productivity: when it reaches the people who
+open new topics. The fifth is artificial intelligence in science
 \citep{agrawaletal2019,brynjolfssonetal2019,jones2025ai,duedeetal2026,haoetal2026,liangetal2024,kusumegietal2025}.
 \citet{jones2025ai} studies AI in a task-based R\&D production function, and
 \citet{duedeetal2026} model LLMs as labour-augmenting technology that shifts
-effort across projects. We separate writing, entry, reading, search and catch-up
-channels by their equilibrium footprints. Methodologically, our text-based
-density measures follow \citet{hobergphillips2016} and \citet{kellyetal2021}, and
-the listing-position design builds on \citet{haqueginsparg2009,haqueginsparg2010}
-and \citet{feenbergetal2017}.
+effort across projects. We separate production, entry, reading, search and
+catch-up channels by where their gains end up in equilibrium.
+Methodologically, our text-based density measures follow
+\citet{hobergphillips2016} and \citet{kellyetal2021}, and the listing-position
+design builds on \citet{haqueginsparg2009,haqueginsparg2010} and
+\citet{feenbergetal2017}.
 
 \Cref{sec:model} sets up the model and \cref{sec:payoff} derives the payoff
-curve. \Cref{sec:frictionless,sec:catchup} characterise equilibrium, welfare and
-social value. \Cref{sec:ai} states the writing--reading asymmetry.
-\Cref{sec:facts,sec:causal} present the descriptive and quasi-experimental
-evidence, \cref{sec:quant} quantifies the model, \cref{sec:macro} collects
-the implications for fast-growing topics and growth, \cref{sec:predictions}
-lists out-of-sample predictions, and \cref{sec:conclusion} concludes.
+curve. \Cref{sec:frictionless,sec:catchup} characterise equilibrium, the speed
+limit, welfare and social value. \Cref{sec:ai} states the frontier-incidence
+theorem. \Cref{sec:facts,sec:causal} present the descriptive and
+quasi-experimental evidence, \cref{sec:quant} quantifies the model,
+\cref{sec:macro} collects the implications for topic life cycles, growth and
+policy, \cref{sec:predictions} lists out-of-sample predictions, and
+\cref{sec:conclusion} concludes.

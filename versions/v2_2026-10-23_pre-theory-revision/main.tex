@@ -1,0 +1,78 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{booktabs,tabularx,multirow,threeparttable}
+\usepackage{graphicx,caption,subcaption}
+\usepackage{enumitem}
+\usepackage[authoryear,round]{natbib}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage[nameinlink,capitalise]{cleveref}
+
+\onehalfspacing
+\setlist{itemsep=2pt,topsep=4pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\crefname{assumption}{Assumption}{Assumptions}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Phat}{\hat P}
+\newcommand{\Pbar}{\bar P}
+\newcommand{\vhat}{\hat v}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\mathrm{d}}
+\input{numbers}
+\input{numbers_emp}
+
+\title{Faster Writing Scales Science, Better Reading Crowds It:\\Topic Choice and the Economics of Duplication}
+\author{}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Reading has two jobs in science. It \emph{teaches}, raising the quality of new work, and it \emph{protects}, revealing projects that others have already done. We model researchers who choose a topic and split their time between reading and writing. For any learning and detection technology with bounded absorption, the payoff of working in a topic is single peaked in the flow of its literature. Free choice of topics then has the structure of a system of cities: topics fill past their best size, and the duplication rate is pinned by entry rather than by the volume of papers. The implication we emphasise is an asymmetry. Faster writing raises the payoff of opening new topics as much as that of joining old ones, so it scales output almost one for one. Better reading, search and summarising tools raise only the payoff of existing topics, and entry competes the gain away. On arXiv, more volume opens new ground rather than thickening old topics. On 2.2 million submissions with exact timestamps, four arXiv rule changes and design features identify the margins the model relies on. A tighter endorsement rule cut first-time submitters by about a sixth. A peer-review requirement halved review articles in computer science. A cap of two submissions per person per month binds on about one paper in a hundred. Daily listing position barely moves readership and leaves the detection of overlapping work unchanged. In the calibrated model, a 30\% faster pen raises output per researcher by \calWriteOut\ log points and 30\% faster reading by \calReadOut. The static gain from optimal topic choice is small, and forward-looking entry still makes fast-growing topics overshoot.
+
+\medskip
+\noindent\textbf{JEL:} O31, O33, O40, D62, I23, R12. \quad \textbf{Keywords:} economics of science, topic choice, duplication, system of cities, burden of knowledge, artificial intelligence, arXiv.
+\end{abstract}
+
+\newpage
+\input{sections/01_intro}
+\input{sections/03_model}
+\input{sections/04_payoff}
+\input{sections/05_equilibrium}
+\input{sections/06_catchup}
+\input{sections/07_ai}
+\input{sections/02_facts}
+\input{sections/08_causal}
+\input{sections/09_quant}
+\input{sections/08_macro}
+\input{sections/10_predictions}
+\input{sections/11_conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\input{sections/A_proofs}
+\input{sections/B_extensions}
+\input{sections/C_numerics}
+\input{sections/D_data}
+
+\end{document}

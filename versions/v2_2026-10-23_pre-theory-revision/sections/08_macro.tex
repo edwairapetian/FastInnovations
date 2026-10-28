@@ -1,0 +1,126 @@
+\section{Implications: topics that grow too fast, and growth}\label{sec:macro}
+
+\subsection{When innovation is too fast}
+
+The stock of literature lags its flow. A topic whose literature grows fast has a
+small stock relative to its current density, so joining it is cheap. This
+subsection shows that such topics overshoot their best density, and that the
+result does not rely on newcomers being myopic.
+
+Consider a topic born with flow $P_0$ and an empty stock. Potential newcomers
+learn about the topic over time. While entry pays, they join at a rate that
+makes the topic's flow grow at the diffusion rate $g$, $P(t)=P_0e^{gt}$, and the
+stock follows $\dot S=P-\delta S$. Diffusion is the only friction on the speed of
+entry. Entry stops at the first date $t_s$ at which the value of joining falls to
+the frontier payoff, and $P_s=P(t_s)$ is the \emph{stopping density}. After
+$t_s$ no one joins, members leave at rate $\rho$, and the topic thins until entry
+resumes at the mature density $P^m$. Under the fast-stock approximation of
+\cref{prop:mature}, entry resumes when $w(P)=F$.
+
+Two kinds of newcomer bracket the possibilities. A \emph{myopic} newcomer values
+the topic at its current payoff, so her value relative to the frontier is
+$v(P)e^{-\rho S/b_c}/F$. A \emph{forward-looking} newcomer correctly anticipates
+that the topic will consolidate after entry stops. Her expected payoff per period
+over a career that starts at density $P$ is
+\[
+U(P)=\int_0^\infty e^{-u}\,v\big(\max\{Pe^{-u},P^m\}\big)\,\dd u,
+\]
+where $u=\rho\times$ time. Her value is $U(P)e^{-\rho S/b_c}/F$.
+
+\begin{proposition}[Too fast]\label{prop:toofast}
+Let mature topics lie on the rising side of $v$ ($\kappa\Phat>\ln(\vhat/F)$), let
+$w(P_0)>F$ and consider the limit $P_0\to0$, in which $S=P/(\delta+g)$ along the
+growth path.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{(Myopic entry.)} The stopping density $P_c(g)$ solves $v(P)\exp(-\kappa\delta P/(\delta+g))=F$ on its falling side. It is continuous and strictly increasing in $g$, with $P_c(0)=P^m$ and $\lim_{g\to\infty}P_c(g)=\Pbar_F$, the frictionless density where $v=F$. The topic overshoots the peak, $P_c>\Phat$, if and only if
+\begin{equation}\label{eq:gstar}
+g>g^*\equiv\frac{\rho\,\Phat}{b_c\ln(\vhat/F)}-\delta .
+\end{equation}
+\item \emph{(Forward-looking entry.)} A topic that grows faster than
+\[
+g^*_{RE}\equiv\frac{\rho\,\Phat}{b_c\ln\big(v(P^m)/F\big)}-\delta=\delta\Big(\frac{\Phat}{P^m}-1\Big)
+\]
+overshoots the peak, $P_s>\Phat$. A topic that grows slower than $g^*$ does not. Since $v(P^m)<\vhat$, $g^*<g^*_{RE}$.
+\item \emph{(Fast topics overshoot more under foresight.)} $U(P)>v(P)$ whenever $v(P)$ lies below the average of $v$ along the consolidation path from $P$, which holds for every $P$ sufficiently beyond the peak. For such topics forward-looking newcomers keep entering after myopic ones would stop: $P_s>P_c$. As $g\to\infty$, $P_s$ converges to the root of $U(P)=F$, which exceeds the frictionless density $\Pbar_F$.
+\item \emph{(Consolidation.)} After entry stops, incumbents stay, since their continuation value ($v(P_c)$ under myopia, $U(P_s)$ under foresight) exceeds $F$. The topic thins at rate $\rho$ to $P^m$ and spends $\ln(P_s/\Phat)/\rho$ periods beyond the peak.
+\end{enumerate}
+\end{proposition}
+
+The proposition gives a clean answer to the question whether ``too fast'' is an
+equilibrium phenomenon. The friction that produces overshooting is the stock lag,
+not myopia. Part (ii) has a simple logic. If entry stopped before the peak, the
+future path of the topic would lie between $P^m$ and the peak, where $v$ is at
+least $v(P^m)$. A newcomer at the stopping date would face a stock of
+$P/(\delta+g)$, smaller than a mature topic's $P^m/\delta$ whenever $g$ exceeds
+$g^*_{RE}$. She would therefore earn more than a newcomer to a mature topic,
+who earns exactly $F$, and entry could not have stopped. Foresight raises the
+threshold a little, because a forward-looking newcomer at the peak anticipates
+the decline. But it deepens the overshoot of fast topics, because a newcomer to a
+topic far beyond its peak anticipates that consolidation will bring it back
+towards its best density. With instantaneous diffusion, a newborn topic with no
+stock fills past even the frictionless density. In the calibration the
+myopic threshold is \calGstarExact\ a year, the forward-looking one
+\calGstarRE, and the sufficient bound \calGstarREbound. A topic that grows at
+200\% a year stops at \calRErationalThree\ papers a year with foresight, against
+\calREmyopicThree\ without (\cref{fig:lifecycle}).
+
+The result locates the overcrowded researcher-years in topics whose literature
+grew fast, which persist long after the rush because incumbents never pay the
+catch-up cost that deters newcomers. It also identifies who sets the speed
+limit. The thresholds fall with catch-up speed $b_c$, so review articles and
+literature-summarising tools that make catching up cheap make overshooting
+\emph{more} common.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig3_lifecycle.pdf}
+\caption{Topic life cycles. Left: density paths for topics with different
+diffusion rates $g$ in the calibrated model; topics that grow fast overshoot the
+peak $\Phat$ and consolidate slowly. Right: the stopping density as a function of
+$g$ for myopic and forward-looking newcomers, rising from the mature density
+$P^m$; with foresight, fast topics fill past the frictionless density $\Pbar_F$.}
+\label{fig:lifecycle}
+\end{figure}
+
+\subsection{Stepping on toes, measured}
+
+Growth models since \citet{jones1995} let the flow of new ideas scale with
+researchers as $N^{\lambda_J}$, $\lambda_J<1$, and call $1-\lambda_J$ ``stepping on
+toes''. The parameter is reduced form. Here the flow of credited novel output
+is $Y=N\,a\,F(M^*(N))$, because in equilibrium every researcher's career payoff
+equals the frontier's. (We write $\lambda_J$ to keep $\lambda$ for the credit lost
+by an unaware duplicate.)
+
+\begin{proposition}[Stepping on toes]\label{prop:sot}
+In the large-topic limit,
+\begin{equation}\label{eq:sot}
+\lambda_J\equiv\frac{\dd\ln Y}{\dd\ln N}=1-\eta\,\frac{\dd\ln M^*}{\dd\ln N}=1-\mathcal E\,|\eps_w(P^*)|.
+\end{equation}
+If, in addition, topics opened later are less fertile, with fertility elasticity $\eta_f\ge0$ (\cref{app:fertility}), the right-hand side of \eqref{eq:sot} is an upper bound on $\lambda_J$.
+\end{proposition}
+
+The formula is a sufficient statistic built from two observable objects: the
+volume elasticity of density, $\mathcal E$ (Fact~\ref{fact:volume}), and the
+elasticity of the entrant's payoff curve at equilibrium density,
+$\eps_w=\eps_v-\kappa P^*$. Crowding does not amplify frontier depletion. It
+buffers it. The density margin absorbs part of the growth in researchers, so
+fewer new topics are opened and the frontier deteriorates more slowly. The cost
+of crowding shows up in the \emph{level} of productivity, not in its elasticity.
+With $\mathcal E$ between 0 and 0.27 and the calibrated slope of $w$,
+$\lambda_J$ lies between \calLambdaLo\ and one (\cref{sec:quant}). Topic
+crowding and access depletion therefore explain little of the measured decline in
+research productivity \citep{bloometal2020}. The rest must come from falling
+fertility of new topics ($\eta_f$, which density data do not identify) or from
+selection on researcher ability \citep{ekerdtwu2024}.
+
+\subsection{Policy}
+
+The policy implications follow from where the rents go. Anything that raises the
+payoff of working inside existing topics is competed away: better reading
+tools, search engines, summarisers, and caps on writing. Anything that raises the
+frontier is not. Writing tools scale science because they scale the frontier
+too. The planner opens more topics than free entry does and puts each at the
+peak of the entrant's payoff curve. A frontier subsidy of \calSubsidy\ of the
+frontier payoff decentralises the optimum (\cref{prop:planner}). In practice that
+means credit, grants and prizes for opening new lines of work rather than for
+contributing to crowded ones.

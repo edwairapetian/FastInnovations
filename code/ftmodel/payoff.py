@@ -1,16 +1,18 @@
 """The researcher's problem and the payoff curve v(P).
 
 A researcher in a topic whose literature flow is P papers per period splits one
-unit of time between writing (share x) and reading (share r = 1 - x).  She reads
-R = b r papers.  Reading teaches (quality Q(R, P)) and protects (each covering
-paper is detected with probability phi(R / P)).  Expected credit per paper is
+unit of time between production (share x: doing the research and writing it
+up) and reading (share r = 1 - x).  She reads R = b r papers.  Reading teaches
+(quality Q(R, P)) and protects (each earlier covering paper is detected with
+probability phi(R / P)).  Expected credit per paper is
 
-    C(R, P) = exp(-theta P [lam - Delta phi(R / P)]),
+    C(R, P) = exp(-theta P [lam - Delta phi(R / P)] - theta_c lam_c P),
 
 the Poisson generating function of multiplicative erosion: an undetected
-covering paper removes a share lam of the credit, a detected one a share
-ell = lam - Delta.  Only Theta = theta * lam and the ratio dl = Delta / lam
-enter the payoff curve.
+earlier covering paper removes a share lam of the credit, a detected one a
+share ell = lam - Delta, and concurrent work (a race that reading cannot
+reveal) removes lam_c.  Only Theta = theta * lam, the ratio dl = Delta / lam
+and Theta_c = theta_c * lam_c enter the payoff curve.
 
 The researcher's per-period payoff per unit of writing speed is
 
@@ -42,6 +44,7 @@ class ReaderParams:
     Theta  erosion intensity per earlier paper, theta * lam
     dl     share of erosion averted when a covering paper is detected, Delta / lam
     sigma  search precision; sigma = 1 is random reading with replacement
+    Theta_c erosion intensity from concurrent work, theta_c * lam_c (not preventable)
     """
 
     b: float = 100.0
@@ -50,6 +53,7 @@ class ReaderParams:
     Theta: float = 0.004
     dl: float = 0.42
     sigma: float = 3.0
+    Theta_c: float = 0.0
 
     def with_(self, **kw) -> "ReaderParams":
         return replace(self, **kw)
@@ -82,7 +86,7 @@ class PayoffCurve:
         h = _h(R, P)
         c = np.where(P > 0, R / np.where(P > 0, P, 1.0), 0.0)
         return (np.log1p(-r) + p.gamma * np.log1p(p.beta * h)
-                - p.Theta * P + p.dl * p.Theta * P * self.phi(c))
+                - (p.Theta + p.Theta_c) * P + p.dl * p.Theta * P * self.phi(c))
 
     def dlng_dr(self, r, P):
         p = self.p
@@ -149,7 +153,7 @@ class PayoffCurve:
         hP = R ** 2 / (R + P) ** 2
         c = R / P
         return (p.gamma * p.beta * hP / (1 + p.beta * h)
-                - p.Theta + p.dl * p.Theta * (self.phi(c) - c * self.dphi(c)))
+                - p.Theta - p.Theta_c + p.dl * p.Theta * (self.phi(c) - c * self.dphi(c)))
 
     def learning_term(self, P):
         """d ln Q / dP at r*(P): 'more to learn from'."""
@@ -163,7 +167,7 @@ class PayoffCurve:
         p = self.p
         P = np.atleast_1d(np.asarray(P, float))
         c = p.b * self.r_star(P) / P
-        return p.Theta * (1 - p.dl * (self.phi(c) - c * self.dphi(c)))
+        return p.Theta * (1 - p.dl * (self.phi(c) - c * self.dphi(c))) + p.Theta_c
 
     def eps_v(self, P):
         """Elasticity d ln v / d ln P."""
@@ -184,13 +188,18 @@ class PayoffCurve:
         """1 - C at the optimum: share of credit lost to overlap."""
         P = np.atleast_1d(np.asarray(P, float))
         c = self.coverage(P)
-        return 1 - np.exp(-self.p.Theta * P * (1 - self.p.dl * self.phi(c)))
+        return 1 - np.exp(-self.p.Theta * P * (1 - self.p.dl * self.phi(c)) - self.p.Theta_c * P)
 
     def ln_credit(self, P):
         """ln C at the optimum (minus the erosion intensity)."""
         P = np.atleast_1d(np.asarray(P, float))
         c = self.coverage(P)
-        return -self.p.Theta * P * (1 - self.p.dl * self.phi(c))
+        return -self.p.Theta * P * (1 - self.p.dl * self.phi(c)) - self.p.Theta_c * P
+
+    def dlnv_dlnb(self, P):
+        """Private value of faster reading at fixed density: r* / (1 - r*) (envelope + FOC)."""
+        r = self.r_star(P)
+        return r / (1 - r)
 
     def ln_social(self, P, tau: float = 0.0, extra: float = 0.0):
         """ln of social output per unit of writing speed at private choices.
@@ -204,6 +213,33 @@ class PayoffCurve:
         """
         P = np.atleast_1d(np.asarray(P, float))
         return self.lnv(P) - tau * self.ln_credit(P) - extra * P
+
+    def lnv_learning_from(self, P, L, iters: int = 80):
+        """ln v when learning draws on an effective literature L while covering depends on
+        the flow P: max_r ln(1-r) + gamma ln(1 + beta h(b r, L)) - (Theta + Theta_c) P
+        + dl Theta P phi(b r / P).  L = P gives lnv(P)."""
+        p = self.p
+        P = np.atleast_1d(np.asarray(P, float))
+        L = np.broadcast_to(np.atleast_1d(np.asarray(L, float)), P.shape)
+
+        def foc(r):
+            R = p.b * r
+            hR = L ** 2 / (R + L) ** 2
+            h = _h(R, L)
+            return -1.0 / (1.0 - r) + p.b * (p.gamma * p.beta * hR / (1 + p.beta * h)
+                                             + p.dl * p.Theta * self.dphi(R / P))
+
+        lo, hi = np.zeros_like(P), np.full_like(P, 1 - 1e-12)
+        interior = foc(lo) > 0
+        for _ in range(iters):
+            mid = 0.5 * (lo + hi)
+            f = foc(mid)
+            lo = np.where(f > 0, mid, lo)
+            hi = np.where(f > 0, hi, mid)
+        r = np.where(interior, 0.5 * (lo + hi), 0.0)
+        R = p.b * r
+        return (np.log1p(-r) + p.gamma * np.log1p(p.beta * _h(R, L))
+                - (p.Theta + p.Theta_c) * P + p.dl * p.Theta * P * self.phi(R / P))
 
     # ----- landmarks ------------------------------------------------------
     def peak(self, Pmax: float = 1e4):
@@ -220,18 +256,40 @@ class PayoffCurve:
         Ph = float(np.exp(res.x))
         return Ph, float(np.exp(-res.fun))
 
-    def crossing(self, F: float, branch: str = "falling", kappa: float = 0.0,
-                 Pmax: float = 1e5):
-        """Solve v(P) exp(-kappa P) = F on the requested branch.
+    def lnw(self, P, cu=None):
+        """ln of the newcomer's career payoff w(P) = v(P) Gamma(P) (Gamma = 1 if cu is None)."""
+        P = np.atleast_1d(np.asarray(P, float))
+        if cu is None or cu.frictionless:
+            return self.lnv(P)
+        return self.lnv(P) + cu.ln_gamma(P)
 
-        Returns nan when the crossing does not exist on that branch.
-        """
-        f = lambda P: float(self.lnv(P)[0] - kappa * P - np.log(F))
-        Ph = self.peak_w(kappa)[0]
+    def peak_w(self, cu=None):
+        """Peak of w(P) = v(P) Gamma(P)."""
+        if cu is None or cu.frictionless:
+            return self.peak()
+        top = cu.b_c * (1 - 1e-9)
+        grid = np.exp(np.linspace(np.log(1e-3), np.log(top), 500))
+        lw = self.lnw(grid, cu)
+        i = int(np.argmax(lw))
+        if i == 0:
+            return 0.0, 1.0
+        lo, hi = grid[max(i - 1, 0)], grid[min(i + 1, len(grid) - 1)]
+        res = minimize_scalar(lambda q: -self.lnw(np.exp(q), cu)[0],
+                              bounds=(np.log(lo), np.log(hi)), method="bounded",
+                              options={"xatol": 1e-11})
+        Pw = float(np.exp(res.x))
+        return Pw, float(np.exp(-res.fun))
+
+    def crossing(self, F: float, branch: str = "falling", cu=None, Pmax: float = 1e5):
+        """Solve v(P) Gamma(P) = F on the requested branch (nan if no crossing)."""
+        f = lambda P: float(self.lnw(P, cu)[0] - np.log(F))
+        Ph = self.peak_w(cu)[0]
         top = f(Ph) if Ph > 0 else -np.log(F)
         if branch == "falling":
             if top < 0:
                 return np.nan
+            if cu is not None and not cu.frictionless:
+                return brentq(f, Ph, cu.b_c * (1 - 1e-12), xtol=1e-12)
             hi = max(2 * Ph, 1.0)
             while f(hi) > 0:
                 hi *= 2
@@ -241,22 +299,6 @@ class PayoffCurve:
         if top < 0 or f(1e-9) > 0:
             return np.nan
         return brentq(f, 1e-9, Ph, xtol=1e-12)
-
-    def peak_w(self, kappa: float):
-        """Peak of w(P) = v(P) exp(-kappa P)."""
-        if kappa == 0.0:
-            return self.peak()
-        grid = np.exp(np.linspace(np.log(1e-3), np.log(1e4), 400))
-        lw = self.lnv(grid) - kappa * grid
-        i = int(np.argmax(lw))
-        if i == 0:
-            return 0.0, 1.0
-        lo, hi = grid[max(i - 1, 0)], grid[min(i + 1, len(grid) - 1)]
-        res = minimize_scalar(lambda q: -(self.lnv(np.exp(q))[0] - kappa * np.exp(q)),
-                              bounds=(np.log(lo), np.log(hi)), method="bounded",
-                              options={"xatol": 1e-10})
-        Pw = float(np.exp(res.x))
-        return Pw, float(np.exp(-res.fun))
 
 
 class GridCurve:

@@ -16,34 +16,61 @@ $h_R=P^2/(R+P)^2$ and $h_{RP}=2RP/(R+P)^3$, so
 \]
 For $\varphi(c)=1-e^{-\sigma c}$: $\varphi(0)=0$, $\varphi'=\sigma e^{-\sigma c}>0$, $\varphi''<0$.
 
-\paragraph{Proof of \cref{lem:credit}.} Covering papers form a Poisson count
-$K$ with mean $\theta P$. Each is detected independently with probability
-$\varphi$, so detected and undetected counts $K_d,K_u$ are independent Poisson
-with means $\theta P\varphi$ and $\theta P(1-\varphi)$. Credit is the product
-of $(1-\lambda)$ over undetected papers and of independent factors with mean
-$1-\ell$ over detected papers. Using $\E[t^{K}]=e^{-\mu(1-t)}$,
+\paragraph{Proof of \cref{lem:credit}.} Earlier covering papers form a Poisson
+count $K$ with mean $\theta P$. Each is detected independently with
+probability $\varphi$, so detected and undetected counts $K_d,K_u$ are
+independent Poisson with means $\theta P\varphi$ and $\theta P(1-\varphi)$.
+Concurrent covering projects form an independent Poisson count $K_c$ with mean
+$\theta_cP$. Credit is the product of $(1-\lambda)$ over undetected papers, of
+independent factors with mean $1-\ell$ over detected papers, and of
+$(1-\lambda_c)$ over concurrent projects. Using $\E[t^{K}]=e^{-\mu(1-t)}$,
 \[
-C=\E\big[(1-\lambda)^{K_u}\big]\,\E\big[(1-\ell)^{K_d}\big]
-=e^{-\theta P(1-\varphi)\lambda}\,e^{-\theta P\varphi\ell}
-=\exp\{-\theta P[\lambda-(\lambda-\ell)\varphi]\}.
+C=\E\big[(1-\lambda)^{K_u}\big]\,\E\big[(1-\ell)^{K_d}\big]\,\E\big[(1-\lambda_c)^{K_c}\big]
+=\exp\{-\theta P[\lambda-(\lambda-\ell)\varphi]-\theta_c\lambda_cP\}.
 \]
 Flagged overlap consists of undetected covering papers (rate $\theta
 P(1-\varphi)$) and detected ones that proceed (rate $\theta P\varphi q$). The
 aware share is the ratio of the second rate to the sum. Proceeding happens iff
 $\delta>1-\kappa_p$, which gives the conditional mean. \qed
 
-\paragraph{Proof of \cref{lem:career}.} Let careers end at rate $\rho$. A
-newcomer to a stationary topic reads for $T=S/b_c=P/(\delta b_c)$ periods and
-then earns $a\,v(P)$ until her career ends. Her expected career value is
-$\int_T^\infty e^{-\rho t}a\,v(P)\,\dd t=a\,v(P)e^{-\rho T}/\rho=a\,w(P)/\rho$.
-An explorer's value is $aF(M)/\rho$. In a stationary topic with entry flow
-$e$, the mass of members in catch-up is $e(1-e^{-\rho T})/\rho$ and the mass
-writing is $e\,e^{-\rho T}/\rho$. So the writing share of members is
-$e^{-\kappa P}$, output per member is $a\,v(P)e^{-\kappa P}$, and \eqref{eq:flow}
-gives $P=a\,x^*(P)\,n\,e^{-\kappa P}$. \qed
+\paragraph{Proof of \cref{lem:career}.} With a constant flow, \eqref{eq:backlog}
+is linear with rest point $B^\star=(P-b_c)/\delta$, so
+$B(t)=B^\star+(S-B^\star)e^{-\delta t}$. If $P<b_c$, $B^\star<0$ and $B$ reaches
+zero at $e^{-\delta T}=-B^\star/(S-B^\star)=(b_c-P)/(\delta S+b_c-P)$, which is
+\eqref{eq:T}. If $P>b_c$, $B(t)$ converges to $B^\star>0$ from $S>0$ and never
+reaches zero; if $P=b_c$, $B(t)=Se^{-\delta t}>0$. With $S=P/\delta$,
+$1+\delta S/(b_c-P)=b_c/(b_c-P)$, which gives the stationary $T$. A newcomer's
+spell in the topic ends at rate $\rho+\xi$ (her career ends or the topic dies).
+Her expected output over the spell divided by its expected length is
+$(\rho+\xi)\int_T^\infty e^{-(\rho+\xi)t}a\,v(P)\,\dd t=a\,v(P)e^{-(\rho+\xi)T}$, and
+$e^{-(\rho+\xi)T}=(1-P/b_c)^{(\rho+\xi)/\delta}$. In a stationary topic with
+entry flow $\iota$, members who joined $u$ periods ago are still there with
+probability $e^{-\rho u}$ while the topic lives, so the mass of members is
+$\iota/\rho$ and the mass that has caught up is $\iota e^{-\rho T}/\rho$. The
+producing share is $e^{-\rho T}=(1-P/b_c)^{\rho/\delta}$, and \eqref{eq:flow} gives
+$P=a\,x^*(P)\,n\,(1-P/b_c)^{\rho/\delta}$. \qed
+
+\paragraph{Proof of \cref{lem:frontier}.} Value an option by the ratio of its
+expected output to its expected length (renewal reward). The exploring phase
+ends at rate $\rho+s$ (the career ends, or she founds a topic) and produces $e$
+per period. With probability $s/(\rho+s)$ it is followed by a founding phase that
+ends at rate $\rho+\xi$ and produces $\bar U_F/(\rho+\xi)$ in expectation, by the
+definition of $\bar U_F$. Expected output is
+$[e+s\,\bar U_F/(\rho+\xi)]/(\rho+s)$ and expected length is
+$[1+s/(\rho+\xi)]/(\rho+s)$. Their ratio is
+$[(\rho+\xi)e+s\bar U_F]/(\rho+\xi+s)=(1-\omega)e+\omega\bar U_F$. \qed
+
+\paragraph{Proof of \cref{lem:little}.} Each researcher's career is a sequence of
+spells, each begun by a choice among options and ended by the end of her
+career, the death of her topic or, for explorers, the founding of a topic.
+By the renewal-reward theorem, her long-run output per period is the ratio of
+expected output to expected length of the spells she chooses, which is $aF$
+for every option she takes. In a stationary population of independent
+researchers the cross-section average of output per period equals this time
+average. \qed
 
 \paragraph{Proof of \cref{thm:v}.}
-\emph{(i)} Since $Q(0,P)=1$ and $\varphi(0)=0$, $v(P)\ge g(0,P)=e^{-\theta\lambda P}$. Because $Q$ and $\varphi$ are nondecreasing in $R$ and $R\le b$,
+\emph{(i)} Since $Q(0,P)=1$ and $\varphi(0)=0$, $v(P)\ge g(0,P)=e^{-(\theta\lambda+\theta_c\lambda_c)P}$. Because $Q$ and $\varphi$ are nondecreasing in $R$ and $R\le b$,
 \[
 g(r,P)\le \bar Q(b)\exp\{-\theta P[\lambda-\Delta\varphi(b/P)]\}\xrightarrow[P\to\infty]{}0,
 \]
@@ -51,7 +78,7 @@ since $\varphi(b/P)\to0$ and $\lambda>0$. At $P=0$, $g(r,0)=1-r$, so $v(0)=1$. D
 
 \emph{(ii)} On $D=[0,1)\times(0,\infty)$,
 \[
-\ln g(r,P)=\ln(1-r)+\ln Q(br,P)-\theta\lambda P+\theta\Delta\,P\varphi\!\left(\frac{br}{P}\right).
+\ln g(r,P)=\ln(1-r)+\ln Q(br,P)-(\theta\lambda+\theta_c\lambda_c) P+\theta\Delta\,P\varphi\!\left(\frac{br}{P}\right).
 \]
 The first term is concave in $r$. The second is concave by \cref{ass:Q}
 composed with a linear map. The third is linear. In the fourth, $(R,P)\mapsto
@@ -68,86 +95,190 @@ $\ln g(r_t,P_t)>t\ln g(r_1,P_1)+(1-t)\ln g(r_2,P_2)$. If $r_1=r_2=r>0$, then $P\
 \emph{(iii)} Fix $\varrho$ with $\nu_0(\varrho)>0$. For small $P$, $r=\varrho P/b$ is feasible and
 \[
 \frac{v(P)-1}{P}\ge\frac{g(\varrho P/b,P)-1}{P}
-=\frac{(1-\varrho P/b)\,Q(\varrho P,P)\,e^{-\theta P[\lambda-\Delta\varphi(\varrho)]}-1}{P}\longrightarrow \nu_0(\varrho)>0 .
+=\frac{(1-\varrho P/b)\,Q(\varrho P,P)\,e^{-\theta P[\lambda-\Delta\varphi(\varrho)]-\theta_c\lambda_cP}-1}{P}\longrightarrow \nu_0(\varrho)>0 .
 \]
 So $v>1=v(0)$ on some interval $(0,\epsilon)$. A strictly log-concave function is strictly quasi-concave, so its maximiser is unique. It is positive because $v$ exceeds $v(0)$ near zero, and finite because $v\to0$. Strict quasi-concavity gives strict monotonicity on either side of $\Phat$. Since $v$ falls continuously and strictly from $\vhat$ to $0$ on $[\Phat,\infty)$, each $F\in(0,\vhat)$ has exactly one root there.
 
 \emph{(iv)} For $P>0$ the maximiser $r^*(P)$ is unique (strict concavity in $r$) and $\partial_P g$ is continuous. The envelope theorem \citep{milgromsegal2002} gives $v'(P)=\partial_Pg(r^*(P),P)$. Differentiating $\ln C$,
 \[
-\partial_P\big[-\theta\lambda P+\theta\Delta P\varphi(R/P)\big]=-\theta\lambda+\theta\Delta\big[\varphi(c)-c\varphi'(c)\big],\qquad c=R/P,
+\partial_P\big[-\theta\lambda P+\theta\Delta P\varphi(R/P)-\theta_c\lambda_cP\big]=-\theta\lambda+\theta\Delta\big[\varphi(c)-c\varphi'(c)\big]-\theta_c\lambda_c,\qquad c=R/P,
 \]
 which is \eqref{eq:envelope}. Concavity and $\varphi(0)=0$ give $\varphi(c)-c\varphi'(c)\ge0$.
 
 \emph{(v)} $\partial_r\partial_P\ln g=b\,[\partial_R\partial_P\ln Q+\partial_R\partial_P\ln C]$. The first term is nonnegative by \cref{ass:Q}. For the second,
 $\partial_R\ln C=\theta\Delta\varphi'(R/P)$, so $\partial_P\partial_R\ln C=-\theta\Delta\varphi''(c)\,c/P\ge0$. So $\ln g$ has increasing differences in $(r,P)$, and the unique maximiser is nondecreasing by Topkis's monotonicity theorem \citep{topkis1998}. \qed
 
+\paragraph{Proof of \cref{lem:timeshares}.} $b$ enters $g$ only through
+$R=br$, so by the envelope theorem
+$\partial\ln v/\partial\ln b=b\,r\,\partial_R\ln(QC)$ at $r^*$. At an interior
+optimum the first-order condition is $b\,\partial_R\ln(QC)=1/(1-r)$, so
+$\partial\ln v/\partial\ln b=r^*/(1-r^*)$; at a corner $r^*=0$ both sides are
+zero. A researcher's payoff is $a\,v(P)$, so production speed raises it by
+$\dd\ln a$. A speed-up by $\dd\ln(\text{speed})$ of reading saves
+$r^*\dd\ln b$ of her time and of production saves $x^*\dd\ln a$, which gives
+the value per unit of time saved, $1/x^*$, in both cases. \qed
+
 \paragraph{Proof of \cref{prop:externality}.} By \cref{thm:v}(iv), the effect
 of a marginal paper on an incumbent's per-period payoff is $a\,v'(P)$. Its sign is
 that of $\Phat-P$ by \cref{thm:v}(iii). \qed
 
-\paragraph{Proof of \cref{prop:eq}.} With $\kappa=0$, $n(P)=P/(a x^*(P))$ is
+\paragraph{Proof of \cref{prop:eq}.} With $b_c=\infty$, $n(P)=P/(a x^*(P))$ is
 continuous and strictly increasing, since $x^*$ is nonincreasing by
-\cref{thm:v}(v). Let $M(P)$ solve $\Phi(M)+Mn(P)=N$. It is unique,
-continuous and strictly decreasing in $P$ ($\Phi$ is increasing). Define
-$\Psi(P)=\ln v(P)-\ln F(M(P))$ on $[\Phat,\infty)$. $\ln v$ is strictly
-decreasing there, and $F(M(P))$ is nondecreasing because $F$ is nonincreasing,
-so $\Psi$ is strictly decreasing. In the large-topic limit $M(\Phat)=N/n(\Phat)$
-and $\Psi(\Phat)>0$ by assumption. As $P\to\infty$, $v\to0$ while
-$F(M(P))\ge F(M(\Phat))>0$, so $\Psi<0$ eventually. Hence there is a unique root
+\cref{thm:v}(v). Let $M(P)$ solve $M\,(n(P)+\xi/s)=N$. It is unique, continuous
+and strictly decreasing in $P$. Define $\Psi(P)=\ln v(P)-\ln F(M(P),P)$ on
+$[\Phat,\infty)$. Since $\ln F=-\eta_F\ln(M/\bar M)+\ln[(1-\omega)e+\omega v(P)]$,
+\[
+\frac{\dd\Psi}{\dd\ln P}=(1-\theta_F)\,\eps_v-\eta_F\,\frac{n\,D}{n+\xi/s}<0\quad\text{for }P>\Phat,
+\]
+because $\eps_v<0$ there and $\theta_F<1$. $\Psi(\Phat)>0$ by assumption. As
+$P\to\infty$, $v\to0$ while $F\ge(1-\omega)e\,(M/\bar M)^{-\eta_F}$ is bounded
+away from zero when $e>0$, so $\Psi<0$ eventually. Hence there is a unique root
 $P^*>\Phat$. Crossings on $(0,\Phat)$ violate stability, since there $v'>0$.
-Payoff per researcher is $a\,v(P^*)=aF(M^*)<a\vhat$. \qed
+Output per researcher is $aF$ by \cref{lem:little}, and $F=v(P^*)<\vhat$. With
+$\eta_F=0$, $v(P^*)=(1-\omega)e+\omega v(P^*)$, so $v(P^*)=e$. \qed
 
-\paragraph{Proof of \cref{prop:volume}.} In the large-topic limit
-$M=N/n(P)=N\,a\,x^*(P)e^{-\kappa P}/P$, so the equilibrium condition
-$w(P)=F\big(N a x^*(P)e^{-\kappa P}/P\big)$ involves $N$ and $a$ only through
-$Na$. Log-differentiating with respect to $\ln N$,
+\paragraph{Proof of \cref{prop:volume}.} In the large-topic limit $M=N/n(P)$,
+with members per topic $n(P)$ from \cref{lem:career}, which are proportional to
+$1/a$. So the equilibrium condition $w(P)=F(N/n(P),P)$ involves $N$ and $a$
+only through $Na$, and
+$\dd\ln M=\dd\ln(Na)-D\,\dd\ln P$, where
 \[
-\eps_w\,\dd\ln P=-\eta\,[\dd\ln N-D\,\dd\ln P],\qquad D=\frac{\dd\ln n}{\dd\ln P}=1-\eps_x+\kappa P .
+D=\frac{\dd\ln[n\,a]}{\dd\ln P}=1-\eps_x+\frac\rho\delta\,\frac{P/b_c}{1-P/b_c}.
 \]
-Solving gives \eqref{eq:E}. Then $\dd\ln M=\dd\ln N-D\,\dd\ln P$, and papers per
-researcher $a\,x^*(P)$ move with elasticity $\eps_x\,\mathcal E$. If $\eta=0$,
-$P^*$ solves $w(P)=\bar F$, which involves neither $N$ nor $a$. The overlap rate
-and the aware share are functions of $P^*$ by \cref{lem:credit}. Free entry into
-science changes $P^*$ only through $N$. The general (non-limit) version
-replaces $D$ by $D\,(1-s_e)$ and $|\eps_w|$ by $|\eps_w|[1+s_e(\phi_e-1)]$,
-where $s_e=\Phi(M)/N$ and $\phi_e=M\Phi'(M)/\Phi(M)$. \qed
-
-\paragraph{Proof of \cref{prop:planner}.} Write $D=1-\eps_x+\kappa P$; as
-above $n\,\dd P/\dd n=P/D$. The Lagrangian
-$a[f_0M+Mn\,w(P(n))]-\mu[\Phi(M)+Mn-N]$ has first-order conditions
+Log-differentiating,
 \[
-\mu=a\,w\Big(1+\frac{\eps_w}{D}\Big)\quad(n),\qquad a(f_0+nw)=\mu\Big(\frac1{\pi}+n\Big)\quad(M),
+\eps_w\,\dd\ln P=\theta_F\eps_U\,\dd\ln P-\eta_F\,\big[\dd\ln(Na)-D\,\dd\ln P\big],
 \]
-using $\Phi'(M)=1/\pi(M)$. Eliminating $\mu$ and using $F=f_0\pi$ gives
-\eqref{eq:plannerfoc}. Along the resource constraint,
-$\dd n/\dd M=-(1/\pi+n)/M$, so
+which gives \eqref{eq:E} since $\eps_w<0$. Then $\dd\ln M=\dd\ln N-D\,\dd\ln P$,
+and papers per researcher $a\,x^*(P)$ move with elasticity $\eps_x\,\mathcal E$. If
+$\eta_F=0$, $P^*$ solves $w(P)=(1-\omega)e+\omega\bar U_F(P)$, which involves
+neither $N$ nor $a$. The overlap rate and the aware share are functions of $P^*$
+by \cref{lem:credit}. Free entry into science changes $P^*$ only through $N$.
+Outside the large-topic limit, $N=M\,(n+\xi/s)$ and $D$ is multiplied by the
+share of researchers who are members, $n/(n+\xi/s)$. \qed
+
+\paragraph{Proof of \cref{prop:planner}.} (i) In the large-topic limit every
+spell a researcher takes is a spell in a topic of the common density $P$,
+worth $a\,w(P)$ by \cref{lem:career}, so output per researcher is $a\,w(P)$ by
+the renewal-reward argument of \cref{lem:little}. Its maximiser is $\hat P_w$,
+unique by strict log-concavity of $w$ (\cref{prop:mature}(i); with $b_c=\infty$,
+$w=v$ and $\hat P_w=\Phat$). Since $\hat P_w<P^*$, the planner has fewer members
+per topic and, with $N$ fixed, more topics. (ii) With $\omega=0$ and $\eta_F=0$,
+$E=kM$ with $k=\xi/s$, and output is $a\,M\,(e\,k+n\,w)$ with $M=N/(n+k)$.
+Maximising $(ek+nw(P(n)))/(n+k)$ over $n$, the first-order condition is
+$(w+n\,w_n)(n+k)=ek+nw$, or $k(w-e)=-n\,w_n\,(n+k)$. Since
+$n\,w_n/w=\eps_w/D$, this is \eqref{eq:plannerfoc}. At $P^*$, $w=F=e$, so the
+left side of \eqref{eq:plannerfoc} is zero while the right side is positive:
+the planner lowers density. At $\hat P_w$ the right side is zero while the left
+side is positive when $\hat w>e$: she raises it. So $P^o\in(\hat P_w,P^*)$.
+(iii) With a subsidy $s^o$ to explorers the equilibrium condition becomes
+$w(P)=F(M,P)+s^o$, which $s^o=\hat w-F(M^o,\hat P_w)$ makes hold at $\hat P_w$.
+(iv) Let the planner also set $x$. Per-member output is
+$a\,g(x,P)\,(1-P/b_c)^{\rho/\delta}$ and, at fixed membership,
+$\partial\ln P/\partial\ln x=1/D_m$ with
+$D_m=1+(\rho/\delta)(P/b_c)/(1-P/b_c)$. The first-order condition for $x$ is
 \[
-\frac{\dd Y}{\dd M}=a(f_0+nw)-a\,w\Big(1+\frac{\eps_w}{D}\Big)\Big(\frac1\pi+n\Big).
+\partial_x\ln g+\big[\partial_P\ln g+(\ln\Gamma)'(P)\big]\frac{P}{x\,D_m}=0,
 \]
-At the equilibrium ($w=F=f_0\pi$, $\eps_w<0$) this equals
-$-a\,f_0(\eps_w/D)(1+n\pi)>0$. The planner therefore opens more topics, and
-density falls below $P^*$. At $\hat P_w$ ($\eps_w=0$) it equals
-$a f_0(1-w/F)<0$ whenever $w(\hat P_w)>F$. So the optimum lies in
-$(\hat P_w,P^*)$. For (ii), the left side of \eqref{eq:plannerfoc} is bounded
-by $(\hat w-F)/\hat w$ while $1+n\pi\to\infty$,
-so $|\eps_w(P^o)|\to0$ and $P^o\to\hat P_w$ by strict log-concavity of $w$. For
-(iii), with a subsidy $s$ to explorers the equilibrium condition becomes
-$w(P)=F(M)+s$, and $s=s^o$ makes $(P^o,M^o)$ satisfy it. For (iv), let the
-planner also set $x$. Per-member output is $a\,g(x,P)e^{-\kappa P}$, and at
-fixed $n$, $\partial\ln P/\partial\ln x=1/(1+\kappa P)$. The first-order
-condition for $x$ is
+where we use the newcomer's survival factor for the value of membership. At the
+private optimum $\partial_x\ln g=0$ and, by the envelope theorem,
+$\partial_P\ln g+(\ln\Gamma)'(P)=(\ln w)'(P)$. The wedge therefore has the sign
+of $(\ln w)'$, and it vanishes at $\hat P_w$. \qed
+
+\paragraph{Proof of \cref{prop:mature}.} (i) $\ln\Gamma=\nu\ln(1-P/b_c)$ has
+second derivative $-\nu/(b_c-P)^2<0$, so $\ln w=\ln v+\ln\Gamma$ is strictly
+concave on $(0,b_c)$, and it tends to $-\infty$ at $b_c$. Since
+$(\ln w)'(\Phat)=(\ln\Gamma)'(\Phat)<0$, the peak of $w$ lies below $\Phat$
+when $\Phat<b_c$. (ii) The equilibrium condition and stability are those of
+\cref{def:eq}; $w(b_c)=0<F$ puts the falling-side root below $b_c$. The premium
+follows from $v(P^m)\Gamma(P^m)=F$ and $-\ln\Gamma=(\rho+\xi)T$. (iii) If
+$\Phat<b_c$, $P^m<\Phat$ iff $w(\Phat)<F$, since $w$ is falling on
+$(\hat P_w,b_c)$; this reads $\ln\vhat+\nu\ln(1-\Phat/b_c)<\ln F$. If $\Phat\ge
+b_c$, $P^m<b_c\le\Phat$. (iv) From $\ln\zeta+\ln v(P^m)+\ln\Gamma(P^m)=\ln F$,
+differentiate with respect to $\ln P^m$. With $x=P^m/b_c$, the function
+$x/(1-x)+\ln(1-x)$ is zero at $x=0$ and has derivative $x/(1-x)^2>0$, so
+$\eps_\Gamma>-\ln\Gamma$. \qed
+
+\paragraph{Proof of \cref{thm:speed}.} (i) By \cref{lem:career}, $T=\infty$ for
+any positive stock when $P\ge b_c$. The value of joining is then zero whatever
+$v(P)$ is, so no newcomer joins and incumbents' payoffs are not competed away.
+(ii) $w$ is continuous and positive on $[0,b_c)$ with $w(0)=1$ and $w\to0$ as
+$P\to b_c$. From $\zeta w(P^m(\zeta))=F$, $w(P^m)=F/\zeta\to0$ as
+$\zeta\to\infty$, which forces $P^m(\zeta)\to b_c$. With $x=P^m/b_c\to1$, the
+premium $-\nu\ln(1-x)$ and the gradient $\nu x/(1-x)$ diverge, and their ratio
+$x/[-(1-x)\ln(1-x)]\to\infty$. (iii) Along the growth path the stock is
+positive for $P>P_0$, so the myopic value
+$v(P)[1+\delta S/(b_c-P)]^{-\nu}$ tends to zero as $P\to b_c$; entry stops at
+a density where it equals $F>0$, below $b_c$. (iv) With fixed membership and
+reading shares, \eqref{eq:flow} scales every flow by $1+\alpha$. A topic whose
+new flow is at least $b_c$ is closed by (i). With no entry, membership falls
+at rate $\rho$, and the flow falls at the same rate at fixed reading shares, so
+it stays at or above $b_c$ for $\ln[(1+\alpha)P^m/b_c]/\rho$ periods. \qed
+
+\paragraph{Proof of \cref{cor:overcrowd}.} Total member output in a topic is
+$n\,a\,w(P(n))$, so one more member changes the output of the others by
+$n\,a\,w'(P)\,\dd P/\dd n$. Here $\dd P/\dd n>0$ and $w'<0$ at a stable
+equilibrium. Writing $w'=v'\Gamma+v\Gamma'$ separates the spillover on
+incumbents from the catch-up burden. The ordering $\hat P_w<P^m<\Phat$ combines
+\cref{prop:mature}(iii) with stability. The loss follows from
+\cref{prop:planner}: per-researcher output is $aF$ in equilibrium and $a\hat w$
+at the optimum. \qed
+
+\paragraph{Proof of \cref{prop:social}.} (i) At private choices, $\ln s(P)=\ln g(r^*(P),P)-\theta P[(\lambda_s-\lambda)-(\Delta_s-\Delta)\varphi(br^*/P)]$. Differentiate in $P$. The derivative of $\ln g(r^*(P),P)$ is $v'/v$ by the envelope theorem. The direct derivative of the bracket term is $-\theta[(\lambda_s-\lambda)-(\Delta_s-\Delta)(\varphi-c\varphi')]$. Because researchers do not maximise $\ln s$, the bracket term also changes through $r^*$, by $\theta b(\Delta_s-\Delta)\varphi'(c)\,r^{*\prime}(P)$. The effect of one more member on others' social output is $n\,a\,s_w'(P)\,\dd P/\dd n$, as in \cref{cor:overcrowd}. (ii) With $\Delta_s=\Delta$ the bracket term is $-\theta(\lambda_s-\lambda)P$, independent of $r$, so $s=ve^{-\theta(\lambda_s-\lambda)P}$ and $s_w=we^{-\theta(\lambda_s-\lambda)P}$. In the large-topic limit the social planner maximises $s_w$, which is strictly log-concave. Its peak lies below $P^m$ if and only if $(\ln s_w)'(P^m)<0$, that is $(\ln w)'(P^m)<\theta(\lambda_s-\lambda)=-\tau\theta\lambda$. Since $(\ln w)'(P^m)=\eps_w(P^m)/P^m<0$, this is $\tau<|\eps_w(P^m)|/(\theta\lambda P^m)$. (iii) With $\ln C_s=(1-\tau)\ln C$, $\ln s=\ln v-\tau\ln C^*$, and the planner maximises $\ln s+\ln\Gamma$. \qed
+
+\paragraph{Proof of \cref{thm:incidence}.} Index the tool by $\tau$, so that
+$w=w(P;\tau)$, $F=F(M,P;\tau)$ and $n=n(P;\tau)$. The equilibrium condition is
+$\ln w=\ln F$, and in the large-topic limit $M=N/n$. Let $h=\partial_\tau\ln w$ and $m=\partial_\tau\ln n$ at
+fixed $P$. Let $f$ be the derivative of $\ln F$ in $\tau$ at fixed $P$ when $M$
+follows $N/n(P;\tau)$; it is the direct effect plus $\eta_Fm$. Differentiating,
 \[
-\partial_x\ln g+\big[\partial_P\ln g-\kappa\big]\frac{P}{x(1+\kappa P)}=0 .
+\eps_w\,\dd\ln P+h=f+\theta_F\eps_U\,\dd\ln P+\eta_FD\,\dd\ln P,
 \]
-At the private optimum $\partial_x\ln g=0$ and, by the envelope theorem,
-$\partial_P\ln g-\kappa=(\ln w)'(P)$. The wedge therefore has the sign of
-$(\ln w)'$. In the large-topic limit the planner maximises $\max_{x,P}g(x,P)e^{-\kappa P}=\max_P w(P)$. The maximum is at $(x^*(\hat P_w),\hat P_w)$, where the wedge is zero. \qed
+so $\dd\ln P=(h-f)/\Psi$. By \cref{lem:little}, $Y/N=aF$, and in equilibrium the
+total change in $\ln F$ is $f+(\theta_F\eps_U+\eta_FD)\,\dd\ln P=f+(\Psi-|\eps_w|)(h-f)/\Psi$,
+which gives \eqref{eq:incidence}. For \eqref{eq:passthrough}, $\mathcal E=\eta_F/\Psi$
+by \cref{prop:volume}, so $\Psi(1-\mathcal ED)=|\eps_w|+\theta_F\eps_v$ and
+$\lambda_F=(1-\mathcal ED)|\eps_w|/(|\eps_w|+\theta_F\eps_v)$. When mature topics lie on
+the rising side of $v$ ($\eps_v\ge0$), the fraction is at most one and
+$1-\lambda_F\ge\mathcal ED$. \qed
 
-\paragraph{Proof of \cref{prop:mature}.} (i) $\ln w=\ln v-\kappa P$ is strictly concave. Since $(\ln w)'(\Phat)=-\kappa<0$, the peak of $w$ lies below $\Phat$. (ii) The equilibrium condition and stability are those of \cref{def:eq}. The premium follows from $v(P^m)e^{-\kappa P^m}=F$ and $\kappa P=\rho T$. (iii) $P^m<\Phat$ iff $w(\Phat)<F$, since $w$ is falling on $(\hat P_w,\infty)$; this reads $\ln\vhat-\kappa\Phat<\ln F$. (iv) From $\ln\zeta+\ln v(P^m)=\ln F+\kappa P^m$, differentiate with respect to $\ln P^m$. \qed
+\paragraph{Proof of \cref{cor:ordering}.} (i) $a$ does not enter $v$ or $\Gamma$,
+so $h=0$, and $n\propto1/a$ at fixed $P$, so $m=-\dd\ln a$ and $f=-\eta_F\,\dd\ln a$.
+Then $\dd\ln(Y/N)=\dd\ln a\,(1-\lambda_F\eta_F)$, and $\lambda_F\eta_F=\mathcal E|\eps_w|$.
+(ii) A learning tool raises $\ln v$ by $h_v$ at every $P$, hence $\ln w$ by $h_v$
+and $\ln\bar U_F=\ln v(P)$ by $h_v$, so the direct effect on $\ln F$ is
+$\theta_Fh_v$; $m=-\partial_\tau\ln x^*$ is second order for the tools we
+consider. Then $\Pi_L=\lambda_F\theta_F+1-\lambda_F$. (iii) A catch-up tool raises
+$\ln\Gamma$ only; founders' payoffs do not involve $\Gamma$, so the direct effect on
+$F$ is zero and $\Pi_C=1-\lambda_F$. (iv) $\Pi_L-\Pi_C=\lambda_F\theta_F\ge0$ and
+$1-\mathcal E|\eps_w|-\Pi_L=\lambda_F(1-\theta_F-\eta_F)$. The per-hour statement combines
+these with \cref{lem:timeshares}: reading saves $r^*\dd\ln b$ of time and is worth
+$\Pi_L\,r^*\dd\ln b/x^*$ in the long run; production saves $x^*\dd\ln a$ and is
+worth $(1-\mathcal E|\eps_w|)\,\dd\ln a$. \qed
 
-\paragraph{Proof of \cref{cor:overcrowd}.} Total member output in a topic is $n\,a\,w(P(n))$, so one more member changes the output of the others by $n\,a\,w'(P)\,\dd P/\dd n$. Here $\dd P/\dd n>0$ and $w'<0$ at a stable equilibrium. Writing $w'=(v'-\kappa v)e^{-\kappa P}$ separates the spillover on incumbents from the catch-up burden. The ordering $\hat P_w<P^m<\Phat$ combines \cref{prop:mature}(iii) with stability. The loss follows from \cref{prop:planner}: per-researcher output is $aF$ in equilibrium and tends to $a\hat w$ at the optimum. \qed
+\paragraph{Proof of \cref{prop:ai}.} (i) and (ii) restate \cref{prop:volume} and
+\cref{cor:ordering}(i): $P^*$ depends on $Na$; output per researcher is $aF$;
+papers per researcher are $a\,x^*(P^*)$. Under free entry into science
+$aF=u_0+c$. For (iii)--(iv), $\partial_b\ln g=r[\partial_R\ln Q+\partial_R\ln C]\ge0$.
+$Q$ is increasing in $\beta$. $C$ is increasing in $\sigma$ and decreasing in $\ell$,
+and $\ell$ is increasing in $\kappa_p$. $\Gamma$ is increasing in $b_c$. So $w$ rises
+pointwise by $h$ while $F$ rises by at most $\theta_Fh<h$, and \cref{thm:incidence}
+gives $\dd\ln P^*>0$; $M^*=N/n(P^*)$ falls because $n$ is increasing. The speed
+limit is $b_c$ itself. The overshooting threshold falls with $b_c$ because
+$g^*_\infty$ in \eqref{eq:gstar} is decreasing in $b_c$ and the myopic value on the
+growth path is increasing in $b_c$ at every $(P,S)$. (v) $A$ in \eqref{eq:aware}
+is increasing in $\varphi$, and $\varphi$ is increasing in $\sigma$. \qed
 
-\paragraph{Proof of \cref{prop:social}.} (i) At private choices, $\ln s(P)=\ln g(r^*(P),P)-\theta P[(\lambda_s-\lambda)-(\Delta_s-\Delta)\varphi(br^*/P)]$. Differentiate in $P$. The derivative of $\ln g(r^*(P),P)$ is $v'/v$ by the envelope theorem. The direct derivative of the bracket term is $-\theta[(\lambda_s-\lambda)-(\Delta_s-\Delta)(\varphi-c\varphi')]$. Because researchers do not maximise $\ln s$, the bracket term also changes through $r^*$, by $\theta b(\Delta_s-\Delta)\varphi'(c)\,r^{*\prime}(P)$. The effect of one more member on others' social output is $n\,a\,s_w'(P)\,\dd P/\dd n$, as in \cref{cor:overcrowd}. (ii) With $\Delta_s=\Delta$ the bracket term is $-\theta(\lambda_s-\lambda)P$, independent of $r$, so $s=ve^{-\theta(\lambda_s-\lambda)P}$ and $s_w=we^{-\theta(\lambda_s-\lambda)P}$. In the large-topic limit the social planner maximises $s_w$, which is strictly log-concave. Its peak lies below $P^m$ if and only if $(\ln s_w)'(P^m)<0$, that is $(\ln w)'(P^m)<\theta(\lambda_s-\lambda)=-\tau\theta\lambda$. Since $(\ln w)'(P^m)=\eps_w(P^m)/P^m<0$, this is $\tau<|\eps_w(P^m)|/(\theta\lambda P^m)$. (iii) With $\ln C_s=(1-\tau)\ln C$, $\ln s=\ln v-\tau\ln C^*$, and the planner maximises $\ln s-\kappa P$. \qed
+\paragraph{Proof of \cref{prop:audience}.} In a topic, $n_p$ producing members
+read $n_p\,b\,r^*$ papers per period and write $P=n_p\,a\,x^*$, so reads per
+paper are $\mathcal A=(b/a)\,r^*/(1-r^*)$. Then
+$\ln Y_\alpha=\ln Y+\alpha\ln\mathcal A$. For a production tool,
+$\dd\ln(Y/N)=(1-\mathcal E|\eps_w|)\,\dd\ln a$ by \cref{cor:ordering} and
+$\dd\ln\mathcal A=-\dd\ln a+\eps_r\mathcal E\,\dd\ln a$ with
+$\eps_r=\dd\ln[r^*/(1-r^*)]/\dd\ln P$, so with $\alpha=1$ the total is
+$\mathcal E(\eps_r-|\eps_w|)\,\dd\ln a$, a product of small numbers. For a reading
+tool, $\dd\ln\mathcal A=\dd\ln b$ plus the change in $\ln[r^*/(1-r^*)]$, and
+$\dd\ln(Y/N)=\Pi_L\,r^*\dd\ln b/x^*$ is small when reading takes little time. \qed
 
 \paragraph{Proof of \cref{rem:shortrun}.} Let the cross-section of topics have
 researcher weights $\omega(a)$ over ages $a$, so that the measured log density is
@@ -158,22 +289,75 @@ $\omega(a)e^{\dd g(T-a)^+}/\int\omega e^{\dd g(T-a)^+}$. To first order,
 $\dd L=\dd g\operatorname{Cov}_\omega(\ln P,(T-a)^+)$. Log volume rises by
 $T\dd g$ more than it would have, so the composition term in the measured
 elasticity is $\operatorname{Cov}_\omega(\ln P,(T-a)^+)/T$. Mature densities
-depend on $N$ only through $F(M^*)$ and adjust at once, which gives
+depend on $N$ only through the frontier and adjust at once, which gives
 \eqref{eq:shortrun}. A constant growth rate gives a constant age composition,
 which area fixed effects absorb. \qed
 
 \paragraph{Proof of \cref{prop:toofast}.} On the growth path,
-$S(t)=\int_0^tP_0e^{gs}e^{-\delta(t-s)}\dd s=P(t)\,\frac{1-e^{-(g+\delta)t}}{g+\delta}\le\frac{P(t)}{g+\delta}$,
-with equality in the limit $P_0\to0$ at any fixed $P$.
+\[
+S(t)=\int_0^tP_0e^{gu}e^{-\delta(t-u)}\,\dd u=P(t)\,\frac{1-e^{-(g+\delta)t}}{g+\delta},
+\]
+and $e^{-(g+\delta)t}=(P_0/P)^{(g+\delta)/g}$, which gives \eqref{eq:growthstock}.
+At a given $P$, $S$ is decreasing in $g$: both $1/(g+\delta)$ and
+$1-(P_0/P)^{1+\delta/g}$ fall as $g$ rises.
 
-(i) The myopic value is $w_g(P)/F$ with $w_g(P)\equiv v(P)e^{-\kappa\delta P/(\delta+g)}$, strictly log-concave. Since $w_g(P_0)\ge w(P_0)>F$, entry continues until the falling-side root $P_c(g)$. $w_g$ is strictly increasing in $g$ at every $P>0$, so the root increases. The limits follow from $w_0=w$ and $w_\infty=v$. $P_c(g)>\Phat$ iff $w_g(\Phat)>F$, that is $\ln\vhat-\kappa\delta\Phat/(\delta+g)>\ln F$, which rearranges to \eqref{eq:gstar} using $\kappa\delta=\rho/b_c$.
+(i) The myopic value $V(P;g)=v(P)[1+\delta S(P;g)/(b_c-P)]^{-\nu}$ is increasing in
+$g$ at every $P\in(P_0,b_c)$, so the first $P$ at which it falls to $F$ is
+nondecreasing in $g$; it is below $b_c$ by \cref{thm:speed}(iii). Entry starts
+because $V(P_0;g)=v(P_0)>F$. As $g\to0$, $S(P;g)\to P/\delta$ uniformly on compact
+subsets of $(P_0,b_c)$, so $V\to w$; if $w(P_0)<F$, $w<F$ on $(P_0,P_\ell)$, where
+$P_\ell<P^m$ is the rising-side root of $w=F$, and slow topics stop in that
+interval. As $g\to\infty$, $S\to0$ and $V\to v$, which exceeds $F$ on
+$[P_0,\Pbar_F)$ with $\Pbar_F>P^m$, so fast topics pass $P^m$. By monotonicity
+there is a threshold $g_0$ between the two. If entry stops at $P_s<P^m$, then
+$P_s<P_\ell$: on $[P_\ell,P^m]$, $w\ge F$ and $V>w$ because the stock along the
+path is below the stationary stock. (After such a stop the flow falls at rate
+$\rho<\delta$ and the ratio of stock to flow rises towards
+$1/(\delta-\rho)>1/\delta$; we verify numerically that, for the calibrated
+parameters, the value of joining never returns to $F$.)
 
-(ii) Sufficiency, by contradiction. Suppose entry stops at $P_s\le\Phat$. After $t_s$ the topic thins to $P^m$, so a newcomer at $t_s$ faces future densities in $[P^m,P_s]\subset[P^m,\Phat]$, where $v\ge v(P^m)$ because $v$ is increasing below $\Phat$ and $P^m<\Phat$. Her value is at least $v(P^m)e^{-\kappa\delta P_s/(\delta+g)}\ge v(P^m)e^{-\kappa\delta\Phat/(\delta+g)}$. If $g>g^*_{RE}$ then $\delta\Phat/(\delta+g)<P^m$, so the value exceeds $v(P^m)e^{-\kappa P^m}=F$, contradicting that entry stops at $t_s$. Hence $P_s>\Phat$. Necessity of $g>g^*$: a newcomer at density $\Phat$ faces payoffs no larger than $\vhat$ at every future date, so her value is at most $\vhat e^{-\kappa\delta\Phat/(\delta+g)}<F$ when $g<g^*$. Entry therefore stops before the flow reaches $\Phat$. The two expressions for $g^*_{RE}$ coincide because $\ln(v(P^m)/F)=\kappa P^m=\rho P^m/(\delta b_c)$.
+(ii) The topic overshoots iff $V(\cdot;g)>F$ on $[P_0,\Phat]$. The set of such $g$
+is an upper set by monotonicity, so overshooting is characterised by a
+threshold $g^*$. It requires taking off ($g\ge g_0$) and $V(\Phat;g)>F$
+($g>g_{\hat P}$). Conversely, if $g>\max\{g_0,g_{\hat P}\}$, $V>F$ on
+$[P_0,P^m]$ and at $\Phat$; on $[P^m,\Phat]$, $\ln V$ is concave in $P$ when the
+stock is $P/(g+\delta)$, since $\ln v$ is concave and
+$-\ln[1+\delta P/((g+\delta)(b_c-P))]=-\ln[b_c-(1-c)P]+\ln(b_c-P)$ with
+$c=\delta/(g+\delta)<1$ is concave, so $V>F$ on the whole interval; with the
+exact stock we verify this numerically for the calibrated parameters. Hence
+$g^*=\max\{g_0,g_{\hat P}\}$. Because the exact stock is below $P/(g+\delta)$,
+$V(\Phat;g)$ exceeds its value at the bound, so $g_{\hat P}$ is at most the rate
+that solves $\vhat[1+\delta\Phat/((g+\delta)(b_c-\Phat))]^{-\nu}=F$, which is
+\eqref{eq:gstar}.
 
-(iii) $U(P)$ is the average of $v$ along the consolidation path with weights $e^{-u}$, so $U(P)>v(P)$ exactly when $v(P)$ lies below that average. For $P>\Phat$ the path spends the stretch $u\in[\ln(P/\Phat),\ln(P/P^m)]$ in $[P^m,\Phat]$, where $v\ge v(P^m)$, so $U(P)\ge v(P^m)(\Phat-P^m)/P$. By the bound in the proof of \cref{thm:v}(i), $v(P)$ decays exponentially in $P$, so $U(P)>v(P)$ for all $P$ large enough. At such a $P_c$, the forward-looking value $U(P_c)e^{-\kappa\delta P_c/(\delta+g)}>v(P_c)e^{-\kappa\delta P_c/(\delta+g)}=F$, so entry continues: $P_s>P_c$. As $g\to\infty$ the stock vanishes and $P_s$ is the first root of $U(P)=F$ above $P^m$. On $[P^m,\Pbar_F]$, single-peakedness gives $v\ge\min\{v(P^m),v(\Pbar_F)\}=F$ with strict inequality on the interior, so $U(P)>F$ there. Hence $P_s>\Pbar_F$.
+(iii) Suppose entry stops at $P_s\in[P^m,\Phat]$. Afterwards the flow falls
+from $P_s$ to $P^m$, so a newcomer at $t_s$ faces flows in $[P^m,\Phat]$, where
+$v\ge v(P^m)$, and reads less than she would at the constant flow $P_s$: her
+catch-up time is at most $T(P_s,S_s)\le T(\Phat,\Phat/(g+\delta))$, since $T$ is
+increasing in both arguments and $S_s\le S(\Phat)\le\Phat/(g+\delta)$. Her value is
+at least $v(P^m)\,[1+\delta\Phat/((g+\delta)(b_c-\Phat))]^{-\nu}$. A newcomer to the
+mature topic earns $F=v(P^m)(1-P^m/b_c)^\nu=v(P^m)[1+P^m/(b_c-P^m)]^{-\nu}$. If
+$g>g^*_{RE}$, then $\delta\Phat/((g+\delta)(b_c-\Phat))<P^m/(b_c-P^m)$, so the
+newcomer at $t_s$ earns more than $F$, contradicting that entry stops. Hence
+$P_s>\Phat$.
 
-(iv) Incumbents have already paid the catch-up cost. At the stopping date a newcomer's value equals $F$ after the survival factor $e^{-\rho S_s/b_c}<1$, so an incumbent's continuation value, $v(P_c)$ under myopia or $U(P_s)$ under foresight, exceeds $F$, and incumbents stay. With no entry, membership decays at rate $\rho$. Under the fast-stock approximation $S=P/\delta$, entry resumes when $w(P)=F$, that is at $P^m$. \qed
+(iv) Incumbents have already paid the catch-up cost. At the stopping date a
+newcomer's value equals $F$ after a survival factor below one, so an
+incumbent's continuation value exceeds $F$, and incumbents stay. With no entry,
+membership decays at rate $\rho$. Using the stationary stock, entry resumes
+when $w(P)=F$, at $P^m$. \qed
 
-\paragraph{Proof of \cref{prop:ai}.} (i) and (ii) restate \cref{prop:volume}: $P^*$ depends on $Na$; output per researcher is $aF(M^*)$; papers per researcher are $a\,x^*(P^*)$. Under free entry into science $F(M^*)=(\omega+c)/a$. For (iii)--(iv), $\partial_b\ln g=r[\partial_R\ln Q+\partial_R\ln C]\ge0$. $Q$ is increasing in $\beta$. $C$ is increasing in $\sigma$ and decreasing in $\ell$, and $\ell$ is increasing in $\kappa_p$. $w$ is decreasing in $\kappa=\rho/(\delta b_c)$. So $w$ rises pointwise, which moves the falling-side root of $w(P)=F$ to the right. $M^*=N/n(P^*)$ falls because $n$ is increasing. $g^*$ in \eqref{eq:gstar} is decreasing in $b_c$, and so is $g^*_{RE}=\delta(\Phat/P^m-1)$ because $P^m$ rises when $\kappa$ falls. (v) $A$ in \eqref{eq:aware} is increasing in $\varphi$, and $\varphi$ is increasing in $\sigma$. \qed
+\paragraph{Proof of \cref{prop:sot}.} By \cref{lem:little}, $Y=NaF$, and in
+equilibrium $\ln F=\ln w(P^*)$, so $\dd\ln Y/\dd\ln N=1+\eps_w\mathcal E$. Holding $M$
+fixed, $N=M\,n(P)$ gives $\dd\ln P=\dd\ln N/D$, and output per researcher is
+$a\,w(P)$ by the renewal-reward argument, so
+$\partial\ln Y/\partial\ln N|_M=1+\eps_w/D$. The bound with fertility depletion is
+proved in \cref{app:fertility}. \qed
 
-\paragraph{Proofs of \cref{prop:sot,prop:solow}.} In the large-topic limit every researcher's career payoff is $aF(M^*)$, so $Y=NaF(M^*)$ and $\dd\ln Y/\dd\ln N=1-\eta\,\dd\ln M^*/\dd\ln N$. By \cref{prop:volume}, $\dd\ln M^*/\dd\ln N=|\eps_w|/(\eta D+|\eps_w|)$, so $\eta\,\dd\ln M^*/\dd\ln N=\mathcal E|\eps_w|$. The bound with fertility depletion is proved in \cref{app:fertility}. For \cref{prop:solow}, $Y/N=aF(M^*)$, so $\dd\ln(Y/N)/\dd\omega=-\eta\,\dd\ln M^*/\dd\omega$, which is nonnegative because $M^*$ falls with $\omega$ by \cref{prop:ai}(iii). For writing speed, $P^*$ depends on $Na$, so $\dd\ln(Y/N)/\dd\ln a=1-\eta\,\dd\ln M^*/\dd\ln(Na)=1-\mathcal E|\eps_w|$. \qed
+\paragraph{Proof of \cref{prop:policy}.} (i) The first follower of a newborn
+topic reads nothing and earns $v(P_0)$; she joins only if this exceeds the value
+of exploring, $F+s$, or, with a flat entry tax, if $v(P_0)-s>F$. (ii) The tax
+$\tau S$ is zero at birth, so (i) does not apply. A newcomer to a stationary topic
+pays $\tau P/\delta$, so mature topics solve $w(P)-\tau P/\delta=F$ on the falling
+side of the left-hand side, whose peak lies below $\hat P_w$ because the tax
+rises with $P$. At $\tau^o$ the equation holds at $\hat P_w$. \qed
