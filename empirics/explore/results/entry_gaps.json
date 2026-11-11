@@ -1,0 +1,116 @@
+{
+ "n_authors": 333169,
+ "n_author_papers": 4444794,
+ "n_entries": 411995,
+ "n_entries_new_group": 140826,
+ "all_entries": {
+  "n": 411995,
+  "median_gap": 77.03667824074068,
+  "mean_gap": 176.34573683065082,
+  "median_ratio_to_base": 1.3018739256401917,
+  "mean_log_excess": 0.1381823671955626,
+  "other_median_gap": 48.14263888888854,
+  "other_mean_gap": 113.34467045371338
+ },
+ "entries_no_incumbent_coauthor": {
+  "n": 155591,
+  "median_gap": 74.93334490740722,
+  "mean_gap": 173.21832656396805,
+  "median_ratio_to_base": 1.2162384259258943,
+  "mean_log_excess": 0.053287181296062004,
+  "other_median_gap": 48.14263888888854,
+  "other_mean_gap": 113.34467045371338
+ },
+ "entries_with_incumbent_coauthor": {
+  "n": 256404,
+  "median_gap": 78.22064236111078,
+  "mean_gap": 178.24351101047418,
+  "median_ratio_to_base": 1.3569159696316193,
+  "mean_log_excess": 0.18969843897794197,
+  "other_median_gap": 48.14263888888854,
+  "other_mean_gap": 113.34467045371338
+ },
+ "entries_new_group_no_incumbent": {
+  "n": 55963,
+  "median_gap": 91.13045138888901,
+  "mean_gap": 198.62419956931697,
+  "median_ratio_to_base": 1.2911085037291303,
+  "mean_log_excess": 0.1198458814006034,
+  "other_median_gap": 48.14263888888854,
+  "other_mean_gap": 113.34467045371338
+ },
+ "entries_same_group_no_incumbent": {
+  "n": 99628,
+  "median_gap": 67.00320601851854,
+  "mean_gap": 158.9473498204989,
+  "median_ratio_to_base": 1.1758695560924912,
+  "mean_log_excess": 0.015899855103119753,
+  "other_median_gap": 48.14263888888854,
+  "other_mean_gap": 113.34467045371338
+ },
+ "entries_solo": {
+  "n": 13265,
+  "median_gap": 87.78677083333332,
+  "mean_gap": 210.8121673812665,
+  "median_ratio_to_base": 1.1415435952782391,
+  "mean_log_excess": 0.00849552015083454,
+  "other_median_gap": 48.14263888888854,
+  "other_mean_gap": 113.34467045371338
+ },
+ "share_entries_with_incumbent_coauthor": 0.6223473585844489,
+ "within_author_log_gap": {
+  "e_noinc": [
+   0.23463091867753558,
+   0.004130889357178634
+  ],
+  "e_inc": [
+   0.3646582774341548,
+   0.0031198538191865017
+  ],
+  "ln_team": [
+   -0.013448971986400405,
+   0.00157311027655053
+  ]
+ },
+ "n_entries_for_destination_regression": 92533,
+ "destination_lgap": {
+  "ln_stock_to_flow": [
+   0.1539479310072769,
+   0.05032602935673808
+  ],
+  "ln_flow": [
+   0.05436967544131808,
+   0.014191487147290299
+  ],
+  "n_clusters": 122
+ },
+ "destination_excess": {
+  "ln_stock_to_flow": [
+   56.264238659754085,
+   6.211871346301105
+  ],
+  "ln_flow": [
+   13.611082480785162,
+   2.545547479222398
+  ],
+  "n_clusters": 122
+ },
+ "median_gap_by_stock_to_flow_quartile": [
+  76.24821759259271,
+  76.26545138888878,
+  79.6293402777776,
+  89.88092592592602
+ ],
+ "median_excess_by_stock_to_flow_quartile": [
+  13.195989583333244,
+  11.132274305555484,
+  9.629146412037016,
+  9.89175057870358
+ ],
+ "stock_to_flow_quartile_means": [
+  2.295301327437428,
+  2.8324910719351624,
+  3.261537371889968,
+  3.941705459548072
+ ]
+}
