@@ -12,3 +12,10 @@ paper/*.log
 paper/*.out
 paper/*.synctex.gz
 paper/*.toc
+handout/*.aux
+handout/*.fdb_latexmk
+handout/*.fls
+handout/*.log
+handout/*.out
+handout/*.toc
+handout/*.synctex.gz

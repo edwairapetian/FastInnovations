@@ -340,9 +340,8 @@ stands.
   with who sped up. Text-free versions (home category; shared references in
   HEP) are essential.
 * **Priority.** The 2026 fact will not stay unreported. Work to position
-  against: Kusumegi et al. on language models and output, and work on AI
-  narrowing the focus of science (Hao, Xu, Li and Evans; reference to be
-  checked).
+  against: Kusumegi et al. on language models and output, and Hao et al. on
+  AI narrowing the focus of science. The paper already cites both.
 * **Odds.** The editors put the best case below one in ten at a top-5
   journal, and at 2–4% for the most likely result (extra papers stay home,
   entry unclear), with a strong field or second-tier general journal as the

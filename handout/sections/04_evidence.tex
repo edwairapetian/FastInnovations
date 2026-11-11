@@ -1,0 +1,92 @@
+\section{The evidence, piece by piece}\label{sec:evidence}
+
+The paper has two empirical sections. The first reports five descriptive facts. The second uses arXiv's own rules as sources of variation. This section says what each piece measures and what the paper takes from it. What the review found is in \S\ref{sec:crit-evidence}.
+
+\subsection{The data}
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{1.35in}LP{1.3in}@{}}
+\toprule
+Source & Content & Used for \\
+\midrule
+An OpenAlex-based panel of arXiv papers & 1.49 million papers posted in 2018--2025, classified into 150 areas by their text; citation counts; a sample of 25,400 full-text PDFs for citing behaviour. \textbf{Not in the repository.} & Facts 1--4 \\
+arXiv metadata snapshot of 18 October 2026 & 2.2 million papers from 2015 to 15 October 2026 with the exact time of each submission, the submitter's name, the author list and the abstract. In the repository. & Fact 5 and the six designs \\
+INSPIRE-HEP & Curated, complete reference lists and citation counts for high-energy physics. & Validation of awareness; the listing designs \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Two measurement devices recur. \emph{Local density} is how many earlier papers lie within a given text-similarity radius of a paper. The \emph{overlap flag} is set when an earlier paper by another group, posted 3 to 24 months before, is closer than the 99th percentile of nearest-neighbour similarity in the paper's area in 2018--19. About 1\% of papers are flagged in the base period; only changes in this rate carry information. Similarity is measured with TF-IDF word weights. The paper notes that TF-IDF and sentence-embedding flags agree on only about a fifth of flagged papers.
+
+\subsection{Five facts}
+
+\subsubsection{Fact 1. Volume opens new ground}
+\emph{What is measured.} The elasticity of local density with respect to the volume of papers in the area over the previous two years, with area and year effects.
+
+\emph{What is found.} Between 0.12 and 0.19 at broad radii. If an area's papers kept landing in the same idea space, the same regression would give 0.53 to 0.81 (a benchmark built by randomly thinning each paper's observed list of neighbours). At the radius of the overlap flag the estimate is 0.035 with a standard error of 0.118. In the aggregate, volume rose 122\% between 2018 and 2025 while the overlap rate rose about 13\%.
+
+\emph{How the paper uses it.} It is the volume elasticity $\EE$ of Proposition~3. The paper sets $\EE=0.15$ and reports results over the range from 0 to 0.27. It pins the depletion of the frontier, the floor in Theorem~3 and the stepping-on-toes number.
+
+\subsubsection{Fact 2. Returns are hump-shaped in topic density}
+\emph{What is measured.} Citations per author-year for the same researcher in years spent in denser or sparser topics, with author and year effects, on 923,000 author-years. Density is the similarity of a paper to its nearest earlier papers.
+
+\emph{What is found.} One standard deviation of density goes with 6.7\% more citations. Relative to the middle fifth of density, returns are $-11\%$ in the sparsest fifth, $+2\%$ in the fourth and $-2\%$ in the densest. A fitted quadratic peaks about one standard deviation above the mean, with 12\% of researcher-years beyond the peak.
+
+\emph{How the paper uses it.} It rejects the equal returns of the frictionless model and so motivates the entry cost. It supplies five of the eight calibration targets. The paper adds two caveats itself: citations reward audience, so the rising arm overstates the returns to density; and papers per author rise with density ($+0.5\%$ per standard deviation), where Theorem~1(v) predicts a fall.
+
+\subsubsection{Fact 3. Duplicates lose some credit; aware follow-ons gain}
+Among flagged papers, those that do \emph{not} cite their nearest earlier paper (unaware overlap) receive 19\% fewer citations than comparable papers; those that do cite it (aware overlap) receive 29\% more. The paper uses these to set the credit parameters $\lambda$ and $\Delta/\lambda$.
+
+\subsubsection{Fact 4. About 60\% of close overlap is aware}
+In the PDF sample the later paper cites the earlier one in 35--42\% of flagged pairs. PDF matching recovers 63\% of citations, so the corrected share is about 60\%. Curated reference lists in high-energy physics give 61\% independently. The paper uses the 60\% to set search precision $\sigma$.
+
+\subsubsection{Fact 5. Growth came from new authors; drafting tools raised output modestly}
+Papers per author stayed flat while the number of authors grew. In an author-level panel, submitters whose 2023 abstracts adopted the vocabulary that spread with large language models raised their output in 2024--2026 by about 7\% relative to those who did not.
+
+\subsubsection{What the paper withdrew}
+A paragraph headed ``What we no longer claim'' retracts two results of an earlier version: that areas with high uptake of language models produced more pioneering papers, and that overlap measured by meaning did not fall. The first used the same TF-IDF neighbours that changes in wording distort; the second has a minimum detectable effect of two thirds of the base rate.
+
+\subsection{Six designs}
+
+\begin{center}\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{@{}P{1.05in}P{2.25in}L@{}}
+\toprule
+Design & What varies, and what is found & What the paper takes from it \\
+\midrule
+\textbf{A. Daily cutoff} & A paper submitted just after 14:00 opens the next day's listing. Crossing the cutoff raises the chance of a top-five slot by 0.69 (base 0.30). But the comparison is first against last, submitters differ on the two sides, and top-of-listing papers get \emph{fewer} citations. & Discarded by the authors: it does not isolate visibility. \\
+\textbf{B. Rank in the listing} & Position depends on how many other papers happen to be submitted earlier the same day. 87,694 physics papers, 2017--22. One log point lower in the list: citations $-0.023$ (SE 0.016); later unaware overlap by other authors $-0.005$ (SE 0.004) on a mean of 0.068; aware overlap $0.000$. & ``Overlap is detected by targeted search, not by browsing.'' A bounded null. \\
+\textbf{C. Endorsement rule} & From 10 December 2025 (Mathematics) and 21 January 2026 (all sections) an institutional e-mail no longer suffices for a first submission. First-time submitters fall by 2.4 points in Mathematics and 3.4 elsewhere, 15--17\% of the base. & A rise in the cost of entering science. The model predicts fewer topics and unchanged density; outcomes need a year of data. \\
+\textbf{D. Review rule in computer science} & From 31 October 2025 review and position papers need prior peer review. Their share falls from 2.7\% to 1.3\% (290 to 187 a month). Categories that relied more on reviews saw the first-time-author share fall more ($-0.70$, SE 0.26; placebo a year earlier $-0.32$, SE 0.17). & A rise in the cost of catching up (lower $b_c$). Called ``suggestive''. \\
+\textbf{E. Submission cap} & From 1 October 2026 two submissions per person per month. It binds on about 1.3\% of papers. Volume does not fall. & A cap on writing binds on a sliver of output. The paper says it is not a shock to writing speed. \\
+\textbf{F. Adopters of language models} & 4,488 of 68,467 submitters used marker words in at least half of their 2023 abstracts. Their output in 2024--26 is higher by 0.022 log points (SE 0.005), ``about 7\%''. & Drafting tools raise output, modestly. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The abstract summarises these as ``four arXiv rule changes and design features identify the margins the model relies on''. The paper is more careful in the body: two of the designs are first stages whose outcomes ``are still accruing'', one reduced form is ``suggestive'', and the catch-up extension ``was added after the returns-by-density evidence was seen, so that evidence cannot test it''.
+
+\subsection{Fifteen predictions}
+
+The paper closes with predictions that were not used to build the model.
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{0.3in}LP{0.3in}L@{}}
+\toprule
+\multicolumn{2}{@{}l}{\emph{Testable with existing data}} & \multicolumn{2}{l}{\emph{Tied to the rule changes or to future tools}} \\
+\midrule
+P1 & Overcrowding is young and fast: the fall in returns is concentrated where the flow outgrew the stock. & P9 & The blocking of Google in mainland China lowered the aware share there. \\
+P2 & Slow clusters die young. & P10 & Endorsement rule: fewer new topics, unchanged density. \\
+P3 & Returns follow the stock, density follows the flow. & P11 & Review rule: less entry where reviews mattered. \\
+P4 & Newcomers start slowly where stocks are large and flows are fast. & P12 & Submission cap: volume and papers per author unchanged. \\
+P5 & The cross-topic gradient is the catch-up elasticity plus audience. & P13 & Reading tools: denser topics, fewer new ones. \\
+P6 & Close overlap is pinned; broad neighbourhoods fill. & P14 & A large production shock closes the densest topics to entry. \\
+P7 & Founders stay in the clusters they open. & P15 & Better search raises the aware share. \\
+P8 & Stepping on toes across areas. & & \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{keybox}[What the evidence is, in one sentence]
+One fact that bears on a theorem and could have failed (Fact~1); one fact that calibrates (Fact~2); two that calibrate a block the main results do not need (Facts~3 and~4); and six designs that are a discarded discontinuity, a null, two first stages, a non-shock and an estimate that turns out to be a trend.
+\end{keybox}

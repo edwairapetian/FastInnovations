@@ -1,0 +1,155 @@
+% A reader's guide to "Too Fast to Read": what the paper says, what holds up,
+% and what to do with it.   Build:  latexmk -pdf handout.tex
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage{tgpagella}
+\usepackage[scale=0.90]{tgheros}
+\usepackage[scale=0.92]{tgcursor}
+\linespread{1.06}
+\usepackage[letterpaper,top=1.1in,bottom=1.15in,left=1.2in,right=1.2in,headheight=15pt,headsep=18pt,footskip=32pt]{geometry}
+\usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage[table]{xcolor}
+\usepackage{booktabs,tabularx,longtable,array,multirow,makecell}
+\usepackage{graphicx}
+\usepackage[font=small,labelfont={bf,sf},labelsep=period,skip=6pt]{caption}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds,shapes.misc}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{pifont}
+\usepackage{needspace}
+
+% ---------------------------------------------------------------- colours
+\definecolor{hblue}{HTML}{2A78D6}
+\definecolor{hbluedark}{HTML}{104281}
+\definecolor{horange}{HTML}{EB6834}
+\definecolor{haqua}{HTML}{1BAF7A}
+\definecolor{haquadark}{HTML}{0B6B49}
+\definecolor{ink}{HTML}{0B0B0B}
+\definecolor{inktwo}{HTML}{52514E}
+\definecolor{muted}{HTML}{898781}
+\definecolor{gridc}{HTML}{E1E0D9}
+\definecolor{axisc}{HTML}{C3C2B7}
+\definecolor{paperc}{HTML}{F4F3EF}
+\definecolor{stgood}{HTML}{0CA30C}
+\definecolor{stgooddark}{HTML}{006300}
+\definecolor{stwarn}{HTML}{FAB219}
+\definecolor{stserious}{HTML}{EC835A}
+\definecolor{stcrit}{HTML}{D03B3B}
+\definecolor{stcritdark}{HTML}{9E2424}
+
+\usepackage[colorlinks=true,linkcolor=hbluedark,urlcolor=hbluedark,citecolor=hbluedark,
+  bookmarksnumbered=true,pdftitle={A reader's guide to Too Fast to Read},pdfauthor={}]{hyperref}
+
+% ---------------------------------------------------------------- layout
+\graphicspath{{figures/}}
+\setlist{itemsep=2pt,topsep=3pt,parsep=0pt,leftmargin=1.5em}
+\renewcommand{\arraystretch}{1.2}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+\emergencystretch=1.5em
+
+\titleformat{\section}{\sffamily\bfseries\Large\color{hbluedark}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\sffamily\bfseries\large\color{hbluedark}}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}{\sffamily\bfseries\normalsize\color{ink}}{}{0em}{}
+\titleformat{\paragraph}[runin]{\sffamily\bfseries\small\color{ink}}{}{0em}{}[.]
+\titlespacing*{\section}{0pt}{20pt plus 4pt minus 2pt}{6pt}
+\titlespacing*{\subsection}{0pt}{14pt plus 3pt minus 2pt}{3pt}
+\titlespacing*{\subsubsection}{0pt}{10pt plus 2pt minus 1pt}{1pt}
+\titlespacing*{\paragraph}{0pt}{6pt plus 2pt}{0.6em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\enspace #1}}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}A reader's guide to \emph{Too Fast to Read}}
+\fancyhead[R]{\sffamily\footnotesize\color{muted}\nouppercase{\rightmark}}
+\fancyfoot[C]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{{\color{axisc}\hrule width\headwidth height\headrulewidth}}
+
+% Parts: a new page with a title and a short statement of purpose.
+\newcounter{hpart}
+\newcommand{\handoutpart}[2]{%
+  \clearpage\refstepcounter{hpart}%
+  \addcontentsline{toc}{part}{Part \Roman{hpart}.\enspace #1}%
+  \markright{Part \Roman{hpart}}%
+  \vspace*{0.6in}%
+  {\sffamily\bfseries\large\color{hblue}PART \Roman{hpart}\par}\vspace{4pt}%
+  {\sffamily\bfseries\fontsize{26}{30}\selectfont\color{hbluedark}#1\par}\vspace{10pt}%
+  {\color{hblue}\hrule height 1.2pt}\vspace{14pt}%
+  {\large\color{inktwo}#2\par}\vspace{0.3in}}
+
+% ---------------------------------------------------------------- boxes
+\tcbset{hbase/.style={enhanced,breakable,parbox=false,boxrule=0pt,frame hidden,arc=0pt,outer arc=0pt,
+  left=11pt,right=10pt,top=7pt,bottom=7pt,before skip=10pt plus 2pt,after skip=10pt plus 2pt,lines before break=4}}
+\newtcolorbox{keybox}[1][Key point]{hbase,colback=hblue!6,borderline west={3pt}{0pt}{hblue},
+  before upper={{\sffamily\bfseries\small\color{hbluedark}#1}\par\vspace{1pt}}}
+\newtcolorbox{critbox}[1][Problem]{hbase,colback=stcrit!5,borderline west={3pt}{0pt}{stcrit},
+  before upper={{\sffamily\bfseries\small\color{stcritdark}#1}\par\vspace{1pt}}}
+\newtcolorbox{ideabox}[1][Idea]{hbase,colback=haqua!8,borderline west={3pt}{0pt}{haqua},
+  before upper={{\sffamily\bfseries\small\color{haquadark}#1}\par\vspace{1pt}}}
+\newtcolorbox{notebox}[1][How we know]{hbase,colback=paperc,borderline west={3pt}{0pt}{axisc},
+  fontupper=\small,before upper={{\sffamily\bfseries\footnotesize\color{inktwo}#1}\par\vspace{1pt}}}
+% A result of the paper: name, title, status tag; lower part for plain words and the review.
+\newtcolorbox{resultbox}[3]{enhanced,breakable,parbox=false,colback=white,colframe=axisc,boxrule=0.5pt,
+  arc=1.5pt,left=9pt,right=9pt,top=6pt,bottom=6pt,middle=5pt,lines before break=3,
+  before skip=10pt plus 2pt,after skip=10pt plus 2pt,
+  colbacktitle=paperc,coltitle=ink,fonttitle=\sffamily\small,toptitle=3pt,bottomtitle=3pt,titlerule=0.4pt,
+  title={\textbf{#1}\enspace\textcolor{inktwo}{#2}\hfill #3},
+  fontlower=\small,segmentation style={solid,draw=gridc,line width=0.5pt}}
+\newcommand{\inwords}{{\sffamily\bfseries\footnotesize\color{hbluedark}IN PLAIN WORDS}\enspace}
+\newcommand{\why}{{\sffamily\bfseries\footnotesize\color{inktwo}WHY}\enspace}
+\newcommand{\role}{{\sffamily\bfseries\footnotesize\color{inktwo}ROLE}\enspace}
+\newcommand{\review}{{\sffamily\bfseries\footnotesize\color{stcritdark}AFTER REVIEW}\enspace}
+
+% Status tags (always a label, never colour alone).
+\newcommand{\sttag}[3]{\tcbox[on line,boxsep=0pt,left=4pt,right=4pt,top=2pt,bottom=2pt,arc=2pt,
+  boxrule=0pt,colback=#1,colframe=#1]{\sffamily\bfseries\fontsize{7}{8}\selectfont\color{#2}\MakeUppercase{#3}}}
+\newcommand{\tsolid}{\sttag{stgood}{white}{solid}}
+\newcommand{\trepair}{\sttag{stwarn}{ink}{needs repair}}
+\newcommand{\tfragile}{\sttag{stserious}{white}{fragile}}
+\newcommand{\tassumed}{\sttag{stserious}{white}{assumed}}
+\newcommand{\tfails}{\sttag{stcrit}{white}{does not hold up}}
+\newcommand{\tinert}{\sttag{stcrit}{white}{never operates}}
+\newcommand{\tuntested}{\sttag{muted}{white}{untested}}
+\newcommand{\tminor}{\sttag{muted}{white}{side result}}
+
+% ---------------------------------------------------------------- maths
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Phat}{\hat P}
+\newcommand{\vhat}{\hat v}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\EE}{\mathcal{E}}
+\newcommand{\Pm}{P^{m}}
+\newcommand{\thF}{\theta_F}
+\newcommand{\etaF}{\eta_F}
+\newcommand{\yes}{\textcolor{stgooddark}{\ding{51}}}
+\newcommand{\no}{\textcolor{stcritdark}{\ding{55}}}
+
+\begin{document}
+\input{sections/00_front}
+\input{sections/01_overview}
+\input{sections/02_model}
+\input{sections/03_results}
+\input{sections/04_evidence}
+\input{sections/05_numbers}
+\input{sections/06_critique_structure}
+\input{sections/07_critique_theory}
+\input{sections/08_critique_numbers}
+\input{sections/09_critique_evidence}
+\input{sections/10_scorecard}
+\input{sections/11_ideas}
+\input{sections/12_recommended}
+\input{sections/13_plan}
+\input{sections/14_appendix}
+\end{document}

@@ -1,0 +1,77 @@
+% ------------------------------------------------------------------ title page
+\thispagestyle{empty}
+\vspace*{0.9in}
+{\sffamily\bfseries\large\color{hblue}A READER'S GUIDE TO\par}
+\vspace{6pt}
+{\sffamily\bfseries\fontsize{34}{38}\selectfont\color{hbluedark}Too Fast to Read\par}
+\vspace{8pt}
+{\sffamily\Large\color{inktwo}Topic Choice and the Incidence of Research Tools\par}
+\vspace{18pt}
+{\color{hblue}\hrule height 1.4pt}
+\vspace{18pt}
+{\Large What the paper says, what holds up, and what to do with it\par}
+\vspace{0.5in}
+
+\begin{tabularx}{\textwidth}{@{}P{1.25in}L@{}}
+\textsf{\small\color{muted}SUBJECT} & The draft of October 2026: 66 pages, three theorems, five lemmas, fourteen propositions, five facts, six empirical designs. \\[3pt]
+\textsf{\small\color{muted}PURPOSE} & To explain the whole paper to someone who has not read it, to record every finding of a systematic review of it, and to set out the ideas for making it one coherent paper. \\[3pt]
+\textsf{\small\color{muted}BASIS} & An AI-assisted review: five independent readings of the draft, re-checks that recomputed the technical findings from the paper's own code and data, and four alternative designs of the paper scored by three reviewers. \\[3pt]
+\textsf{\small\color{muted}DATE} & 11 November 2026 \\
+\end{tabularx}
+
+\vfill
+\begin{keybox}[The handout in five sentences]
+The draft has one good idea: \emph{entry is the margin on which science adjusts, and the price of entering a topic is reading its literature.}
+It presents this idea as four separate results, and the two it puts in the headline are the two that its evidence does not test.
+The parts of the theory are sound, but the central step, the headline numbers and the title result do not survive a check against the paper's own code.
+One coherent paper is in the material: \emph{more researchers open new topics, while faster researchers first thicken the topics they are already in.}
+The first half is the paper's best fact; the second half can be tested now, because output per author on arXiv jumped by 11--14\% in 2026 after seven flat years.
+\end{keybox}
+\vspace{0.3in}
+\clearpage
+
+% ------------------------------------------------------------------ one page
+\section*{The handout in one page}
+\addcontentsline{toc}{section}{The handout in one page}
+\markright{The handout in one page}
+
+\textbf{What the paper does.} Researchers choose a topic, split their time between producing and reading, and must read a topic's literature before they can join it. From this the paper derives a payoff that is single-peaked in how crowded a topic is, an equilibrium in which topics behave like cities, a ``speed limit'' beyond which a literature is closed to newcomers, and a theorem on who keeps the gain from a research tool. It adds five facts and six designs from 2.2 million arXiv submissions, and a calibrated model. \emph{Part~I explains all of this from scratch.}
+
+\textbf{What holds up.} The payoff curve (Theorem~1). The rule that inside a topic a tool is worth the time it saves (Lemma~5). The results on incumbents' rents: insiders earn a premium equal to the newcomer's reading cost, and returns rise with crowding even where a topic is too crowded for newcomers (Proposition~5, Corollary~1). The qualitative fact that growth on arXiv opened new topics instead of thickening old ones (Fact~1). Three small magnitudes. The data, the code and the candour of the draft.
+
+\textbf{What does not.} \emph{Part~II gives every finding.} The six most important:
+\begin{enumerate}[leftmargin=1.7em]
+\item \textbf{The evidence tests the previous version of the paper.} None of the six designs identifies any quantity on which the current headline rests.
+\item \textbf{The central theorem needs a repair.} ``Output per researcher equals the value of the frontier'' contradicts the paper's own count of who is producing. With that count, 53--88\% of the gain from a reading tool survives entry, not 14--74\%.
+\item \textbf{The headline number is not identified.} ``A production tool is worth 1.3 to 7.2 times a reading tool'' is a range over an assumed parameter.
+\item \textbf{The ranking of tools is assumed.} It follows from what explorers are assumed to do, and it reverses under an extension in the paper's own appendix.
+\item \textbf{The title result never operates.} No researcher-year in the calibrated economy is above 53\% of the speed limit, and a model without a limit fits equally well.
+\item \textbf{Two empirical statements are wrong.} The ``$+7\%$ output for adopters of language models'' is entirely a pre-existing trend. The ``production shock of at most a few percent'' is contradicted by the paper's own data.
+\end{enumerate}
+
+\textbf{The ideas.} \emph{Part~III develops them.} The draft's results are four consequences of one mechanism. Because entry is what adjusts, (1) more researchers open new topics, (2) insiders earn a rent, (3) the gain from a tool stays with whoever is not on the entry margin, and (4) faster researchers are absorbed differently from more researchers. The fourth is the new idea. Until 2025 arXiv grew through more authors; in 2026 output per author jumped. The model says the two kinds of growth land in different places, and that can be checked.
+
+\textbf{What to do.} Do not rewrite yet. Run two measurements first: repair and reproduce the main fact, then test where the extra papers of 2026 landed. Let the result choose between a paper on \emph{scale versus speed} and a fallback on the entry margin and the incidence of tools. Shelve the speed limit and the topic life cycles. Retire the title.
+
+\clearpage
+\subsection*{How to read the boxes}
+\begin{tabularx}{\textwidth}{@{}P{1.55in}L@{}}
+\textsf{\small Grey frame} & A result of the paper, stated formally, then in plain words, then what the review found. The tag on the right gives the verdict. \\
+\textsf{\small\color{hbluedark}Blue bar} & A point to keep. \\
+\textsf{\small\color{stcritdark}Red bar} & A problem found by the review. \\
+\textsf{\small\color{haquadark}Green bar} & An idea. \\
+\textsf{\small\color{inktwo}Grey bar} & How we know: what was recomputed, and from which file. \\
+\end{tabularx}
+
+\medskip
+\noindent\begin{tabularx}{\textwidth}{@{}P{1.55in}L@{}}
+\tsolid & Rederived or recomputed, and independent of the parts that fail. \\
+\trepair & Right idea, wrong statement or wrong number; the repair is known. \\
+\tfragile\ \tassumed & Depends on a parameter that nothing measures, or on an assumption that decides the result. \\
+\tfails\ \tinert & Contradicted by the paper's own code or data, or without any effect in the calibrated economy. \\
+\tuntested\ \tminor & Correct as far as checked, but no evidence bears on it, or nothing else depends on it. \\
+\end{tabularx}
+
+\bigskip
+{\setlength{\parskip}{0pt}\small\tableofcontents}
+\clearpage

@@ -1,0 +1,109 @@
+\clearpage
+\appendix
+\renewcommand{\thesection}{\Alph{section}}
+\renewcommand{\sectionmark}[1]{\markright{Appendix \thesection\enspace #1}}
+
+\section{Errors to fix whatever the paper becomes}\label{sec:app-errors}
+
+These do not depend on which paper is written.
+
+\subsection*{Statements that are wrong}
+\begin{enumerate}
+\item \textbf{Fact 5 and Section 8.5.} Report the event study relative to the last half-year before ChatGPT and drop the 7\%. The honest statement is that adopting the vocabulary did not raise output.
+\item \textbf{Appendix B.8 and Fact 5.} Document the 2026 rise in papers per author. ``At most a few percent'' is false.
+\item \textbf{Appendix B.8.} ``Decays with half-life $\ln2/\rho$'' is wrong under the paper's own law of motion: a shock of size $\alpha$ is absorbed in about $\ln(1+\alpha)/\rho$. And the appendix prices entry on the flow while Lemma~2 prices it on the stock.
+\item \textbf{Abstract.} Remove ``identify the margins the model relies on'' and the range 1.3--7.2.
+\item \textbf{Section 8.4.} A binding cap on writing would not be ``largely dissipated by entry''; by Corollary~2 it would pass through almost fully.
+\item \textbf{Section 8.6.} The low volume elasticity does not come from the response of entry into science to its cost; it comes from the supply of new topics.
+\item \textbf{The caption of the life-cycle figure.} With forward-looking entry the stopping density does not stay below the speed limit.
+\end{enumerate}
+
+\subsection*{Theory}
+\begin{enumerate}[resume]
+\item \textbf{Lemma 4 and Theorem 3.} One convention for how topics are born; the term for early cohorts; a numerical test that computes output per researcher from member counts.
+\item \textbf{Lemma 3.} Take the founder's payoff along the path of her topic. Let founders leave topics that attract no follower. Call $\omega$ a share of time.
+\item \textbf{Theorem 3.} Write the tool's effects $(h,f_0,m)$ explicitly instead of folding the change in the number of topics into $f$. State the sign of the pass-through on the falling side of $v$, where it can be negative.
+\item \textbf{Corollary 2.} State it with fertility depletion, and call 0.99 an upper bound.
+\item \textbf{Proposition 4(iii).} With no founders and no depletion the subsidised equilibrium is a tangency and violates the stability condition.
+\item \textbf{Proposition 9.} Replace the two numerically verified steps by proofs. After a stall, with $\sigma=S/P$, $\dot\sigma=1-(\delta-\rho)\sigma>0$, and the value of joining falls along the path. For the threshold, prove the two-sided bound $\max\{g_0,g_{\hat P}\}\le g^*\le\max\{g_0,g^*_\infty\}$ (0.205 and 0.214 in the calibration). Rename the bound in part~(iii), which the text and the table confuse with the numerical threshold.
+\item \textbf{Theorem 2(iv).} ``At least'' holds only at given reading shares; with shares responding the closure factor is 6.3, not 5.9.
+\item \textbf{The life-cycle law of motion.} Add the catch-up delay.
+\end{enumerate}
+
+\subsection*{Calibration and tables}
+\begin{enumerate}[resume]
+\item Finish the parameter search on the fine grid, and report how the headline numbers move across near-optimal parameter vectors.
+\item \textbf{The fit table.} Compare like with like: the model's regression peak (2.67) with the data's (1.0), and the share beyond each.
+\item \textbf{The parameter table.} List the measurement-error constant (0.3). Correct the ``source'' of the erosion parameter and of the speed limit. Report members per topic.
+\item \textbf{The incidence table.} Change one assumption per column; hold the share of explorers fixed when the founders' share varies.
+\item \textbf{The reading share.} Define the model moment over all topic members, or target incumbents and newcomers separately.
+\item Drop or reformulate the assumed premium target, which the calibrated curve cannot attain.
+\item Report sensitivity to the assumed birth flow and to the decay rate of the literature.
+\end{enumerate}
+
+\subsection*{Text left over from the previous version}
+\begin{enumerate}[resume]
+\item Fact 3: the arXiv penalty and the scooping penalty of Hill and Stein ``validate each other'', against Section~2.3 (``they measure different events'').
+\item Section 8.5 and two table notes: ``faster drafting'' attributed to a proposition about production speed, against Section~2.1 (``it is not drafting speed''); a ``drafting channel of Proposition~7'' that does not exist.
+\item ``What we no longer claim'': channels move flagged overlap ``by 7--30\%''; the current table shows $+5$, $+2$, $+19$, $-11$, $-36$, $+35$.
+\item Fact 1 cites prediction P7 for the radius pattern; it is P6. Prediction P11 cites P3 for newcomers' first papers; it is P4.
+\item P6 is listed as out-of-sample although ``Fact 1 already shows this ordering''.
+\item ``Five facts that discipline the model'': Fact~5 enters no parameter.
+\item ``Clustering by area \ldots\ is part of the replication package'': it is not in the repository.
+\item Appendix D: ``87\% at the 95th percentile'' is the figure for the 90th.
+\item The README carries the previous title and says that reading, search and catch-up tools ``are competed away''.
+\item Every sentence that narrates earlier versions of the paper.
+\end{enumerate}
+
+\subsection*{Notation}
+\begin{enumerate}[resume]
+\item At least thirteen symbols carry two or more meanings: $s$ (founding rate, subsidy, social output, time share); $\delta$ (decay rate, follow-on credit); $\tau$ (transfer share, stock tax, similarity threshold, tool index); $g$ (payoff function, diffusion rate); $a$ (production speed, topic age); $\omega$ (founders' share, age weights); $T$ (catch-up time, window length); $\alpha$ (shock size, weight of readership); $E$ and $\EE$; $A$ and $\mathcal A$; $D$ (two definitions); $\Psi$ (two proofs); $\nu$ and $\nu_0$; and $\lambda$ with five subscripts. Target: under twenty symbols in the main text.
+\end{enumerate}
+
+\section{Literature to add or to use more}\label{sec:app-lit}
+
+Identified by the referee's reading, partly through a web search. The authors should verify each reference before citing it.
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{2.45in}L@{}}
+\toprule
+Reference & Why \\
+\midrule
+Roback (1982); Harris and Todaro (1970); Gordon (1954); Moretti (2011); Kline and Moretti (2014) & The incidence theorem is the free-entry incidence result of spatial and labour economics, and the insiders' premium is a queue rent. State this and claim the application. \\
+Hill, Yin, Stein, Wang, Wang and Jones (\emph{Nature}, 2025), ``The pivot penalty in research'' & Direct evidence on the cost of entering a topic. \\
+Gans, ``A Quest for AI Knowledge'' (NBER working paper) & Artificial intelligence and the direction of research. \\
+Agrawal, McHale and Oettl, ``AI in Science'' (NBER working paper) & The closest economics of AI as a research tool. \\
+Hoelzemann, Manso, Nagaraj and Tranchero, ``The streetlight effect in data-driven exploration'' (NBER working paper) & Close to ``reading tools concentrate science''. \\
+Baccara, Levy and Razin, ``Research Waves'' & Life cycles of topics with forward-looking entry. \\
+Bergstrom, Foster and Song (2016), ``Why scientists chase big problems'' & Crowding of problems under priority credit. \\
+Teodoridis, Bikard and Vakili (2019) & Fast- and slow-paced domains of knowledge. \\
+Models of information congestion (Van Zandt 2004; Anderson and de Palma 2009; Falkinger 2008) & ``The crowders are the readers''. \\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Already in the bibliography, but cited only in a list or not at all in the text}} \\
+\midrule
+Hopenhayn and Squintani (2021); Bryan and Lemus (2017) & Already have free-entry overcrowding of hot research lines. \\
+Klepper (1996); Jovanovic and MacDonald (1994) & The shakeout analogue of take-off and overshooting. \\
+Azoulay et al.\ (2019) & The rival account of incumbents' rents. \\
+Kusumegi et al.\ (2025); Hao et al.\ (2026) & The 2026 fact and ``speed thickens'' must be positioned against both. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Where things are}\label{sec:app-files}
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{2.3in}L@{}}
+\toprule
+Path in the repository & Content \\
+\midrule
+\texttt{paper/main.pdf}, \texttt{paper/sections/} & The draft discussed here (commit \texttt{866dcfd}). \\
+\texttt{versions/v2\_2026-10-23\_\ldots/} & The previous version, complete. \\
+\texttt{code/ftmodel/}, \texttt{code/tests/} & The model and its 111 numerical tests. \\
+\texttt{code/results/*.json} & Calibrated parameters and every reported number. \\
+\texttt{data/}, \texttt{empirics/} & The arXiv snapshot, the high-energy physics pairs, and the scripts and results of the six designs. \\
+\texttt{docs/paper\_diagnosis.md} & The diagnosis and recommendation in short form. \\
+\texttt{docs/theory\_revision.md} & What changed between versions 2 and 3, comment by comment. \\
+\texttt{handout/} & This handout. \texttt{python3 handout/make\_figures.py} rebuilds its charts from the data and the model code; \texttt{latexmk -pdf handout.tex} builds the PDF. \\
+\bottomrule
+\end{tabularx}
+\end{center}

@@ -1,0 +1,80 @@
+\handoutpart{What the paper says}{This part explains the whole draft to a reader who has not opened it: the question, the model built up one piece at a time, every result in formal terms and in plain words, the evidence piece by piece, and the numbers. Each result carries a tag that says what the review in Part~II found, so the two parts can be read side by side.}
+
+\section{The paper in brief}
+
+\subsection{The question}
+
+Science is producing papers faster. Submissions to arXiv more than doubled between 2018 and 2025, and tools based on large language models now speed up both the writing of research and the reading of it. The draft asks what this does to science when researchers are free to choose what they work on. It poses the question in three ways, and Part~II argues that this is its first problem:
+
+\begin{itemize}
+\item \emph{Is innovation too fast?} Can a literature grow faster than the people outside it can absorb? (Title and conclusion.)
+\item \emph{Will faster production flood science with duplicates, and are better reading tools the remedy?} (First paragraph of the introduction.)
+\item \emph{Which research tools raise the output of science in the long run, and through whom?} (Subtitle and the main theorem.)
+\end{itemize}
+
+\subsection{The answer the draft gives}
+
+The abstract makes six claims. In plain words:
+
+\begin{enumerate}
+\item \textbf{A payoff curve.} What a researcher earns in a topic first rises and then falls with the number of papers the topic produces. More papers mean more to learn from, and also more earlier work that may already contain her project.
+\item \textbf{Topics are like cities.} Free choice of topics fills each topic past its best size, as free migration does with cities. New topics play the role of new cities.
+\item \textbf{A speed limit.} A newcomer must read a topic's literature before she can contribute. If the literature grows faster than she reads, she never catches up. Such topics are closed, the people inside earn large rents, fast-growing topics overshoot and slow ones never take off.
+\item \textbf{Frontier incidence.} In the long run output per researcher equals the value of opening a new topic. So a tool is worth what it adds to that value. Production tools keep almost all of their value; reading tools keep the part that reaches the founders of topics; tools that help newcomers catch up keep least.
+\item \textbf{Units matter.} If papers are valued by how much they are read and not by the credit they earn, the ranking of tools reverses.
+\item \textbf{Evidence.} On arXiv more volume opens new ground instead of thickening old topics, and ``four arXiv rule changes and design features identify the margins the model relies on.''
+\end{enumerate}
+
+The headline number is that, per hour saved, a production tool is worth 1.3 to 7.2 times a reading tool, and that the static gain from a better allocation of researchers to topics is small (about 1\%).
+
+\subsection{How the draft is organised}
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{0.9in}P{1.55in}L@{}}
+\toprule
+Section & Title & What it contains \\
+\midrule
+1 & Introduction & Three results, four novelty claims, the evidence, related work. \\
+2 & Model & Researchers, topics, reading, credit, catch-up, the frontier, equilibrium. Lemmas 1--4. \\
+3 & The payoff curve & Theorem 1, Lemma 5 (time shares), Proposition 1. \\
+4 & Free topic choice without frictions & Propositions 2--4: equilibrium, the volume elasticity, the planner. \\
+5 & Catch-up, the speed limit and rents & Proposition 5, Theorem 2, Corollary 1, Proposition 6. \\
+6 & The incidence of research tools & Theorem 3, Corollary 2, Propositions 7--8. \\
+7 & Evidence I: the arXiv record & Facts 1--5. \\
+8 & Evidence II: arXiv's rules as experiments & Six designs. \\
+9 & Quantification & Calibration, fit, magnitudes. \\
+10 & Implications & Propositions 9--11: life cycles, stepping on toes, policy. \\
+11--12 & Predictions; conclusion & Fifteen predictions. \\
+A--D & Appendices & Proofs; eight extensions (Propositions 12--14); numerics; data. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+In total: 3 theorems, 5 lemmas, 14 propositions, 2 corollaries, 6 remarks, 5 facts, 6 designs, 15 predictions, 9 tables and 9 figures. The notation table lists 47 symbols and about 30 more are used without being listed.
+
+\subsection{How the draft got here}
+
+The headline has changed with every version, and the evidence has not kept up. This history explains most of what Part~II finds.
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{1.2in}LL@{}}
+\toprule
+Version & Headline & Evidence \\
+\midrule
+1.\ \emph{When Innovation Is Too Fast: Reading, Writing, and the Crowding of Science} (21~Oct.) & Faster production crowds topics and raises duplication. The payoff curve and the planner's problem. & Descriptive facts from arXiv. \\
+2.\ \emph{Faster Writing Scales Science, Better Reading Crowds It} (23~Oct.) & Writing versus reading. Duplication is pinned by entry, not by volume. Gains from reading tools are competed away; gains from production tools are not. & Facts 1--5 and the six designs were written for this version. \\
+3.\ \emph{Too Fast to Read: Topic Choice and the Incidence of Research Tools} (28~Oct., current) & A speed limit, and frontier incidence: a tool is worth what it adds to the value of opening a topic. & Unchanged. One word of the evidence sections differs from version~2. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Version~3 was a response to a detailed referee-style critique of the theory in version~2. That critique was right on each point: in version~2 the people who open topics never read and never stayed in them, so reading tools were ``competed away'' by construction; the comparison of writing with reading (26 log points against 0.2) mostly reflected the share of time each activity takes; and the catch-up cost was a linear approximation. Version~3 fixed each of these. In doing so it added a third headline on top of two earlier ones, and it left the empirical half of the paper where it was.
+
+\begin{keybox}[What to keep in mind while reading Part~I]
+The draft is best read as four blocks that were written at different times:
+(A)~\emph{topics as cities}, with the fact that growth opens new topics;
+(B)~\emph{the incidence of tools};
+(C)~\emph{catch-up, the speed limit and topic life cycles};
+(D)~\emph{arXiv's rule changes as experiments}.
+Block~A is the only one in which a theorem meets a measured number. Blocks~B and~C carry the title and the abstract.
+\end{keybox}

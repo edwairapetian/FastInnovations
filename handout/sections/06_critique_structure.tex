@@ -1,0 +1,140 @@
+\handoutpart{What holds up and what does not}{This part records every finding of the review. It starts with how the review was done and with what is solid, because a great deal is. It then goes through the problems in order of weight: the structure of the paper, the theory, the numbers, and the evidence. It ends with a scorecard of every result.}
+
+\section{How the review was done}\label{sec:method}
+
+The draft was read five times, independently, each time with one question. The readers, the re-checkers and the reviewers described below were AI agents working from the paper, its code and its data; none of them is a human referee or editor.
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{1.1in}L@{}}
+\toprule
+Reading & Question \\
+\midrule
+Argument & Read the title, abstract, introduction and conclusion cold. Does the paper reduce to one claim? What would a reader remember after a week? \\
+Theory & Is each result correct? Do the results fit together in one economy? What is the smallest set of assumptions each one needs? \\
+Evidence & What does each fact and each design identify, and which result does it bear on? Which results have no evidence? \\
+Quantification & What does each headline number rest on? What moves if an assumption or the parameter search changes? \\
+Referee & A report for a top general-interest journal: novelty against the literature, and the concerns that would decide the outcome. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The theory, evidence and quantification readings were then \emph{re-checked}. A second reader was told to try to refute each finding and to recompute every number from the paper's own code and data. Of the 41 findings re-checked, 29 were confirmed, 12 were confirmed in part and corrected, and none was refuted. The re-checks added nine findings of their own.
+
+Finally, four alternative designs of the paper were written out, each around one central claim, and scored by three reviewers in the roles of a theory editor, an empirical editor and a senior co-author who must decide what to do in the next three months. They too corrected the earlier rounds in two places.
+
+\begin{notebox}[How to read the numbers in Parts II and III]
+A number described as \emph{recomputed} was produced from the code in \texttt{code/ftmodel}, from \texttt{code/results/*.json}, or from the data in \texttt{data/} and \texttt{empirics/results/}. Where the first reading and the re-check disagreed, this handout uses the re-check. Judgements, such as the chance of acceptance at a journal, are marked as judgements. Nothing here replaces the authors' own reading of their proofs and data.
+\end{notebox}
+
+\section{What is solid}\label{sec:solid}
+
+Before the problems, the things that can be relied on.
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{1.75in}L@{}}
+\toprule
+Result & Why it can be relied on \\
+\midrule
+\textbf{Theorem 1} (the payoff curve) & The proof was rederived step by step. It needs no functional form. It also does not need the detection block or the time-allocation margin: the hump comes from bounded absorption against a linear risk of being covered. \\
+\textbf{Lemma 5} (time shares) & Two lines, correct, and it does real work: inside a topic a tool is worth the time it saves. It replaces the earlier ``writing beats reading by 113 to 1'' with an honest comparison per hour. \\
+\textbf{Proposition 5 and Corollary 1} (rents) & The premium equals the catch-up cost; the cross-topic gradient equals the catch-up elasticity; insiders' returns rise with density where the topic is too crowded for newcomers. These hold for any decreasing entry factor $\Gamma$. They need neither the speed limit, nor founders, nor Lemma~4. They are the distinctive core. \\
+\textbf{Theorem 3 as algebra} & As a statement about the frontier value and equilibrium density it is right, and it matches re-solved equilibria for small shocks. \\
+\textbf{Fact 1, qualitatively} & Every available estimate of the volume elasticity (0.035 at the closest radius, 0.12--0.19 at broad radii, 0.15--0.30 before 2023, 0.19--0.27 in the time series) is far below the benchmark for a fixed idea space (0.53--0.89). \\
+\textbf{Three small magnitudes} & Across every calibration tried: the static gain from a better allocation of researchers is 0.15--1.25\% (3.2\% in one variant); credit lost to overlap is 2.9\%; crowding of topics accounts for almost none of ``stepping on toes''. Together these are a finding the paper does not claim: the feared effects are small. \\
+\textbf{Data} & 2.2 million timestamped submissions with author lists and text; curated reference lists for high-energy physics; a reconstruction of arXiv's daily listings that is accurate (rank correlation 0.98); two rule changes with sharp, well-timed first stages. \\
+\textbf{Code} & It reproduces every number in the paper. All 111 numerical tests of the propositions pass. The problems below are problems of identification, targets and framing, not of implementation. \\
+\textbf{Candour} & The draft reports a discarded design, a null with its power, a failed prediction, its main quantitative failure, and two claims it withdrew. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{The shape of the problem}\label{sec:crit-structure}
+
+\subsection{Four papers in one}
+
+Read cold, the draft does not reduce to one claim. Each of its outer parts leads with a different one.
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{1.2in}L@{}}
+\toprule
+Where & What it leads with \\
+\midrule
+Title & The speed limit. \\
+Abstract & ``Two results follow'': the speed limit first, then frontier incidence. \\
+Introduction & ``Three results organise the paper'': incidence, the speed limit, units. Its first paragraph asks a different question (will faster production flood science with duplicates?). \\
+Conclusion & Opens with ``Is innovation too fast?'', a question the introduction never asks, and then calls incidence ``the policy-relevant result''. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{1.55in}P{1.55in}L@{}}
+\toprule
+Block & Lead results & Standing \\
+\midrule
+A.\ Topics as cities & Theorem 1, Propositions 2--4, Fact 1 & The only block in which a theorem meets a measured number. No longer in the abstract. \\
+B.\ Incidence of tools & Lemmas 4--5, Theorem 3, Corollary 2 & The declared headline. Proof and calibration only. Its key statistic is unmeasured. \\
+C.\ Catch-up, speed limit, life cycles & Lemma 2, Theorem 2, Propositions 5, 9, 11 & The title. Proof and calibration only. Nothing in the calibrated economy is near the limit. \\
+D.\ arXiv's rules as experiments & Six designs & A discarded discontinuity, a null on a channel outside the model, two first stages, a non-shock, a trend. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Three symptoms follow from this.
+
+\emph{Space is allocated against the argument.} The section that states the declared headline (incidence) has about 1,900 words. The section on arXiv's rules, which does not test it, has about 3,000 and is the longest in the main text. The headline theorem arrives on page 20 of 44, although it needs only two lemmas and ``any payoff curve''.
+
+\emph{The order of sections works against the reader.} The theory uses facts before they are shown (at least twelve forward references). The quantification reports the life-cycle thresholds and the policy gains before the propositions that define them are stated.
+
+\emph{The load is too high for one argument.} Twenty-four named results with about 47 separately lettered claims; an abstract of about 310 words; 47 listed symbols and about 30 unlisted ones, thirteen of them with two or more meanings; each tool reported for six channels, four values of the founders' share, three ways of computing and three units.
+
+\begin{critbox}[The reader's test]
+What does a reader remember a week later? In the judgement of the first reading: (1)~output per researcher equals the value of opening a new topic, and inside a topic every hour saved is worth the same; (2)~arXiv doubled while local density barely moved; (3)~insiders' returns rise with density in topics that are already too crowded for newcomers. The speed limit is remembered as a phrase, not a result. ``1.3 to 7.2'' is not remembered, because it has no anchor. The rule changes are remembered as ``data are coming''. None of the three things remembered is what the abstract leads with.
+\end{critbox}
+
+\subsection{The evidence tests the previous version}
+
+The two evidence sections were written for version~2, whose questions were overlap, detection, the cost of entry and drafting speed. In the revision that produced version~3 the first of them was not touched and the second changed in one word. The table reads the evidence against the current theory.
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{1.3in}P{1.85in}L@{}}
+\toprule
+Evidence & What it identifies & What it does for the current paper \\
+\midrule
+Fact 1 & The volume elasticity $\EE$ & \textbf{Tests} Proposition 3, and it could have failed. Gives the floor in Theorem~3. \\
+Fact 2 & Returns by density & \textbf{Calibrates} the payoff curve and the catch-up cost (five of eight targets). By the paper's own statement it cannot test the catch-up block. \\
+Facts 3 and 4 & Credit of overlapping papers; the aware share & \textbf{Calibrate} the detection block, which the main results do not need. \\
+Fact 5; design F & Output of adopters of language models & Nothing: it is a trend (\S\ref{sec:crit-evidence}), and drafting speed is no longer a model object. \\
+Design A (cutoff) & --- & Discarded by the authors. \\
+Design B (rank) & Whether prominence in the daily listing affects later overlap & A channel that the model does not contain. \\
+Design C (endorsement) & Who presses ``submit'' & At most a first stage for the number of researchers. \\
+Design D (reviews) & The supply of review articles & A first stage for the catch-up cost, by assumption. \\
+Design E (cap) & --- & No model object, in the paper's own words. \\
+A 2008 time-use survey & Reading is 7\% of working time & The only source for Lemma~5's numbers. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Read the other way, from results to evidence:
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}P{2.3in}P{0.8in}L@{}}
+\toprule
+Result & Support & Why \\
+\midrule
+Proposition 3 (volume opens topics) & Moderate & Fact 1. \\
+Theorem 1 (payoff curve) & Weak & The rise in Fact~2; the fall is one fifth, which the model does not match; part~(v) has the wrong sign. \\
+Theorem 3 (incidence) & Weak & Only the floor $\EE D$. The founders' share is unmeasured. \\
+Lemma 5 (time shares) & Weak & One survey moment. \\
+Proposition 10 (stepping on toes) & Weak & Derived from $\EE$ and a model slope. \\
+Theorem 2 (speed limit) & None & --- \\
+Propositions 8, 9, 11 & None & --- \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{critbox}[The first and largest problem]
+The current headline rests on four objects: the founders' share $\thF$, the catch-up speed $b_c$, the share of time spent reading, and the indifference of newcomers between topics and the frontier. None of the six designs identifies any of them. The abstract's sentence that the rule changes ``identify the margins the model relies on'' is not supported. An editor who reads the abstract expects evidence on the incidence of tools and on literatures that outrun their readers, and finds evidence on something else.
+
+This is a problem of packaging, not of material: the facts are usable, but they are attached to the wrong claims, and the central claims have no evidence attached.
+\end{critbox}
