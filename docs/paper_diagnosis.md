@@ -14,19 +14,26 @@ recomputed by a second reader this is the recomputed value.
 
 ## 1. Bottom line
 
-*Interim version. The diagnosis in Sections 2–4 and 6 is complete. The
-recommendation in Section 5 is provisional until the design round (four
-alternative designs of the paper, scored by three editors) has returned.*
-
 The draft is four papers in one, and its two headline results are the two
-that the evidence does not test. The theory is internally sound in its parts
-but not at its centre: the step from the frontier value to output is
-inconsistent with the paper's own accounting, the headline range comes from an
-assumed parameter, and the title result never operates in the paper's own
-numbers. The material does support one coherent paper. Its subject is the
-entry margin: science absorbs growth by opening topics, the price of entry is
-reading a topic's stock, and so the gains from any tool go to those who are
-not on the entry margin.
+that the evidence does not test. The parts of the theory are sound but the
+centre is not: the step from the frontier value to output contradicts the
+paper's own accounting, the headline range comes from an assumed parameter,
+and the title result never operates in the paper's own numbers.
+
+The material supports one coherent paper. Its subject is the entry margin.
+Joining a topic has a sunk cost that grows with the topic's literature, so
+newcomers are the people who adjust: more researchers open new topics, while
+faster researchers first thicken the topics they are already in. The first
+half is the paper's best existing fact. The second half is untested, and the
+data to test it are on disk: papers per author rose 11–14% in 2026 after seven
+flat years.
+
+Four designs of the paper were scored by three editors, and all three ranked
+this one first. Their advice, which I share, is to let two measurements choose
+the headline before anything is rewritten (Section 5). The incidence of tools
+becomes a short implication and a possible second paper. The speed limit and
+the topic life cycles are shelved, and the title *Too Fast to Read* is
+retired.
 
 ## 2. The idea that ties the pieces together
 
@@ -52,10 +59,9 @@ Four consequences follow.
    was free, and a scarce frontier. A tool that only makes entry cheaper is
    absorbed by denser topics and a longer catch-up (Theorem 3, once repaired).
 4. **Faster researchers are not the same as more researchers.** When the same
-   people write more, every topic's flow rises at once, and the adjustment
-   takes as long as people take to move: a half-life of about seven years at
-   the assumed exit rate of 10% a year (Appendix B.8, Theorem 2(iv)). The speed limit is the extreme
-   case of this.
+   people write more, every topic's flow rises at once, before anyone has
+   moved (Appendix B.8, Theorem 2(iv)). The speed limit is the extreme case
+   of this.
 
 The first two are supported by evidence in hand. The third is a theorem that
 needs one repair and one measurement. The fourth is where the title lives. It
@@ -181,9 +187,14 @@ model relies on" is not supported.
   and nothing in this repository reproduces Facts 1–4.
 * **Missing: the 2026 surge is the first production shock in the data.**
   Fact 1 was estimated on years in which papers per author were flat, so it
-  measures the response to more researchers. The model predicts that a rise
-  in output per researcher is different: density and overlap should rise about
-  one for one on impact. This prediction can fail, and the data are on disk.
+  measures the response to more researchers. The model says a rise in output
+  per researcher is different: it raises the flow of existing topics first.
+  This can fail, and the data are on disk. Two cautions. The rise is
+  concentrated among prolific names: capping each name at three papers leaves
+  about a third of it (0.031 of 0.089 log points in whole counts; common
+  names inflate the tail). And 2026 is not a pure speed shock: the number of
+  authors also rose by about 15%, and three arXiv rule changes fall in the
+  same months.
 * **First data on founders.** In HEP, 65–70% of a paper's later close
   neighbours share an author with it, but most of that is authors continuing
   work nobody else joined. Where outsiders follow, the founders write roughly
@@ -195,31 +206,179 @@ model relies on" is not supported.
 
 ## 5. Recommendation
 
-*Provisional; to be completed when the design round returns.*
+### 5.1 The second round
 
-All five readers agree on four points.
+Four designs were built from the diagnosis, each around one central claim, and
+three editors (theory, empirical, a senior co-author deciding the next three
+months) scored them. The ranking was unanimous.
 
-1. Take the speed limit out of the title and the abstract. Keep the exact
-   catch-up formula and the rent results of Proposition 5 and Corollary 1.
-2. Lead with the extensive margin and the incidence of tools, and quantify
-   with sufficient statistics (`E`, `D`, `θ_F`, the inframarginal share, time
-   shares) instead of the nine-parameter calibration.
-3. Treat the dynamic material (stock–flow lag, take-off, overshooting, speed
-   limit) as a second paper that needs its own evidence.
-4. Before any further theory, make three measurements with data already on
-   disk: the founders' share in HEP, the response of local density to the
-   2026 rise in papers per author, and a repaired, reproducible Fact 1.
+| Design | One claim (1–10) | Relies only on what is solid | Evidence in hand | Editors' odds at a top-5 journal, best case |
+|---|---|---|---|---|
+| **Scale versus speed** (more researchers widen science, faster researchers thicken it first) | 8 | 8 | 5 | 4–10% |
+| Scale versus speed plus "crowding costs about 1%" | 6–7 | 6 | 5 | 3–8% |
+| Incidence of research tools | 6 | 6–7 | 3 | 2–6% |
+| *Too Fast to Read* as a dynamic paper | 5–6 | 4–5 | 1–2 | 1–2% |
 
-The open choice is what leads: the incidence theorem, or the contrast between
-growth through more researchers (which the data show opens new ground) and
-growth through faster researchers (which the model says crowds existing
-topics first, and which the 2026 surge can test).
+The five readers of the first round had put incidence first. The editors
+disagreed, for a reason I accept. After the repair of Section 4.2 the
+incidence headline is a band (between a third and nine tenths of a gain of
+about two log points) set by inputs that are unmeasured, assumed or
+unidentified, and no shock can test it before 2027. It is a framework. The
+contrast between scale and speed is a claim that data on disk can reject.
+
+### 5.2 The paper
+
+Working title: *More Researchers or Faster Researchers? How Science Absorbs
+Growth*. Adopt it only if the test in Section 5.4 supports it.
+
+Thesis: newcomers are the margin on which science adjusts, because joining a
+topic has an entry cost that incumbents have already paid. So more researchers
+open new topics, while faster researchers first thicken the topics they are
+already in.
+
+Abstract as it could be submitted. Brackets mark what is not yet established.
+
+> Science can grow through more researchers or through faster ones. The two
+> are absorbed differently. Researchers choose topics, and joining a topic
+> means catching up on its literature. Incumbents have paid that cost and earn
+> a rent, so they stay; newcomers are the margin that adjusts. More
+> researchers therefore open new topics, while faster researchers thicken the
+> topics they are in until entry responds. On arXiv, growth in 2018–2025 came
+> from new authors, and local density rose with an elasticity of [0.12–0.19],
+> against [0.53–0.81] in a fixed idea space. In January–September 2026 papers
+> per author rose 11–14% after seven flat years. [The extra papers landed in
+> their authors' existing topics, which thickened; new authors again opened
+> new ones.] The model predicts that entry into those topics falls as their
+> literature builds up; we state this as a dated prediction. The welfare
+> effects are small.
+
+### 5.3 What the model predicts for 2026
+
+The editors corrected two statements, one of them mine. I recomputed both.
+
+* **How long the excess lasts.** Appendix B.8 says the spike decays "with
+  half-life ln 2/ρ", about seven years. Under the paper's own law of motion
+  entry stops and the flow thins at rate ρ, so a 12% excess is gone in
+  ln(1.12)/ρ = 1.1 years at ρ = 0.10. The window in which speed and scale
+  differ is short.
+* **What happens to entry.** B.8 prices entry on the flow. Lemma 2 prices it
+  on the stock, and the stock lags. With the stock unchanged, a 12% rise in
+  the flow raises a newcomer's value by 0.27 log points. Once the stock has
+  caught up, her value is 0.88 log points lower. The sign changes after about
+  a year.
+
+So for January–September 2026 the model as written does not say that entry
+stops. Three things follow.
+
+1. Testable now: where the extra papers of authors who sped up land, and
+   whether the flow of existing topics loads more on incumbents' output than
+   on growth in authors. For a shock that builds up over the year the editors
+   compute a loading of 0.2–0.7 if entry stops and 0.9–1.0 if it does not,
+   against about 0.15 for authors (their arithmetic; I have not re-run it).
+2. A dated prediction, not a test this year: entry into the thickened topics
+   falls in 2027 as their literature builds up.
+3. Every payoff change behind these predictions is below one log point.
+   Register signs and the adding-up of extra flow and lower entry, not
+   magnitudes.
+
+The prediction must be derived from one law of motion (with the stock and the
+catch-up delay as states) and written down before any 2026 similarity measure
+is computed. Otherwise either outcome can be read as support.
+
+### 5.4 Two gates before any rewriting
+
+**Gate 1. Does Fact 1 survive on a panel a referee can re-run?** Standard
+errors clustered by area, every radius next to its benchmark, the pre-2023
+sample, embedding neighbours, and a replica on arXiv categories that runs from
+this repository, so that both elasticities come from one panel and one
+measure. If the estimate is not below the benchmark, no version of the paper
+stands.
+
+**Gate 2. Does speed thicken?**
+
+| Outcome | What to write |
+|---|---|
+| Extra papers stay in their authors' topics; those topics' flow loads clearly more on incumbents' output than on author growth; the embedding, text-free and style-equalised versions agree; 2024–25 placebo flat | Scale versus speed. State the fall in entry as a dated prediction and submit after a first 2027 reading. |
+| Speed looks like scale: extra papers land outside their authors' topics and the loading is near 0.15 | The fallback: the extensive margin, rents, and the incidence of tools with a measured founders' share. The second fact is that a rise in papers per author did not thicken topics either. |
+| The measures disagree, or the intervals cover both 0.15 and 0.5 | Do not lead with the contrast. Report the surge as a fact with the registered prediction, write the fallback, and return to the test with 2027 data. |
+
+### 5.5 What goes where
+
+| Material | Place |
+|---|---|
+| Proposition 3, Remark 4, Fact 1 (repaired) | Lead: scale |
+| Appendix B.8 and Theorem 2(iv), rewritten as one proposition on the repaired law of motion; the 2026 surge | Lead: speed |
+| Proposition 5, Corollary 1 (sign statements), Lemma 2 without the "speed limit" label | The mechanism: why incumbents stay |
+| Lemma 5; the repaired output accounting; "easing entry raises density and incumbents' returns" as a sign statement | A short section on tools. No ranking, no 14%/74%, no 1.3–7.2 |
+| Theorem 3 with the inframarginal term and a measured founders' share | The fallback, or a second paper |
+| Theorem 1, the calibration, Propositions 4 and 10 as ranges | Appendix; one paragraph of magnitudes in the text |
+| Speed limit as a headline, Propositions 9 and 11, life-cycle simulation | Shelved. Revisit only with evidence on catch-up |
+| Detection block, Facts 3–5, listing-rank designs, submission cap, Propositions 6 and 8, eleven of the fifteen predictions | Out, or a data appendix |
+
+### 5.6 What can be claimed today
+
+1. Inside a topic a tool is worth the time it saves.
+2. Incumbents' premium equals the newcomer's catch-up cost (theory).
+3. Growth in 2018–2025 opened new topics. This holds qualitatively; the
+   numbers are not yet reproducible from this repository and their standard
+   errors are wrong.
+4. Papers per author rose 11–14% in January–September 2026.
+5. Every equilibrium welfare effect in the model is about 1% or less.
+
+### 5.7 Risks that remain if everything goes well
+
+* **"Extra papers stay home" does not show that the entry cost is reading.**
+  Any topic-specific skill predicts it. The only cheap evidence that the cost
+  is the literature is that newcomers' share of a topic's flow falls with the
+  stock of older papers, holding recent flow fixed. Without it, say "a sunk
+  entry cost" and cite the pivot-penalty literature.
+* **The stakes inside the model are small.** The paper has to be about
+  quantities (where AI-driven output lands, how fast science spreads), not
+  about welfare.
+* **The shock is nine months old and still building**, measured with text
+  similarity in the year wording changed, and wording drift is correlated
+  with who sped up. Text-free versions (home category; shared references in
+  HEP) are essential.
+* **Priority.** The 2026 fact will not stay unreported. Work to position
+  against: Kusumegi et al. on language models and output, and work on AI
+  narrowing the focus of science (Hao, Xu, Li and Evans; reference to be
+  checked).
+* **Odds.** The editors put the best case below one in ten at a top-5
+  journal, and at 2–4% for the most likely result (extra papers stay home,
+  entry unclear), with a strong field or second-tier general journal as the
+  likely home. What moves the odds is a 2027 reading that shows the predicted
+  adjustment. More theory does not.
+* **Logistics.** Sentence embeddings cannot be run in the present environment
+  (no `torch`, four cores), and the OpenAlex panel behind Facts 1–4 is not in
+  this repository.
+
+### 5.8 First month
+
+1. Freeze the scope. No new theorems. Do not write an introduction.
+2. Derive the short-run prediction for a shock that builds up over a year,
+   from one law of motion with the stock and the catch-up delay as states.
+   Deposit a dated memo with outcomes, samples, radii and thresholds.
+3. Write up the 2026 surge as a fact from author names: by field and month,
+   fixed cohort, capped at three, five and ten papers per name. This needs no
+   text measure.
+4. Embed abstracts for 2018 to October 2026; build flow density, the
+   benchmark, a style floor, and topic cells fixed on 2022–24 text.
+5. Gate 1. Stop if Fact 1 fails.
+6. Gate 2, in the registered order. Report entry by authors already on arXiv
+   whatever its sign.
+7. In parallel, as the hedge: the founders' share in HEP, and newcomers' share
+   against older stock given recent flow.
+8. Decision meeting at week five. Only then the theory repairs the chosen
+   paper needs, and the rewrite.
 
 ## 6. Errors to fix whatever the paper becomes
 
 1. Fact 5 and Section 8.5: report the event study relative to 2022H2 and drop
    the 7%.
-2. Appendix B.8 and Fact 5: document the 2026 surge.
+2. Appendix B.8 and Fact 5: document the 2026 surge. B.8's "half-life
+   ln 2/ρ" is wrong under the paper's own law of motion (a shock of size α is
+   absorbed in about ln(1+α)/ρ), and B.8 prices entry on the flow while
+   Lemma 2 prices it on the stock.
 3. Fact 1: choose the baseline radius by the stated rule, report the pre-2023
    estimate, cluster by area, and add a version that runs from this
    repository.
